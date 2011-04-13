@@ -45,11 +45,13 @@ public class GoogleMaps extends MapActivity {
         mapView.setBuiltInZoomControls(true);
         mapController = mapView.getController();
         mapController.setZoom(15);
-        GeoPoint point = new GeoPoint((int) (63.41667 * 1E6), (int) (10.41667 * 1E6));
+        GeoPoint point = new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6));
         mapController.setCenter(point);
 
         myLocOverlay = new MyLocationOverlay(this, mapView);
         mapView.getOverlays().add(myLocOverlay);
+
+        mapOverlays = mapView.getOverlays();
 
         new mapFillBusStopLoadThread().execute();
 
@@ -62,6 +64,10 @@ public class GoogleMaps extends MapActivity {
     }
 
     public void onPause(Bundle bundle) {
+        myLocOverlay.disableMyLocation();
+    }
+
+    public void onStop(Bundle bundle) {
         myLocOverlay.disableMyLocation();
     }
 
@@ -127,6 +133,12 @@ public class GoogleMaps extends MapActivity {
         @Override
         protected void onPostExecute(Void unused) {
             mapOverlays.add(itemizedOverlay);
+            if(myLocOverlay.getMyLocation() != null) {
+                mapController.setCenter(myLocOverlay.getMyLocation());
+            }
+            else {
+                mapController.setCenter(new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6)));
+            }
             Toast.makeText(getApplicationContext(), "Loading av bussholdeplasser ferdig", Toast.LENGTH_SHORT).show();
         }
     }
