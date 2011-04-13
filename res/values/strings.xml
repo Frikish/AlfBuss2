@@ -4,6 +4,7 @@
     <string name="custom_title">AtB busstider i Trondheim</string>
     <string name="search_button">Søk</string>
     <string name="search_field">(holdeplass) til (holdeplass)</string>
+    <string name="adress_button">Hent adresse</string>
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>
 </resources>

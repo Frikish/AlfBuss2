@@ -3,6 +3,7 @@ package com.alfsimen.bybuss;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ByBuss extends Activity
@@ -16,6 +17,8 @@ public class ByBuss extends Activity
         requestCustomTitleBar();
         setContentView(R.layout.main);
         setCustomTitle(getString(R.string.custom_title));
+
+        googleMaps = new GoogleMaps();
     }
 
     protected void requestCustomTitleBar() {

@@ -5,7 +5,7 @@
       android:versionName="1.0">
     <application android:label="AlfBuss2" android:icon="@drawable/icon">
         <uses-library android:name="com.google.android.maps" android:required="true"/>
-        <activity android:name="ByBuss"
+        <activity android:name="GoogleMaps"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

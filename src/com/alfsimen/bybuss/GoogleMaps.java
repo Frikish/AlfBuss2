@@ -14,7 +14,7 @@ public class GoogleMaps extends MapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.google_maps);
+        setContentView(R.layout.main);
     }
 
     @Override
