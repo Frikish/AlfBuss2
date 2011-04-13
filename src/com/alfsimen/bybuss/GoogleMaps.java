@@ -116,7 +116,7 @@ public class GoogleMaps extends MapActivity {
             holdeplasser = xmlParser.getHoldeplasser();
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
-            itemizedOverlay = new MapsOverlay(drawable);
+            itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar);
 
             for(Holdeplass plass : holdeplasser) {
                 overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");

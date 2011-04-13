@@ -2,7 +2,9 @@ package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.widget.EditText;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
@@ -19,8 +21,23 @@ public class MapsOverlay extends ItemizedOverlay {
     private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
     private Context mContext;
 
+    private String fra = null;
+    private String til = null;
+    private EditText searchBar;
+
     public MapsOverlay(Drawable defaultMarker) {
         super(boundCenterBottom(defaultMarker));
+    }
+
+    public MapsOverlay(Drawable defaultMarker, Context context) {
+        super(boundCenterBottom(defaultMarker));
+        mContext = context;
+    }
+
+    public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar) {
+        super(boundCenterBottom(defaultMarker));
+        mContext = context;
+        searchBar = searchbar;
     }
 
     public void addOverlay(OverlayItem overlay) {
@@ -42,18 +59,47 @@ public class MapsOverlay extends ItemizedOverlay {
         return mOverlays.size();
     }
 
-    public MapsOverlay(Drawable defaultMarker, Context context) {
-        super(boundCenterBottom(defaultMarker));
-        mContext = context;
-    }
-
     @Override
     protected boolean onTap(int index) {
-    /*  OverlayItem item = mOverlays.get(index);
-      AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-      dialog.setTitle(item.getTitle());
-      dialog.setMessage("lol");
-      dialog.show(); */
-      return true;
+        final OverlayItem item = mOverlays.get(index);
+
+             AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+             dialog.setTitle(item.getTitle());
+             if(fra == null) {
+                dialog.setMessage("Reise fra " + item.getTitle());
+             }
+             else {
+                dialog.setMessage("Reise til " + item.getTitle());
+             }
+
+            dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                //@Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(fra == null) {
+                        fra = item.getTitle();
+                        //OverlayItem temp = item;
+                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        //temp.setMarker(draw);
+                        //mOverlays.remove(item);
+                        //mOverlays.add(temp);
+                    }
+                    else {
+                        til = item.getTitle();
+                        searchBar.setText(fra + " til " + til);
+                        fra = til = null;
+                    }
+                    return;
+                }
+            });
+
+            dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
+                //@Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+
+          dialog.show();
+          return true;
     }
 }
