@@ -1,0 +1,6 @@
+#APK files
+*.apk
+*.apk.*
+
+#idea files
+.idea/
