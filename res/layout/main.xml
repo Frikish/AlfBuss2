@@ -4,46 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <TableLayout android:id="@+id/top_table"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:stretchColumns="0">
-        <TableRow>
-            <EditText android:id="@+id/search_entry"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:gravity="left"
-              android:singleLine="true"
-              android:textSize="8pt"
-              android:text="@string/search_field"
-              />
-            <Button android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search_button"
-                />
-        </TableRow>
-    </TableLayout>
-    <TableLayout android:layout_height="wrap_content"
-                 android:layout_width="fill_parent"
-                 android:orientation="vertical"
-                 android:stretchColumns="0">
-        <TableRow android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
-            <ToggleButton android:id="@+id/togglebutton_geo"
-                    android:layout_height="fill_parent"
-                    android:textOn="skru av geolokasjon"
-                    android:textOff="Geolocate"
-                    />
-            <Button android:id="@+id/addressbutton"
-                    android:layout_height="wrap_content"
-                    android:text="@string/adress_button"
-                    />
-        </TableRow>
-                 </TableLayout>
-    <LinearLayout
+    <RelativeLayout
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
         <com.google.android.maps.MapView
@@ -52,9 +13,58 @@
             android:layout_height="fill_parent"
             android:enabled="true"
             android:clickable="true"
-            android:apiKey="@string/APIdebugKey"
+            android:apiKey="@string/APIKey"
             />
-    </LinearLayout>
+        <TableLayout android:id="@+id/top_table"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentTop="true"
+                 android:orientation="vertical"
+                 android:stretchColumns="0">
+            <TableRow>
+                <EditText android:id="@+id/search_entry"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:singleLine="true"
+                  android:textSize="8pt"
+                  android:text="@string/search_field"
+                  />
+                <Button android:id="@+id/search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_button"
+                    />
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:id="@+id/bottomTable"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+                <ToggleButton
+                    android:id="@+id/togglebutton_geo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="left"
+                    android:textOn="Skru av geolokasjon"
+                    android:textOff="Geolocate"
+                    />
+                <Button
+                    android:id="@+id/addressbutton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:text="@string/adress_button"
+                    />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
    <!-- <TableLayout android:id="@+id/bottom_table"
                  android:layout_width="fill_parent"
                  android:layout_height="wrap_content"

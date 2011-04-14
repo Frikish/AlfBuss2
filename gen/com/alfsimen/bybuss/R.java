@@ -17,14 +17,15 @@ public final class R {
         public static final int icon=0x7f020003;
     }
     public static final class id {
-        public static final int MapView=0x7f060007;
-        public static final int addressbutton=0x7f060006;
+        public static final int MapView=0x7f060002;
+        public static final int addressbutton=0x7f060008;
+        public static final int bottomTable=0x7f060006;
         public static final int headerSmallLogoImgVw=0x7f060001;
         public static final int headerTitleTextVw=0x7f060000;
-        public static final int search_button=0x7f060004;
-        public static final int search_entry=0x7f060003;
-        public static final int togglebutton_geo=0x7f060005;
-        public static final int top_table=0x7f060002;
+        public static final int search_button=0x7f060005;
+        public static final int search_entry=0x7f060004;
+        public static final int togglebutton_geo=0x7f060007;
+        public static final int top_table=0x7f060003;
     }
     public static final class layout {
         public static final int custom_titlebar=0x7f030000;

@@ -43,6 +43,7 @@ public class GoogleMaps extends MapActivity {
 
         mapView = (MapView) findViewById(R.id.MapView);
         mapView.setBuiltInZoomControls(true);
+
         mapController = mapView.getController();
         mapController.setZoom(15);
         GeoPoint point = new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6));
