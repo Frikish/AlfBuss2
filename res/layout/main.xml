@@ -37,6 +37,15 @@
                     />
             </TableRow>
         </TableLayout>
+        <TextView
+            android:id="@+id/answer_TV"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="5px"
+            android:textColor="#FF0000"
+            />
         <TableLayout
             android:id="@+id/bottomTable"
             android:layout_width="fill_parent"
@@ -61,6 +70,12 @@
                     android:layout_height="fill_parent"
                     android:layout_gravity="right"
                     android:text="@string/adress_button"
+                    />
+                <Button
+                    android:id="@+id/reversebutton"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:text="@string/reverse_button"
                     />
             </TableRow>
         </TableLayout>

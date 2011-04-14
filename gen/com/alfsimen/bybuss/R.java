@@ -18,13 +18,15 @@ public final class R {
     }
     public static final class id {
         public static final int MapView=0x7f060002;
-        public static final int addressbutton=0x7f060008;
-        public static final int bottomTable=0x7f060006;
+        public static final int addressbutton=0x7f060009;
+        public static final int answer_TV=0x7f060006;
+        public static final int bottomTable=0x7f060007;
         public static final int headerSmallLogoImgVw=0x7f060001;
         public static final int headerTitleTextVw=0x7f060000;
+        public static final int reversebutton=0x7f06000a;
         public static final int search_button=0x7f060005;
         public static final int search_entry=0x7f060004;
-        public static final int togglebutton_geo=0x7f060007;
+        public static final int togglebutton_geo=0x7f060008;
         public static final int top_table=0x7f060003;
     }
     public static final class layout {
@@ -35,11 +37,13 @@ public final class R {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f050006;
-        public static final int APIdebugKey=0x7f050005;
+        public static final int APIKey=0x7f050008;
+        public static final int APIdebugKey=0x7f050007;
         public static final int adress_button=0x7f050004;
+        public static final int answer_field=0x7f050006;
         public static final int app_name=0x7f050000;
         public static final int custom_title=0x7f050001;
+        public static final int reverse_button=0x7f050005;
         public static final int search_button=0x7f050002;
         public static final int search_field=0x7f050003;
     }
