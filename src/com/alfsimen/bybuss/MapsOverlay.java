@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.widget.EditText;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
@@ -77,16 +78,19 @@ public class MapsOverlay extends ItemizedOverlay {
                 public void onClick(DialogInterface dialog, int which) {
                     if(fra == null) {
                         fra = item.getTitle();
-                        //OverlayItem temp = item;
-                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        searchBar.setText(item.getTitle() + " til ");
+                        searchBar.setSelection(searchBar.getText().toString().length());
+                        Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
                         //temp.setMarker(draw);
                         //mOverlays.remove(item);
-                        //mOverlays.add(temp);
+                        mOverlays.add(temp);
                     }
                     else {
                         til = item.getTitle();
                         searchBar.setText(fra + " til " + til);
                         fra = til = null;
+                        //TODO: fix nullsetting of red overlay?
                     }
                     return;
                 }

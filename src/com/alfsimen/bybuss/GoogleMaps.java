@@ -6,9 +6,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
+import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.google.android.maps.*;
@@ -71,8 +69,8 @@ public class GoogleMaps extends MapActivity {
 
         geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
         searchButton = (Button) findViewById(R.id.search_button);
-        addressButton = (Button) findViewById(R.id.addressbutton);
-        reverseButton = (Button) findViewById(R.id.reversebutton);
+        //addressButton = (Button) findViewById(R.id.addressbutton);
+        //reverseButton = (Button) findViewById(R.id.reversebutton);
         searchBar = (EditText) findViewById(R.id.search_entry);
         answerView = (TextView) findViewById(R.id.answer_TV);
 
@@ -88,9 +86,9 @@ public class GoogleMaps extends MapActivity {
         searchBar.setOnKeyListener(new SearchBarOnKeyListener());
         searchBar.setOnFocusChangeListener(new SearchBarOnFoucusChange());
 
-        reverseButton.setOnClickListener(new ReverseButtonOnClickListener());
+        //reverseButton.setOnClickListener(new ReverseButtonOnClickListener());
 
-        addressButton.setOnClickListener(new AddressButtonOnClickListener());
+        //saddressButton.setOnClickListener(new AddressButtonOnClickListener());
 
         searchButton.setOnClickListener((new SearchButtonOnClickListener()));
     }
@@ -107,6 +105,30 @@ public class GoogleMaps extends MapActivity {
     protected boolean isRouteDisplayed() {
         //TODO: implement?
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.maps_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_reverse_search:
+                reverseSearch();
+                return true;
+            case R.id.menu_get_address:
+                if(myLocOverlay.getMyLocation() != null)
+                    getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+                else
+                    Toast.makeText(getApplicationContext(), "Ingen lokasjon funnet, skru på Geolocate", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     protected void requestCustomTitleBar()
@@ -213,6 +235,9 @@ public class GoogleMaps extends MapActivity {
                     myLocOverlay.runOnFirstFix(new Runnable() {
                         public void run() {
                             mapView.getController().animateTo(myLocOverlay.getMyLocation());
+                            if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
+                                getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+                            }
                         }
                     });
                 }

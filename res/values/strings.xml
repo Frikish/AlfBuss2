@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ByBuss</string>
+    <string name="app_name">Alf's ByBuss</string>
     <string name="custom_title">AtB busstider i Trondheim</string>
     <string name="search_button">Søk</string>
     <string name="search_field">(holdeplass) til (holdeplass)</string>
     <string name="adress_button">Hent adresse</string>
     <string name="reverse_button">Reverser søk</string>
+    <string name="menu_reverse_button">Reverser søk</string>
+    <string name="menu_address_button">bruk adressen din</string>
     <string name="answer_field">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.alfsimen.bybuss"
       android:versionCode="1"
-      android:versionName="0.2.10">
-    <application android:label="AlfBuss2" android:icon="@drawable/icon" android:persistent="true"
+      android:versionName="0.2.14b">
+    <application android:label="AlfBuss" android:icon="@drawable/icon" android:persistent="true"
             android:enabled="true">
         <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity android:name="GoogleMaps"

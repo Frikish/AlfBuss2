@@ -61,10 +61,21 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_gravity="left"
-                    android:textOn="Skru av geolokasjon"
+                    android:textOn="Geolocate"
                     android:textOff="Geolocate"
                     />
-                <Button
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+   <!-- <TableLayout android:id="@+id/bottom_table"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:stretchColumns="0">
+
+    </TableLayout>
+
+    <Button
                     android:id="@+id/addressbutton"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -77,15 +88,7 @@
                     android:layout_width="fill_parent"
                     android:text="@string/reverse_button"
                     />
-            </TableRow>
-        </TableLayout>
-    </RelativeLayout>
-   <!-- <TableLayout android:id="@+id/bottom_table"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:stretchColumns="0">
 
-    </TableLayout>   -->
+                    -->
 </LinearLayout>
 
