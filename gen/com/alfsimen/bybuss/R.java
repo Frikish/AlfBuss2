@@ -27,13 +27,14 @@ public final class R {
         public static final int menu_get_address=0x7f070009;
         public static final int menu_reverse_search=0x7f07000a;
         public static final int search_button=0x7f070005;
-        public static final int search_entry=0x7f070004;
+        public static final int search_entry_autocomplete=0x7f070004;
         public static final int togglebutton_geo=0x7f070008;
         public static final int top_table=0x7f070003;
     }
     public static final class layout {
         public static final int custom_titlebar=0x7f030000;
-        public static final int main=0x7f030001;
+        public static final int history_list_item=0x7f030001;
+        public static final int main=0x7f030002;
     }
     public static final class menu {
         public static final int maps_menu=0x7f060000;

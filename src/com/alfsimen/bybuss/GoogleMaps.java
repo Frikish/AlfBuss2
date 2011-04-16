@@ -1,11 +1,13 @@
 package com.alfsimen.bybuss;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.style.StrikethroughSpan;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -34,7 +36,7 @@ public class GoogleMaps extends MapActivity {
     private Button addressButton;
     private Button reverseButton;
     private TextView answerView;
-    private EditText searchBar;
+    private AutoCompleteTextView searchBar;
     private XmlParser xmlParser;
     private ArrayList<Holdeplass> holdeplasser;
     private OverlayItem overlayItem;
@@ -44,6 +46,11 @@ public class GoogleMaps extends MapActivity {
     private AtbBussorakel bussen;
     private InputMethodManager imm;
     //private ArrayList<String> addressList;
+
+    private DBHelper db;
+    private Cursor cursor;
+    private String[] searches;
+    private ArrayAdapter<String> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +78,7 @@ public class GoogleMaps extends MapActivity {
         searchButton = (Button) findViewById(R.id.search_button);
         //addressButton = (Button) findViewById(R.id.addressbutton);
         //reverseButton = (Button) findViewById(R.id.reversebutton);
-        searchBar = (EditText) findViewById(R.id.search_entry);
+        searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
         answerView = (TextView) findViewById(R.id.answer_TV);
 
         geoButton.setOnClickListener(new GeoButtonClickListener());
@@ -91,6 +98,21 @@ public class GoogleMaps extends MapActivity {
         //saddressButton.setOnClickListener(new AddressButtonOnClickListener());
 
         searchButton.setOnClickListener((new SearchButtonOnClickListener()));
+
+        db = new DBHelper(this);
+        cursor = db.getAllHistoryRows();
+
+        if(cursor != null) {
+            cursor.moveToFirst();
+            searches = new String [] {};
+            for(int i = 0; i < cursor.getCount(); i++) {
+                searches[i] = cursor.getString(1);
+                cursor.moveToNext();
+            }
+            adapter = new ArrayAdapter<String>(this, R.layout.history_list_item, searches);
+            searchBar.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void onPause(Bundle bundle) {
@@ -148,9 +170,9 @@ public class GoogleMaps extends MapActivity {
      */
 
     private void doSearch() {
-        answerView.setText("Venter på svar fra bussorakelet");
+        Toast.makeText(getApplicationContext(), "Venter på svar fra bussorakelet", Toast.LENGTH_LONG).show();
         if(searchBar.getText().length() <= 0) {
-            answerView.setText("Søkefeltet er tomt -_-");
+            Toast.makeText(getApplicationContext(), "Søkefeltet er tomt -_-", Toast.LENGTH_LONG).show();
         }
         else {
             imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
@@ -172,14 +194,14 @@ public class GoogleMaps extends MapActivity {
         }
         if(searchBar.getText().length() <= 0)
         {
-            answerView.setText("Søkefeltet er tomt -.-");
+            Toast.makeText(getApplicationContext(), "Søkefeltet er tomt -.-", Toast.LENGTH_LONG).show();
         }
         else if(til && words.length < 3) {
-            answerView.setText("Trenger 2 holdeplasser og ordet 'til' imellom de");
+            Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser og ordet 'til' imellom de", Toast.LENGTH_LONG).show();
         }
         else if(searchBar.getText().toString().equals(getString(R.string.search_field)))
         {
-            answerView.setText("Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet");
+            Toast.makeText(getApplicationContext(), "Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet", Toast.LENGTH_LONG).show();
         }
         else if(words.length >= 3 && til)
         {
@@ -195,7 +217,7 @@ public class GoogleMaps extends MapActivity {
             }
             else
             {
-                answerView.setText("Trenger 2 holdeplasser, prøv igjen...");
+                Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser, prøv igjen...", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -227,7 +249,7 @@ public class GoogleMaps extends MapActivity {
         public void onClick(View v) {
             if(geoButton.isChecked()) {
                 if(!myLocOverlay.enableMyLocation()) {
-                    Toast.makeText(getBaseContext(), "Skru på Wifi/gps-posisjonering i settings", Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(), "Skru på Wifi/gps-posisjonering i settings", Toast.LENGTH_LONG).show();
                     myLocOverlay.disableMyLocation();
                 }
                 else {
@@ -291,6 +313,21 @@ public class GoogleMaps extends MapActivity {
         public void onClick(View v) {
             doSearch();
         }
+    }
+
+    public static boolean isInDatabase(Context context, String search) {
+        DBHelper db = new DBHelper(context);
+        Cursor c = db.getAllHistoryRows();
+        if (c != null) {
+            c.moveToFirst();
+            for (int i = 0; i < c.getCount(); i++) {
+                if (c.getString(1).equals(search)) {
+                    return true;
+                }
+                c.moveToNext();
+            }
+        }
+        return false;
     }
 
     /*
@@ -385,13 +422,42 @@ public class GoogleMaps extends MapActivity {
                 answerView.setText(getString(R.string.answer_field));
             } else
             {
-                //if (!isInDatabase(context, searchBar.getText().toString().trim()))
-                //{
-                //    new ListUpdateThread(1, -1).execute();
-                //}
+                if (!isInDatabase(context, searchBar.getText().toString().trim()))
+                {
+                    new ListUpdateThread(1, -1).execute();
+                }
                 answerView.setText(bussen.getAnswer());
                // new MarkBusStops(getApplicationContext()).execute();
             }
+        }
+    }
+
+    class ListUpdateThread extends AsyncTask<Void, Void, Void> {
+        private int mode = -1;
+        private int item = -1;
+
+        public ListUpdateThread(int mode, int item) {
+            this.mode = mode;
+            this.item = item;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if(mode == 1) {
+                db.createHistoryItem(searchBar.getText().toString().trim(), bussen.getAnswer());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            if(mode == 1) {
+                ((ArrayAdapter<String>) adapter).add(searchBar.getText().toString().trim());
+                ((ArrayAdapter<String>) adapter).notifyDataSetChanged();
+            }
+            /* else if(mode == 2) {
+                ((ArrayAdapter<String>) adapter).remove();
+            }           */
         }
     }
 }

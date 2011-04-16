@@ -22,13 +22,15 @@
                  android:orientation="vertical"
                  android:stretchColumns="0">
             <TableRow>
-                <EditText android:id="@+id/search_entry"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:gravity="left"
-                  android:singleLine="true"
-                  android:textSize="8pt"
-                  android:text="@string/search_field"
+                <AutoCompleteTextView
+                      android:id="@+id/search_entry_autocomplete"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:singleLine="true"
+                      android:textSize="8pt"
+                      android:layout_marginLeft="4px"
+                      android:text="@string/search_field"
                   />
                 <Button android:id="@+id/search_button"
                     android:layout_width="wrap_content"

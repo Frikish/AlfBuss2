@@ -80,15 +80,16 @@ public class MapsOverlay extends ItemizedOverlay {
                         fra = item.getTitle();
                         searchBar.setText(item.getTitle() + " til ");
                         searchBar.setSelection(searchBar.getText().toString().length());
-                        Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
-                        OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
+                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
                         //temp.setMarker(draw);
                         //mOverlays.remove(item);
-                        mOverlays.add(temp);
+                        //mOverlays.add(temp);
                     }
                     else {
                         til = item.getTitle();
                         searchBar.setText(fra + " til " + til);
+                        searchBar.setSelection(searchBar.getText().toString().length());
                         fra = til = null;
                         //TODO: fix nullsetting of red overlay?
                     }
