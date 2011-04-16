@@ -113,6 +113,7 @@ public class GoogleMaps extends MapActivity {
             searchBar.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+        cursor.close();
     }
 
     public void onPause(Bundle bundle) {
@@ -121,6 +122,7 @@ public class GoogleMaps extends MapActivity {
 
     public void onStop(Bundle bundle) {
         myLocOverlay.disableMyLocation();
+        db.close();
     }
 
     @Override
@@ -178,7 +180,7 @@ public class GoogleMaps extends MapActivity {
             imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
             bussen.setQuestion(searchBar.getText().toString().trim());
 
-            new AtbThreadTest(this).execute();
+            new AtbThreadTest(getApplicationContext()).execute();
         }
     }
 
@@ -257,9 +259,9 @@ public class GoogleMaps extends MapActivity {
                     myLocOverlay.runOnFirstFix(new Runnable() {
                         public void run() {
                             mapView.getController().animateTo(myLocOverlay.getMyLocation());
-                            if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
+                           /* if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
                                 getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
-                            }
+                            }  */    //TODO: fix so that this autofill of address works
                         }
                     });
                 }
@@ -316,17 +318,21 @@ public class GoogleMaps extends MapActivity {
     }
 
     public static boolean isInDatabase(Context context, String search) {
-        DBHelper db = new DBHelper(context);
-        Cursor c = db.getAllHistoryRows();
+        DBHelper _db = new DBHelper(context);
+        Cursor c = _db.getAllHistoryRows();
         if (c != null) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 if (c.getString(1).equals(search)) {
+                    c.close();
+                    _db.close();
                     return true;
                 }
                 c.moveToNext();
             }
         }
+        c.close();
+        _db.close();
         return false;
     }
 

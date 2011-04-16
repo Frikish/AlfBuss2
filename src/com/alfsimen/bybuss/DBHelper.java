@@ -35,10 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     "date TEXT" +
                     ");";
 
-
-//	private SQLiteDatabase db;
-
-
     public void close() {
         getWritableDatabase().close();
     }
@@ -66,11 +62,13 @@ public class DBHelper extends SQLiteOpenHelper {
             row.title = c.getString(1);
             row.content = c.getString(2);
             row.date = c.getString(3);
+            c.close();
             return row;
         } else {
             row.id = -1;
             row.title = row.content = row.date = null;
         }
+        c.close();
         return row;
     }
 
@@ -82,16 +80,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean checkRow(String title) {
         Cursor c = getWritableDatabase().query(true, DATABASE_TABLE, new String[]{"_id", "title", "content", "date"}, "title='" + title + "'", null, null, null, null, null);
         if (c.getCount() > 0) {
+            c.close();
             return true;
         }
+        c.close();
         return false;
     }
 
     public Cursor getAllRows() {
         try {
-            //Cursor c =
             return getWritableDatabase().query(DATABASE_TABLE, new String[]{"_id", "title", "content", "date"}, null, null, null, null, null);
-            //return c;
         } catch (SQLiteException e) {
             Log.e("Exception on query", e.toString());
             return null;
@@ -102,11 +100,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllHistoryRows() {
         try {
-            //Cursor c =
-            return getWritableDatabase().query(DATABASE_TABLE_URL, new String[]{"_id", "title", "content", "date"}, null, null, null, null, null);
-            //return c;
+            return getReadableDatabase().query(DATABASE_TABLE_URL, new String[]{"_id", "title", "content", "date"}, null, null, null, null, null);
         } catch (SQLiteException e) {
             Log.e("Exception on query", e.toString());
+            getReadableDatabase().close();
             return null;
         }
     }
@@ -114,8 +111,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean checkHistoryItem(String url) {
         Cursor c = getWritableDatabase().query(true, DATABASE_TABLE_URL, new String[]{"_id", "title", "content", "date"}, "link='" + url + "'", null, null, null, null, null);
         if (c.getCount() > 0) {
+            c.close();
             return true;
         }
+        c.close();
         return false;
     }
 
@@ -138,11 +137,13 @@ public class DBHelper extends SQLiteOpenHelper {
             row.title = c.getString(1);
             row.content = c.getString(2);
             row.date = c.getString(3);
+            c.close();
             return row;
         } else {
             row.id = -1;
             row.title = row.content = row.date = null;
         }
+        c.close();
         return row;
     }
 
@@ -150,8 +151,10 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor c = getReadableDatabase().query(true, DATABASE_TABLE_URL, new String[]{"_id", "title"}, "title='" + item + "'", null, null, null, null, null);
         if (c.getCount() > 0) {
             c.moveToFirst();
+            c.close();
             return c.getInt(0);
         } else {
+            c.close();
             return -1;
         }
     }
