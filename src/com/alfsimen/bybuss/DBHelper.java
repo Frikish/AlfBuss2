@@ -91,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             return getWritableDatabase().query(DATABASE_TABLE, new String[]{"_id", "title", "content", "date"}, null, null, null, null, null);
         } catch (SQLiteException e) {
-            Log.e("Exception on query", e.toString());
+            //Log.e("Exception on query", e.toString());
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             return getReadableDatabase().query(DATABASE_TABLE_URL, new String[]{"_id", "title", "content", "date"}, null, null, null, null, null);
         } catch (SQLiteException e) {
-            Log.e("Exception on query", e.toString());
+           // Log.e("Exception on query", e.toString());
             getReadableDatabase().close();
             return null;
         }
@@ -176,7 +176,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        android.util.Log.w("Constants", "Upgrading database, which will destroy all old data");
+        //android.util.Log.w("Constants", "Upgrading database, which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE);
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE_URL);
         onCreate(db);

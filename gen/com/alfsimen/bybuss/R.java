@@ -15,8 +15,9 @@ public final class R {
         public static final int gps_marker=0x7f020001;
         public static final int gps_marker_red=0x7f020002;
         public static final int icon=0x7f020003;
-        public static final int menu_reverse_icon=0x7f020004;
-        public static final int menu_use_address=0x7f020005;
+        public static final int menu_last_search=0x7f020004;
+        public static final int menu_reverse_icon=0x7f020005;
+        public static final int menu_use_address=0x7f020006;
     }
     public static final class id {
         public static final int MapView=0x7f070002;
@@ -25,6 +26,7 @@ public final class R {
         public static final int headerSmallLogoImgVw=0x7f070001;
         public static final int headerTitleTextVw=0x7f070000;
         public static final int menu_get_address=0x7f070009;
+        public static final int menu_last_search=0x7f07000b;
         public static final int menu_reverse_search=0x7f07000a;
         public static final int search_button=0x7f070005;
         public static final int search_entry_autocomplete=0x7f070004;
@@ -43,13 +45,14 @@ public final class R {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f05000a;
-        public static final int APIdebugKey=0x7f050009;
+        public static final int APIKey=0x7f05000b;
+        public static final int APIdebugKey=0x7f05000a;
         public static final int adress_button=0x7f050004;
-        public static final int answer_field=0x7f050008;
+        public static final int answer_field=0x7f050009;
         public static final int app_name=0x7f050000;
         public static final int custom_title=0x7f050001;
         public static final int menu_address_button=0x7f050007;
+        public static final int menu_last_answer_button=0x7f050008;
         public static final int menu_reverse_button=0x7f050006;
         public static final int reverse_button=0x7f050005;
         public static final int search_button=0x7f050002;

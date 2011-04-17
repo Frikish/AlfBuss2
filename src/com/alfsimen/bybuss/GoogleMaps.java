@@ -1,5 +1,7 @@
 package com.alfsimen.bybuss;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -35,7 +37,7 @@ public class GoogleMaps extends MapActivity {
     private Button searchButton;
     private Button addressButton;
     private Button reverseButton;
-    private TextView answerView;
+    //private TextView answerView;
     private AutoCompleteTextView searchBar;
     private XmlParser xmlParser;
     private ArrayList<Holdeplass> holdeplasser;
@@ -46,10 +48,11 @@ public class GoogleMaps extends MapActivity {
     private AtbBussorakel bussen;
     private InputMethodManager imm;
     //private ArrayList<String> addressList;
+    private AlertDialog.Builder dialog;
 
     private DBHelper db;
     private Cursor cursor;
-    private String[] searches;
+    private ArrayList<String> searches;
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -79,7 +82,7 @@ public class GoogleMaps extends MapActivity {
         //addressButton = (Button) findViewById(R.id.addressbutton);
         //reverseButton = (Button) findViewById(R.id.reversebutton);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
-        answerView = (TextView) findViewById(R.id.answer_TV);
+        //answerView = (TextView) findViewById(R.id.answer_TV);
 
         geoButton.setOnClickListener(new GeoButtonClickListener());
 
@@ -104,16 +107,27 @@ public class GoogleMaps extends MapActivity {
 
         if(cursor != null) {
             cursor.moveToFirst();
-            searches = new String [] {};
+           /* String searchesString = "";
             for(int i = 0; i < cursor.getCount(); i++) {
-                searches[i] = cursor.getString(1);
+                searchesString += "\"" + cursor.getString(1) + "\"";
+                cursor.moveToNext();
+                if(!(i+1 == cursor.getCount())) {
+                    searchesString += ", ";
+                }
+            } */
+            searches = new ArrayList<String>();
+            for(int i = 0; i < cursor.getCount(); i++) {
+                searches.add(cursor.getString(1));
                 cursor.moveToNext();
             }
+
             adapter = new ArrayAdapter<String>(this, R.layout.history_list_item, searches);
             searchBar.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
         cursor.close();
+
+        dialogSetup();
     }
 
     public void onPause(Bundle bundle) {
@@ -145,11 +159,15 @@ public class GoogleMaps extends MapActivity {
                 reverseSearch();
                 return true;
             case R.id.menu_get_address:
-                if(myLocOverlay.getMyLocation() != null)
+                if(myLocOverlay.getMyLocation() != null) {
                     getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+                    imm.toggleSoftInput(0, 0);
+                }
                 else
                     Toast.makeText(getApplicationContext(), "Ingen lokasjon funnet, skru på Geolocate", Toast.LENGTH_LONG).show();
                 return true;
+            case R.id.menu_last_search:
+                dialog.show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -171,6 +189,17 @@ public class GoogleMaps extends MapActivity {
     *   div functions
      */
 
+    private void dialogSetup() {
+        dialog = new AlertDialog.Builder(mapView.getContext());
+        dialog.setTitle("Svaret fra bussorakelet");
+        dialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                return;
+            }
+        });
+    }
+
     private void doSearch() {
         Toast.makeText(getApplicationContext(), "Venter på svar fra bussorakelet", Toast.LENGTH_LONG).show();
         if(searchBar.getText().length() <= 0) {
@@ -189,17 +218,19 @@ public class GoogleMaps extends MapActivity {
         String text = searchBar.getText().toString();
         String words [] = text.split(" ");
         boolean til = false;
+        int pos = 0;
         for(int i = 0; i < words.length; i++) {
             if(words[i].equalsIgnoreCase("til")) {
+                pos = i;
                 til = true;
             }
         }
-        if(searchBar.getText().length() <= 0)
+        if(pos == words.length -1) {
+            Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser og ordet 'til' imellom de", Toast.LENGTH_LONG).show();
+        }
+        else if(searchBar.getText().length() <= 0)
         {
             Toast.makeText(getApplicationContext(), "Søkefeltet er tomt -.-", Toast.LENGTH_LONG).show();
-        }
-        else if(til && words.length < 3) {
-            Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser og ordet 'til' imellom de", Toast.LENGTH_LONG).show();
         }
         else if(searchBar.getText().toString().equals(getString(R.string.search_field)))
         {
@@ -222,6 +253,11 @@ public class GoogleMaps extends MapActivity {
                 Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser, prøv igjen...", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void answerDialog(String answer) {
+        dialog.setMessage(answer);
+        dialog.show();
     }
 
     public void getAddressesOfCurrentPos(GeoPoint point) {
@@ -425,14 +461,17 @@ public class GoogleMaps extends MapActivity {
         {
             if (bussen.getAnswer().trim().equals("No question supplied."))
             {
-                answerView.setText(getString(R.string.answer_field));
+                answerDialog(getString(R.string.answer_field));
+                //answerView.setText(getString(R.string.answer_field));
             } else
             {
                 if (!isInDatabase(context, searchBar.getText().toString().trim()))
                 {
                     new ListUpdateThread(1, -1).execute();
                 }
-                answerView.setText(bussen.getAnswer());
+                answerDialog(bussen.getAnswer());
+
+                //answerView.setText(bussen.getAnswer());
                // new MarkBusStops(getApplicationContext()).execute();
             }
         }

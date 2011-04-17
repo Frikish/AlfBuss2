@@ -7,4 +7,7 @@
     <item android:id="@+id/menu_reverse_search"
           android:icon="@drawable/menu_reverse_icon"
           android:title="@string/menu_reverse_button"/>
+    <item android:id="@+id/menu_last_search"
+          android:icon="@drawable/menu_last_search"
+          android:title="@string/menu_last_answer_button"/>
 </menu>
