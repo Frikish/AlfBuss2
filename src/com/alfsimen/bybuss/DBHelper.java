@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "bybuss";
     private static final String DATABASE_TABLE = "history";
     private static final String DATABASE_TABLE_URL = "history_url";
+    private static final String DATABASE_TABLE_ANSWER = "answer";
 
     private static final String DATABASE_CREATE =
             "CREATE TABLE " + DATABASE_TABLE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -33,6 +34,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     "title TEXT," +
                     "content TEXT," +
                     "date TEXT" +
+                    ");";
+
+    private static final String DATABASE_CREATE_ANSWER =
+            "CREATE TBLE " + DATABASE_TABLE_ANSWER + " (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "content TEXT" +
                     ");";
 
     public void close() {
@@ -163,6 +169,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return getWritableDatabase().delete(DATABASE_TABLE_URL, "_id=" + itemId, null);
     }
 
+    // ANSWER STUFF
+
+    public void overWriteLastAnswer(String answer) {
+        getWritableDatabase().delete(DATABASE_TABLE_ANSWER, null, null);
+        ContentValues cv = new ContentValues();
+        cv.put("content", answer);
+        getWritableDatabase().insert(DATABASE_TABLE_ANSWER, null, cv);
+    }
+
+    public String getLastAnswer() {
+        Cursor c = getWritableDatabase().query(DATABASE_TABLE_ANSWER, new String[] {"content"}, null, null, null, null, null);
+        if(c.getCount() > 0) {
+            c.moveToFirst();
+            return c.getString(0);
+        }
+        else
+            return "";
+    }
+
+    //THE REST
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -172,6 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
         db.execSQL(DATABASE_CREATE_URL);
+        //db.execSQL(DATABASE_CREATE_ANSWER);
     }
 
     @Override
@@ -179,6 +206,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //android.util.Log.w("Constants", "Upgrading database, which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE);
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE_URL);
+        //db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE_ANSWER);
         onCreate(db);
     }
 }

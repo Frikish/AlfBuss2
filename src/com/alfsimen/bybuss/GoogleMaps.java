@@ -9,7 +9,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.style.StrikethroughSpan;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -31,29 +30,25 @@ import java.util.Locale;
 public class GoogleMaps extends MapActivity {
     private MapView mapView;
     private MapController mapController;
-    private GeoPoint lastPoint;
     private MyLocationOverlay myLocOverlay;
     private ToggleButton geoButton;
     private Button searchButton;
-    private Button addressButton;
-    private Button reverseButton;
-    //private TextView answerView;
     private AutoCompleteTextView searchBar;
     private XmlParser xmlParser;
     private ArrayList<Holdeplass> holdeplasser;
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
     private List<Overlay> mapOverlays;
-    //private List<Overlay> answerOverlay;
     private AtbBussorakel bussen;
     private InputMethodManager imm;
-    //private ArrayList<String> addressList;
     private AlertDialog.Builder dialog;
 
     private DBHelper db;
     private Cursor cursor;
     private ArrayList<String> searches;
     private ArrayAdapter<String> adapter;
+
+    protected static final int CONTEXTMENU_DELETEITEM = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,10 +74,7 @@ public class GoogleMaps extends MapActivity {
 
         geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
         searchButton = (Button) findViewById(R.id.search_button);
-        //addressButton = (Button) findViewById(R.id.addressbutton);
-        //reverseButton = (Button) findViewById(R.id.reversebutton);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
-        //answerView = (TextView) findViewById(R.id.answer_TV);
 
         geoButton.setOnClickListener(new GeoButtonClickListener());
 
@@ -96,25 +88,13 @@ public class GoogleMaps extends MapActivity {
         searchBar.setOnKeyListener(new SearchBarOnKeyListener());
         searchBar.setOnFocusChangeListener(new SearchBarOnFoucusChange());
 
-        //reverseButton.setOnClickListener(new ReverseButtonOnClickListener());
-
-        //saddressButton.setOnClickListener(new AddressButtonOnClickListener());
-
-        searchButton.setOnClickListener((new SearchButtonOnClickListener()));
+        searchButton.setOnClickListener(new SearchButtonOnClickListener());
 
         db = new DBHelper(this);
         cursor = db.getAllHistoryRows();
 
         if(cursor != null) {
             cursor.moveToFirst();
-           /* String searchesString = "";
-            for(int i = 0; i < cursor.getCount(); i++) {
-                searchesString += "\"" + cursor.getString(1) + "\"";
-                cursor.moveToNext();
-                if(!(i+1 == cursor.getCount())) {
-                    searchesString += ", ";
-                }
-            } */
             searches = new ArrayList<String>();
             for(int i = 0; i < cursor.getCount(); i++) {
                 searches.add(cursor.getString(1));
@@ -130,16 +110,21 @@ public class GoogleMaps extends MapActivity {
         dialogSetup();
     }
 
-    public void onPause(Bundle savedInstanceState) {
+    @Override
+    protected void onPause() {
         super.onPause();
+        //saveState();
         myLocOverlay.disableMyLocation();
     }
 
-    public void onResume(Bundle savedInstanceState) {
+    @Override
+    protected void onResume() {
         super.onResume();
+        //populateFields();
     }
 
-    public void onStop(Bundle bundle) {
+    @Override
+    protected void onStop() {
         super.onStop();
         myLocOverlay.disableMyLocation();
         db.close();
@@ -148,7 +133,8 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //TODO: CHECK THIS OUT
+        //saveState();
+        //outState.putSerializable(NotesDbAdapter.KEY_ROWID, mRowId);
     }
 
     @Override
@@ -185,6 +171,23 @@ public class GoogleMaps extends MapActivity {
         }
     }
 
+/*    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case CONTEXTMENU_DELETEITEM:
+                if (db.deleteHistoryRow(db.getHistoryItemId(searchBar.getAdapter().getItem((int) info.id).toString())) > 0) {
+                    Toast.makeText(getApplicationContext(), "Slettet", Toast.LENGTH_SHORT).show();
+                    new ListUpdateThread(2, (int) info.id).execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), "En feil oppstod. Du kan rapportere feilen ved å sende mail til mail@trimn.net. Takk!", Toast.LENGTH_LONG).show();
+                }
+                return true;
+            default:
+                return onContextItemSelected(item);
+        }
+    }  */
+
     protected void requestCustomTitleBar()
     {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -200,6 +203,14 @@ public class GoogleMaps extends MapActivity {
     /*
     *   div functions
      */
+
+    private void saveState() {
+        db.overWriteLastAnswer(dialog.toString());
+    }
+
+    private void populateFields() {
+        dialog.setMessage(db.getLastAnswer());
+    }
 
     private void dialogSetup() {
         dialog = new AlertDialog.Builder(mapView.getContext());
@@ -291,6 +302,25 @@ public class GoogleMaps extends MapActivity {
         }
     }
 
+    public static boolean isInDatabase(Context context, String search) {
+        DBHelper _db = new DBHelper(context);
+        Cursor c = _db.getAllHistoryRows();
+        if (c != null) {
+            c.moveToFirst();
+            for (int i = 0; i < c.getCount(); i++) {
+                if (c.getString(1).equals(search)) {
+                    c.close();
+                    _db.close();
+                    return true;
+                }
+                c.moveToNext();
+            }
+        }
+        c.close();
+        _db.close();
+        return false;
+    }
+
     /*
     * Listeners
      */
@@ -365,23 +395,12 @@ public class GoogleMaps extends MapActivity {
         }
     }
 
-    public static boolean isInDatabase(Context context, String search) {
-        DBHelper _db = new DBHelper(context);
-        Cursor c = _db.getAllHistoryRows();
-        if (c != null) {
-            c.moveToFirst();
-            for (int i = 0; i < c.getCount(); i++) {
-                if (c.getString(1).equals(search)) {
-                    c.close();
-                    _db.close();
-                    return true;
-                }
-                c.moveToNext();
-            }
+    private final class OnItemLongHold implements View.OnCreateContextMenuListener {
+        //@Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Redigér");
+            menu.add(0, CONTEXTMENU_DELETEITEM, 0, "Slett");
         }
-        c.close();
-        _db.close();
-        return false;
     }
 
     /*
