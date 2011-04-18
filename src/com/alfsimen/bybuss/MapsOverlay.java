@@ -64,47 +64,62 @@ public class MapsOverlay extends ItemizedOverlay {
     protected boolean onTap(int index) {
         final OverlayItem item = mOverlays.get(index);
 
-             AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-             dialog.setTitle(item.getTitle());
-             if(fra == null) {
-                dialog.setMessage("Reise fra " + item.getTitle());
-             }
-             else {
-                dialog.setMessage("Reise til " + item.getTitle());
-             }
-
-            dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                //@Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if(fra == null) {
-                        fra = item.getTitle();
-                        searchBar.setText(item.getTitle() + " til ");
-                        searchBar.setSelection(searchBar.getText().toString().length());
-                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
-                        //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
-                        //temp.setMarker(draw);
-                        //mOverlays.remove(item);
-                        //mOverlays.add(temp);
-                    }
-                    else {
-                        til = item.getTitle();
-                        searchBar.setText(fra + " til " + til);
-                        searchBar.setSelection(searchBar.getText().toString().length());
-                        fra = til = null;
-                        //TODO: fix nullsetting of red overlay?
-                    }
-                    return;
+        String words [] = searchBar.getText().toString().split(" ");
+        int pos = 0;
+        for(int i = 0; i < words.length; i++) {
+            if(words[i].equalsIgnoreCase("til")) {
+                fra = "";
+                if(i < words.length-1) {
+                    fra = null;
+                    break;
                 }
-            });
-
-            dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
-                //@Override
-                public void onClick(DialogInterface dialog, int which) {
-                    return;
+                for(int j = 0; j < i; j++) {
+                    fra += words[j] + " ";
                 }
-            });
+            }
+        }
 
-          dialog.show();
-          return true;
+         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+         dialog.setTitle(item.getTitle());
+         if(fra == null) {
+            dialog.setMessage("Reise fra " + item.getTitle());
+         }
+         else {
+            dialog.setMessage("Reise til " + item.getTitle());
+         }
+
+        dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(fra == null) {
+                    fra = item.getTitle();
+                    searchBar.setText(item.getTitle() + " til ");
+                    searchBar.setSelection(searchBar.getText().toString().length());
+                    //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                    //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
+                    //temp.setMarker(draw);
+                    //mOverlays.remove(item);
+                    //mOverlays.add(temp);
+                }
+                else {
+                    til = item.getTitle();
+                    searchBar.setText(fra + " til " + til);
+                    searchBar.setSelection(searchBar.getText().toString().length());
+                    fra = til = null;
+                    //TODO: fix nullsetting of red overlay?
+                }
+                return;
+            }
+        });
+
+        dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+
+        dialog.show();
+        return true;
     }
 }

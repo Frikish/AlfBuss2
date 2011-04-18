@@ -130,13 +130,25 @@ public class GoogleMaps extends MapActivity {
         dialogSetup();
     }
 
-    public void onPause(Bundle bundle) {
+    public void onPause(Bundle savedInstanceState) {
+        super.onPause();
         myLocOverlay.disableMyLocation();
     }
 
+    public void onResume(Bundle savedInstanceState) {
+        super.onResume();
+    }
+
     public void onStop(Bundle bundle) {
+        super.onStop();
         myLocOverlay.disableMyLocation();
         db.close();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //TODO: CHECK THIS OUT
     }
 
     @Override
