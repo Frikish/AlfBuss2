@@ -98,6 +98,9 @@ public class XmlParser {
                 name = ((Element) nodeList.item(i)).getAttribute("v");
             }
         }
+        if(name == null) {
+            name = "ukjent";
+        }
 
         Holdeplass h = new Holdeplass(name, lat, lon);
         return h;

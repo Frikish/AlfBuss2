@@ -82,42 +82,55 @@ public class MapsOverlay extends ItemizedOverlay {
          AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
          dialog.setTitle(item.getTitle());
          if(fra == null) {
-            dialog.setMessage("Reise fra " + item.getTitle());
+             if(item.getTitle() == "ukjent") {
+                 dialog.setMessage("Vet ikke navnet på bussholdeplassen, bruk heller Geolocate og hent ut adressen der du er eller skriv inn manuelt");
+             }
+             else
+                dialog.setMessage("Reise fra " + item.getTitle());
          }
          else {
             dialog.setMessage("Reise til " + item.getTitle());
          }
 
-        dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            //@Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(fra == null) {
-                    fra = item.getTitle();
-                    searchBar.setText(item.getTitle() + " til ");
-                    searchBar.setSelection(searchBar.getText().toString().length());
-                    //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
-                    //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
-                    //temp.setMarker(draw);
-                    //mOverlays.remove(item);
-                    //mOverlays.add(temp);
+        if(item.getTitle() != "ukjent") {
+            dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                //@Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(fra == null) {
+                        fra = item.getTitle();
+                        searchBar.setText(item.getTitle() + " til ");
+                        searchBar.setSelection(searchBar.getText().toString().length());
+                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
+                        //temp.setMarker(draw);
+                        //mOverlays.remove(item);
+                        //mOverlays.add(temp);
+                    }
+                    else {
+                        til = item.getTitle();
+                        searchBar.setText(fra + " til " + til);
+                        searchBar.setSelection(searchBar.getText().toString().length());
+                        fra = til = null;
+                        //TODO: fix nullsetting of red overlay?
+                    }
+                    return;
                 }
-                else {
-                    til = item.getTitle();
-                    searchBar.setText(fra + " til " + til);
-                    searchBar.setSelection(searchBar.getText().toString().length());
-                    fra = til = null;
-                    //TODO: fix nullsetting of red overlay?
-                }
-                return;
-            }
-        });
+            });
 
-        dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
-            //@Override
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
+            dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
+                //@Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+        }
+         else {
+            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+        }
 
         dialog.show();
         return true;
