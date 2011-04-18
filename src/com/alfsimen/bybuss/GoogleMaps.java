@@ -120,6 +120,9 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(geoButton.isChecked()) {
+            myLocOverlay.enableMyLocation();
+        }
         //populateFields();
     }
 
