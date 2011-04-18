@@ -92,15 +92,25 @@ public class AtbBussorakel {
      */
     public String getAnswer() {
         String tmpAnswer = answer;
+        String tmpAnswer2 = answer;
         tmpAnswer = tmpAnswer.replace(" kl. ", " kl ");
         tmpAnswer = tmpAnswer.replace("  ", " ");
+        //tmpAnswer = tmpAnswer.replace();
         String[] answerFormatted = tmpAnswer.split("\\. ");
-
+        String[] words = tmpAnswer2.split(" ");
         String finalAnswer = "";
-
-        for (String s : answerFormatted) {
-            finalAnswer += s.trim() + ".\n\n";
+        String firstThree = "";
+        if(words[0].equals("Rutene")) {
+            firstThree += (words[0] + " " + words[1] + " " + words[2] + " " + words[3] + " ");
+            for(int i = 2; i < answerFormatted.length; i++) {
+                finalAnswer += answerFormatted[i].trim() + ".\n\n";
+            }
         }
-        return finalAnswer;
+        else {
+            for(String s : answerFormatted) {
+                finalAnswer += s.trim() + ".\n\n";
+            }
+        }
+        return firstThree + finalAnswer;
     }
 }

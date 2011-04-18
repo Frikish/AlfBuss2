@@ -89,7 +89,11 @@ public class MapsOverlay extends ItemizedOverlay {
                 dialog.setMessage("Reise fra " + item.getTitle());
          }
          else {
-            dialog.setMessage("Reise til " + item.getTitle());
+             if(item.getTitle() == "ukjent") {
+                dialog.setMessage("Navnet på holdeplassen er ukjent, tast inn manuelt istedet");
+             }
+             else
+                 dialog.setMessage("Reise til " + item.getTitle());
          }
 
         if(item.getTitle() != "ukjent") {
