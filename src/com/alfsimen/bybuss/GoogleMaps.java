@@ -41,7 +41,8 @@ public class GoogleMaps extends MapActivity {
     private List<Overlay> mapOverlays;
     private AtbBussorakel bussen;
     private InputMethodManager imm;
-    private AlertDialog.Builder dialog;
+    private AlertDialog.Builder answerDialog;
+    private AlertDialog.Builder aboutDialog;
 
     private DBHelper db;
     private Cursor cursor;
@@ -107,7 +108,8 @@ public class GoogleMaps extends MapActivity {
         }
         cursor.close();
 
-        dialogSetup();
+        answerDialog();
+        aboutDialog();
     }
 
     @Override
@@ -137,7 +139,6 @@ public class GoogleMaps extends MapActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //saveState();
-        //outState.putSerializable(NotesDbAdapter.KEY_ROWID, mRowId);
     }
 
     @Override
@@ -168,7 +169,11 @@ public class GoogleMaps extends MapActivity {
                     Toast.makeText(getApplicationContext(), "Ingen lokasjon funnet, skru på Geolocate", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_last_search:
-                dialog.show();
+                answerDialog.show();
+                return true;
+            case R.id.menu_about:
+                aboutDialog.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -208,17 +213,30 @@ public class GoogleMaps extends MapActivity {
      */
 
     private void saveState() {
-        db.overWriteLastAnswer(dialog.toString());
+        db.overWriteLastAnswer(answerDialog.toString());
     }
 
     private void populateFields() {
-        dialog.setMessage(db.getLastAnswer());
+        answerDialog.setMessage(db.getLastAnswer());
     }
 
-    private void dialogSetup() {
-        dialog = new AlertDialog.Builder(mapView.getContext());
-        dialog.setTitle("Svaret fra bussorakelet");
-        dialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
+    private void answerDialog() {
+        answerDialog = new AlertDialog.Builder(mapView.getContext());
+        answerDialog.setTitle("Svaret fra bussorakelet");
+        answerDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                return;
+            }
+        });
+    }
+
+    private void aboutDialog() {
+        aboutDialog = new AlertDialog.Builder(mapView.getContext());
+        aboutDialog.setTitle(getString(R.string.custom_title));
+        aboutDialog.setMessage(getString(R.string.about_string));
+        aboutDialog.setIcon(R.drawable.icon);
+        aboutDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 return;
@@ -281,9 +299,9 @@ public class GoogleMaps extends MapActivity {
         }
     }
 
-    private void answerDialog(String answer) {
-        dialog.setMessage(answer);
-        dialog.show();
+    private void answerDialogSetText(String answer) {
+        answerDialog.setMessage(answer);
+        answerDialog.show();
     }
 
     public void getAddressesOfCurrentPos(GeoPoint point) {
@@ -495,7 +513,7 @@ public class GoogleMaps extends MapActivity {
         {
             if (bussen.getAnswer().trim().equals("No question supplied."))
             {
-                answerDialog(getString(R.string.answer_field));
+                answerDialogSetText(getString(R.string.answer_field));
                 //answerView.setText(getString(R.string.answer_field));
             } else
             {
@@ -503,7 +521,7 @@ public class GoogleMaps extends MapActivity {
                 {
                     new ListUpdateThread(1, -1).execute();
                 }
-                answerDialog(bussen.getAnswer());
+                answerDialogSetText(bussen.getAnswer());
 
                 //answerView.setText(bussen.getAnswer());
                // new MarkBusStops(getApplicationContext()).execute();
