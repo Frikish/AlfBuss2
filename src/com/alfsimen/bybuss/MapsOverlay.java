@@ -3,10 +3,12 @@ package com.alfsimen.bybuss;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 import java.util.ArrayList;
@@ -27,16 +29,16 @@ public class MapsOverlay extends ItemizedOverlay {
     private EditText searchBar;
 
     public MapsOverlay(Drawable defaultMarker) {
-        super(boundCenterBottom(defaultMarker));
+        super(boundCenter(defaultMarker));
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context) {
-        super(boundCenterBottom(defaultMarker));
+        super(boundCenter(defaultMarker));
         mContext = context;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar) {
-        super(boundCenterBottom(defaultMarker));
+        super(boundCenter(defaultMarker));
         mContext = context;
         searchBar = searchbar;
     }

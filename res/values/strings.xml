@@ -10,8 +10,8 @@
     <string name="menu_address_button">Bruk adressen din</string>
     <string name="menu_last_answer_button">Vis siste svar</string>
     <string name="menu_about">About</string>
-    <string name="version">0.6.25b</string>
-    <string name="about_string">Version 0.6.25b\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
+    <string name="version">0.6.26</string>
+    <string name="about_string">Version 0.6.26\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
     <string name="answer_field">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>

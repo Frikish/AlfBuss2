@@ -223,6 +223,7 @@ public class GoogleMaps extends MapActivity {
     private void answerDialog() {
         answerDialog = new AlertDialog.Builder(mapView.getContext());
         answerDialog.setTitle("Svaret fra bussorakelet");
+        answerDialog.setMessage("Ikke hentet noe svar enda");
         answerDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -233,7 +234,7 @@ public class GoogleMaps extends MapActivity {
 
     private void aboutDialog() {
         aboutDialog = new AlertDialog.Builder(mapView.getContext());
-        aboutDialog.setTitle(getString(R.string.custom_title));
+        aboutDialog.setTitle(getString(R.string.app_name));
         aboutDialog.setMessage(getString(R.string.about_string));
         aboutDialog.setIcon(R.drawable.icon);
         aboutDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
