@@ -380,6 +380,7 @@ public class GoogleMaps extends MapActivity {
         public void onClick(View v) {
             if(geoButton.isChecked()) {
                 if(!myLocOverlay.enableMyLocation()) {
+                    geoButton.toggle();
                     Toast.makeText(getBaseContext(), "Skru på Wifi/gps-posisjonering i settings", Toast.LENGTH_LONG).show();
                     myLocOverlay.disableMyLocation();
                 }
