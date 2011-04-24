@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.*;
@@ -43,6 +45,7 @@ public class GoogleMaps extends MapActivity {
     private InputMethodManager imm;
     private AlertDialog.Builder answerDialog;
     private AlertDialog.Builder aboutDialog;
+    private AlertDialog.Builder internetWarning;
 
     private DBHelper db;
     private Cursor cursor;
@@ -65,6 +68,20 @@ public class GoogleMaps extends MapActivity {
         mapController.setZoom(15);
         GeoPoint point = new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6));
         mapController.setCenter(point);
+
+        internetWarning = new AlertDialog.Builder(mapView.getContext());
+        internetWarning.setTitle("Internet");
+        internetWarning.setMessage("Mangler kontakt med internet, aktiver enten EDGE/3G eller WiFi");
+        internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                return;
+            }
+        });
+
+        if(!checkConnection()) {
+            internetWarning.show();
+        }
 
         myLocOverlay = new MyLocationOverlay(this, mapView);
         mapView.getOverlays().add(myLocOverlay);
@@ -212,6 +229,15 @@ public class GoogleMaps extends MapActivity {
     *   div functions
      */
 
+    private boolean checkConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        if(info==null || !info.isConnected()) {
+            return false;
+        }
+        return true;
+    }
+
     private void saveState() {
         db.overWriteLastAnswer(answerDialog.toString());
     }
@@ -290,8 +316,11 @@ public class GoogleMaps extends MapActivity {
                 parts = tmp.split(" til ");
                 String newString = parts[1] + " til " + parts[0];
                 searchBar.setText(newString);
-
-                doSearch();
+                if(!checkConnection()) {
+                    internetWarning.show();
+                }
+                else
+                    doSearch();
             }
             else
             {
@@ -384,7 +413,11 @@ public class GoogleMaps extends MapActivity {
     private final class SearchBarOnKeyListener implements View.OnKeyListener {
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                doSearch();
+                if(!checkConnection()) {
+                    internetWarning.show();
+                }
+                else
+                    doSearch();
             }
             return false;
         }
@@ -413,7 +446,11 @@ public class GoogleMaps extends MapActivity {
 
     private final class SearchButtonOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            doSearch();
+            if(!checkConnection()) {
+                internetWarning.show();
+            }
+            else
+                doSearch();
         }
     }
 
