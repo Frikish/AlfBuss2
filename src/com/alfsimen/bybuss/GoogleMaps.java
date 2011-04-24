@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -91,10 +92,19 @@ public class GoogleMaps extends MapActivity {
         new mapFillBusStopLoadThread().execute();
 
         geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
+        geoButton.setEnabled(false);
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
 
-        geoButton.setOnClickListener(new GeoButtonClickListener());
+        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        List<String> providers = lm.getAllProviders();
+        for(int i = 0; i < providers.size(); i ++) {
+            if(providers.get(i).equals(LocationManager.GPS_PROVIDER))
+            {
+                geoButton.setOnClickListener(new GeoButtonClickListener());
+                geoButton.setEnabled(true);
+            }
+        }
 
         bussen = new AtbBussorakel();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
