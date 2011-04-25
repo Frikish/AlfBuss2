@@ -91,26 +91,39 @@ public class AtbBussorakel {
      * @return String
      */
     public String getAnswer() {
-        String tmpAnswer = answer;
         String tmpAnswer2 = answer;
-        tmpAnswer = tmpAnswer.replace(" kl. ", " kl ");
-        tmpAnswer = tmpAnswer.replace("  ", " ");
-        //tmpAnswer = tmpAnswer.replace();
-        String[] answerFormatted = tmpAnswer.split("\\. ");
         String[] words = tmpAnswer2.split(" ");
         String finalAnswer = "";
-        String firstThree = "";
-        if(words[0].equals("Rutene")) {
-            firstThree += (words[0] + " " + words[1] + " " + words[2] + " " + words[3] + " ");
-            for(int i = 2; i < answerFormatted.length; i++) {
-                finalAnswer += answerFormatted[i].trim() + ".\n\n";
+        String start = "";
+        String end = "";
+        int j = 0;
+        int k = 0;
+        for(; j < words.length; j++) {
+            if(!words[j+1].endsWith(".") && !words[j+2].endsWith(".") && !words[j+3].endsWith(".")) {
+                for(; k <= j; k++) {
+                    start += words[k];
+                    start += " ";
+                }
+                for(int l = k+1; l < words.length; l++) {
+                    end += words[l];
+                    end += " ";
+                }
+                break;
             }
         }
-        else {
-            for(String s : answerFormatted) {
-                finalAnswer += s.trim() + ".\n\n";
-            }
+
+        end = end.replace(" kl. ", " kl ");
+        end = end.replace("  ", " ");
+        String[] answerFormatted = end.split("\\. ");
+
+        for(int i = 0; i < answerFormatted.length; i++) {
+            finalAnswer += answerFormatted[i].trim();
+            if(i != answerFormatted.length - 1)
+                finalAnswer += ".\n\n";
+            else
+                finalAnswer += ".";
         }
-        return firstThree + finalAnswer;
+
+        return start + finalAnswer;
     }
 }
