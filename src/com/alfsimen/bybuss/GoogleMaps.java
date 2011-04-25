@@ -3,6 +3,7 @@ package com.alfsimen.bybuss;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -12,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -53,6 +55,8 @@ public class GoogleMaps extends MapActivity {
     private ArrayList<String> searches;
     private ArrayAdapter<String> adapter;
 
+    private SharedPreferences prefs;
+
     protected static final int CONTEXTMENU_DELETEITEM = 0;
 
     @Override
@@ -64,6 +68,8 @@ public class GoogleMaps extends MapActivity {
 
         mapView = (MapView) findViewById(R.id.MapView);
         mapView.setBuiltInZoomControls(true);
+
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         mapController = mapView.getController();
         mapController.setZoom(15);
@@ -152,7 +158,7 @@ public class GoogleMaps extends MapActivity {
         if(geoButton.isChecked()) {
             myLocOverlay.enableMyLocation();
         }
-        //populateFields();
+        populateFields();
     }
 
     @Override
@@ -165,7 +171,7 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //saveState();
+        saveState();
     }
 
     @Override
@@ -249,11 +255,11 @@ public class GoogleMaps extends MapActivity {
     }
 
     private void saveState() {
-        db.overWriteLastAnswer(answerDialog.toString());
+
     }
 
     private void populateFields() {
-        answerDialog.setMessage(db.getLastAnswer());
+        answerDialog.setMessage(prefs.getString(getString(R.string.prefs_last_answer), ""));
     }
 
     private void answerDialog() {
@@ -340,6 +346,9 @@ public class GoogleMaps extends MapActivity {
     }
 
     private void answerDialogSetText(String answer) {
+        final SharedPreferences.Editor edit = prefs.edit();
+        edit.putString(getString(R.string.prefs_last_answer), answer);
+        edit.commit();
         answerDialog.setMessage(answer);
         answerDialog.show();
     }

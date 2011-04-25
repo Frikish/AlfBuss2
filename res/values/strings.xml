@@ -9,6 +9,7 @@
     <string name="menu_reverse_button">Reverser søk</string>
     <string name="menu_address_button">Bruk adressen din</string>
     <string name="menu_last_answer_button">Vis siste svar</string>
+    <string name="prefs_last_answer">LAST_ANSWER</string>
     <string name="menu_about">About</string>
     <string name="version">0.6.27</string>
     <string name="about_string">Version 0.6.27\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
