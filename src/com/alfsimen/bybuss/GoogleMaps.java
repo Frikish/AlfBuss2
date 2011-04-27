@@ -571,7 +571,7 @@ public class GoogleMaps extends MapActivity {
         {
             if (bussen.getAnswer().trim().equals("No question supplied."))
             {
-                answerDialogSetText(getString(R.string.answer_field));
+                answerDialogSetText(getString(R.string.help_string));
                 //answerView.setText(getString(R.string.answer_field));
             } else
             {

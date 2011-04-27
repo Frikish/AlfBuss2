@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.alfsimen.bybuss"
-      android:versionCode="11"
+      android:versionCode="12"
       android:versionName="@string/version">
     <application android:label="AlfByBuss" android:icon="@drawable/icon" android:persistent="true"
             android:enabled="true">

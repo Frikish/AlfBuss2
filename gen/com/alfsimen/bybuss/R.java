@@ -51,12 +51,12 @@ public final class R {
         public static final int APIdebugKey=0x7f05001b;
         public static final int about_string=0x7f050019;
         public static final int adress_button=0x7f050004;
-        public static final int answer_field=0x7f05001a;
         public static final int app_name=0x7f050000;
         public static final int custom_title=0x7f050001;
         public static final int dialog_orakel_message_noanswer=0x7f05000e;
         public static final int dialog_orakel_okbutton=0x7f05000f;
         public static final int dialog_orakel_title=0x7f05000d;
+        public static final int help_string=0x7f05001a;
         public static final int internet_warning_message=0x7f05000b;
         public static final int menu_about=0x7f05000a;
         public static final int menu_address_button=0x7f050007;

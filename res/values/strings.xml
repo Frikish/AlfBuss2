@@ -11,7 +11,7 @@
     <string name="menu_last_answer_button">Vis siste svar</string>
     <string name="prefs_last_answer">LAST_ANSWER</string>
     <string name="menu_about">About</string>
-    <string name="internet_warning_message">Mangler kontakt med internet, aktiver enten EDGE/3G eller WiFi</string>
+    <string name="internet_warning_message">Mangler kontakt med internet, aktiver enten EDGE/3G/4G etc eller WiFi</string>
     <string name="no_location_on_geolocate">Ingen lokasjon funnet, skru på Geolocate</string>
     <string name="dialog_orakel_title">Svaret fra bussorakelet</string>
     <string name="dialog_orakel_message_noanswer">Ikke hentet noe svar enda</string>
@@ -25,9 +25,10 @@
     <string name="toast_turn_on_gps_wifi">Skru på Wifi/gps-posisjonering i settings</string>
     <string name="toast_loading_stops">Loader bussholdeplasser</string>
 
-    <string name="version">0.6.28</string>
-    <string name="about_string">Version 0.6.28\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
-    <string name="answer_field">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
+    <string name="version">0.7.00</string>
+    <string name="about_string">Version 0.7.00\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
+    <string name="help_string">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
+
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>
 </resources>
