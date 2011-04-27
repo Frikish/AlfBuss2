@@ -78,7 +78,7 @@ public class GoogleMaps extends MapActivity {
 
         internetWarning = new AlertDialog.Builder(mapView.getContext());
         internetWarning.setTitle("Internet");
-        internetWarning.setMessage("Mangler kontakt med internet, aktiver enten EDGE/3G eller WiFi");
+        internetWarning.setMessage(R.string.internet_warning_message);
         internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -199,7 +199,7 @@ public class GoogleMaps extends MapActivity {
                     imm.toggleSoftInput(0, 0);
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Ingen lokasjon funnet, skru på Geolocate", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.no_location_on_geolocate, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_last_search:
                 answerDialog.show();
@@ -221,7 +221,7 @@ public class GoogleMaps extends MapActivity {
                     Toast.makeText(getApplicationContext(), "Slettet", Toast.LENGTH_SHORT).show();
                     new ListUpdateThread(2, (int) info.id).execute();
                 } else {
-                    Toast.makeText(getApplicationContext(), "En feil oppstod. Du kan rapportere feilen ved å sende mail til mail@trimn.net. Takk!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "En feil oppstod. Du kan rapportere feilen ved å sende mail til . Takk!", Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
@@ -264,9 +264,9 @@ public class GoogleMaps extends MapActivity {
 
     private void answerDialog() {
         answerDialog = new AlertDialog.Builder(mapView.getContext());
-        answerDialog.setTitle("Svaret fra bussorakelet");
-        answerDialog.setMessage("Ikke hentet noe svar enda");
-        answerDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
+        answerDialog.setTitle(R.string.dialog_orakel_title);
+        answerDialog.setMessage(R.string.dialog_orakel_message_noanswer);
+        answerDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 return;
@@ -279,7 +279,7 @@ public class GoogleMaps extends MapActivity {
         aboutDialog.setTitle(getString(R.string.app_name));
         aboutDialog.setMessage(getString(R.string.about_string));
         aboutDialog.setIcon(R.drawable.icon);
-        aboutDialog.setPositiveButton("Ferdig", new DialogInterface.OnClickListener() {
+        aboutDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 return;
@@ -288,9 +288,9 @@ public class GoogleMaps extends MapActivity {
     }
 
     private void doSearch() {
-        Toast.makeText(getApplicationContext(), "Venter på svar fra bussorakelet", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.toast_wait_for_oracle, Toast.LENGTH_LONG).show();
         if(searchBar.getText().length() <= 0) {
-            Toast.makeText(getApplicationContext(), "Søkefeltet er tomt -_-", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_empty_question, Toast.LENGTH_LONG).show();
         }
         else {
             imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
@@ -307,30 +307,30 @@ public class GoogleMaps extends MapActivity {
         boolean til = false;
         int pos = 0;
         for(int i = 0; i < words.length; i++) {
-            if(words[i].equalsIgnoreCase("til")) {
+            if(words[i].equalsIgnoreCase(getString(R.string.search_separator_nospace))) {
                 pos = i;
                 til = true;
             }
         }
         if(pos == words.length -1) {
-            Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser og ordet 'til' imellom de", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_need_two_stops, Toast.LENGTH_LONG).show();
         }
         else if(searchBar.getText().length() <= 0)
         {
-            Toast.makeText(getApplicationContext(), "Søkefeltet er tomt -.-", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_empty_question, Toast.LENGTH_LONG).show();
         }
         else if(searchBar.getText().toString().equals(getString(R.string.search_field)))
         {
-            Toast.makeText(getApplicationContext(), "Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_dummy_text_question, Toast.LENGTH_LONG).show();
         }
         else if(words.length >= 3 && til)
         {
             String tmp = searchBar.getText().toString();
-            String [] parts = tmp.split("til");
+            String [] parts = tmp.split(getString(R.string.search_separator_nospace));
             if(parts.length == 2)
             {
-                parts = tmp.split(" til ");
-                String newString = parts[1] + " til " + parts[0];
+                parts = tmp.split(getString(R.string.search_separator));
+                String newString = parts[1] + getString(R.string.search_separator) + parts[0];
                 searchBar.setText(newString);
                 if(!checkConnection()) {
                     internetWarning.show();
@@ -340,7 +340,7 @@ public class GoogleMaps extends MapActivity {
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "Trenger 2 holdeplasser, prøv igjen...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_need_two_stops, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -364,7 +364,7 @@ public class GoogleMaps extends MapActivity {
                     add += addresses.get(0).getAddressLine(i);
                 }
             }
-            searchBar.setText(add + " til ");
+            searchBar.setText(add + R.string.search_separator);
             searchBar.setSelection(searchBar.getText().toString().length());
         }
         catch (IOException e) {
@@ -400,11 +400,11 @@ public class GoogleMaps extends MapActivity {
             if(geoButton.isChecked()) {
                 if(!myLocOverlay.enableMyLocation()) {
                     geoButton.toggle();
-                    Toast.makeText(getBaseContext(), "Skru på Wifi/gps-posisjonering i settings", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
                     myLocOverlay.disableMyLocation();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Geolokasjon skrudd på", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd på", Toast.LENGTH_SHORT).show();
                     myLocOverlay.runOnFirstFix(new Runnable() {
                         public void run() {
                             mapView.getController().animateTo(myLocOverlay.getMyLocation());
@@ -417,7 +417,7 @@ public class GoogleMaps extends MapActivity {
             }
             else {
                 myLocOverlay.disableMyLocation();
-                Toast.makeText(getApplicationContext(), "Geolokasjon skrudd av", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd av", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -505,7 +505,7 @@ public class GoogleMaps extends MapActivity {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(getApplicationContext(), "Loader bussholdeplasser", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_loading_stops, Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -515,9 +515,9 @@ public class GoogleMaps extends MapActivity {
                 mapController.setCenter(myLocOverlay.getMyLocation());
             }
             else {
-                mapController.setCenter(new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6)));
+                mapController.setCenter(mapView.getMapCenter());
             }
-            Toast.makeText(getApplicationContext(), "Loading av bussholdeplasser ferdig", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Loading av bussholdeplasser ferdig", Toast.LENGTH_SHORT).show();
         }
     }
 

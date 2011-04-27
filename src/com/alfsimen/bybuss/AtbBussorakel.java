@@ -93,37 +93,41 @@ public class AtbBussorakel {
     public String getAnswer() {
         String tmpAnswer2 = answer;
         String[] words = tmpAnswer2.split(" ");
-        String finalAnswer = "";
-        String start = "";
-        String end = "";
-        int j = 0;
-        int k = 0;
-        for(; j < words.length; j++) {
-            if(!words[j+1].endsWith(".") && !words[j+2].endsWith(".") && !words[j+3].endsWith(".")) {
-                for(; k <= j; k++) {
-                    start += words[k];
-                    start += " ";
+        if(words.length > 4) {
+            String finalAnswer = "";
+            String start = "";
+            String end = "";
+            int j = 0;
+            int k = 0;
+            for(; j < words.length; j++) {
+                if(!words[j+1].endsWith(".") && !words[j+2].endsWith(".") && !words[j+3].endsWith(".")) {
+                    for(; k <= j; k++) {
+                        start += words[k];
+                        start += " ";
+                    }
+                    for(int l = k+1; l < words.length; l++) {
+                        end += words[l];
+                        end += " ";
+                    }
+                    break;
                 }
-                for(int l = k+1; l < words.length; l++) {
-                    end += words[l];
-                    end += " ";
-                }
-                break;
             }
+
+            end = end.replace(" kl. ", " kl ");
+            end = end.replace("  ", " ");
+            String[] answerFormatted = end.split("\\. ");
+
+            for(int i = 0; i < answerFormatted.length; i++) {
+                finalAnswer += answerFormatted[i].trim();
+                if(i != answerFormatted.length - 1)
+                    finalAnswer += ".\n\n";
+                else
+                    finalAnswer += ".";
+            }
+
+            return start + finalAnswer;
         }
-
-        end = end.replace(" kl. ", " kl ");
-        end = end.replace("  ", " ");
-        String[] answerFormatted = end.split("\\. ");
-
-        for(int i = 0; i < answerFormatted.length; i++) {
-            finalAnswer += answerFormatted[i].trim();
-            if(i != answerFormatted.length - 1)
-                finalAnswer += ".\n\n";
-            else
-                finalAnswer += ".";
-        }
-
-        return start + finalAnswer;
+        else
+            return answer;
     }
 }
