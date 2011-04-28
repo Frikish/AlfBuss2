@@ -477,8 +477,8 @@ public class GoogleMaps extends MapActivity {
     private final class OnItemLongHold implements View.OnCreateContextMenuListener {
         //@Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Redigér");
-            menu.add(0, CONTEXTMENU_DELETEITEM, 0, "Slett");
+            menu.setHeaderTitle(R.string.dialog_edit_autocomplete);
+            menu.add(0, CONTEXTMENU_DELETEITEM, 0, R.string.dialog_edit_autocomplete_del);
         }
     }
 

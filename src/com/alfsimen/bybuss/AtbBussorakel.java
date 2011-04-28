@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
+import android.content.Context.*;
 
 /**
  * @author tmn
@@ -81,7 +82,7 @@ public class AtbBussorakel {
             content = sc.next();
             answer = content;
         } else {
-            answer = "Søk kunne ikke gjennomføres. Sjekk om du er tilkoblet nettet (edge/3G/WiFi etc.)";
+            answer =  "Error";
         }
     }
 

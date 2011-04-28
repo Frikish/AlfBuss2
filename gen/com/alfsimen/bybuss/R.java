@@ -47,22 +47,25 @@ public final class R {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f05001c;
-        public static final int APIdebugKey=0x7f05001b;
-        public static final int about_string=0x7f050019;
+        public static final int APIKey=0x7f05001f;
+        public static final int APIdebugKey=0x7f05001e;
+        public static final int about_string=0x7f05001c;
         public static final int adress_button=0x7f050004;
         public static final int app_name=0x7f050000;
         public static final int custom_title=0x7f050001;
+        public static final int dialog_edit_autocomplete=0x7f050018;
+        public static final int dialog_edit_autocomplete_del=0x7f050019;
         public static final int dialog_orakel_message_noanswer=0x7f05000e;
         public static final int dialog_orakel_okbutton=0x7f05000f;
         public static final int dialog_orakel_title=0x7f05000d;
-        public static final int help_string=0x7f05001a;
+        public static final int help_string=0x7f05001d;
         public static final int internet_warning_message=0x7f05000b;
         public static final int menu_about=0x7f05000a;
         public static final int menu_address_button=0x7f050007;
         public static final int menu_last_answer_button=0x7f050008;
         public static final int menu_reverse_button=0x7f050006;
         public static final int no_location_on_geolocate=0x7f05000c;
+        public static final int orakel_no_contact=0x7f05001a;
         public static final int prefs_last_answer=0x7f050009;
         public static final int reverse_button=0x7f050005;
         public static final int search_button=0x7f050002;
@@ -75,6 +78,6 @@ public final class R {
         public static final int toast_need_two_stops=0x7f050012;
         public static final int toast_turn_on_gps_wifi=0x7f050016;
         public static final int toast_wait_for_oracle=0x7f050010;
-        public static final int version=0x7f050018;
+        public static final int version=0x7f05001b;
     }
 }

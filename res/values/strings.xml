@@ -24,6 +24,9 @@
     <string name="search_separator_nospace">til</string>
     <string name="toast_turn_on_gps_wifi">Skru på Wifi/gps-posisjonering i settings</string>
     <string name="toast_loading_stops">Loader bussholdeplasser</string>
+    <string name="dialog_edit_autocomplete">Redigér</string>
+    <string name="dialog_edit_autocomplete_del">Slett</string>
+    <string name="orakel_no_contact">Søk kunne ikke gjennomføres. Sjekk om du er tilkoblet nettet (edge/3G/WiFi etc.)</string>
 
     <string name="version">0.7.00</string>
     <string name="about_string">Version 0.7.00\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>

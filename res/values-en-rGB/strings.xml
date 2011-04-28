@@ -24,6 +24,9 @@
     <string name="search_separator_nospace">to</string>
     <string name="toast_turn_on_gps_wifi">Turn on WiFi/gps in settings</string>
     <string name="toast_loading_stops">Loading busstops</string>
+    <string name="dialog_edit_autocomplete">Edit</string>
+    <string name="dialog_edit_autocomplete_del">Delete</string>
+    <string name="orakel_no_contact">Were unable to search, check internet connectivity</string>
 
     <string name="version">0.7.00</string>
     <string name="about_string">Version 0.7.00\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com</string>
