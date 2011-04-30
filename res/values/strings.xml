@@ -20,16 +20,24 @@
     <string name="toast_empty_question">Søkefeltet er tomt \-\_\-</string>
     <string name="toast_need_two_stops">Trenger 2 holdeplasser og ordet \'til\' imellom de</string>
     <string name="toast_dummy_text_question">Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet</string>
-    <string name="search_separator"> til </string>
+
+    <string name="search_separator">&#160;til&#160;</string>
+    <string name="search_separator_nostart">til&#160;</string>
     <string name="search_separator_nospace">til</string>
+
     <string name="toast_turn_on_gps_wifi">Skru på Wifi/gps-posisjonering i settings</string>
     <string name="toast_loading_stops">Loader bussholdeplasser</string>
     <string name="dialog_edit_autocomplete">Redigér</string>
     <string name="dialog_edit_autocomplete_del">Slett</string>
     <string name="orakel_no_contact">Søk kunne ikke gjennomføres. Sjekk om du er tilkoblet nettet (edge/3G/WiFi etc.)</string>
+    <string name="ukjent_busstop_name">Vet ikke navnet på bussholdeplassen, bruk heller Geolocate og hent ut adressen der du er eller skriv inn manuelt</string>
+    <string name="reise_fra">Reise fra&#160;</string>
+    <string name="reise_til">Reise til&#160;</string>
+    <string name="ja">ja</string>
+    <string name="nei">nei</string>
 
-    <string name="version">0.7.00</string>
-    <string name="about_string">Version 0.7.00\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
+    <string name="version">0.7.01</string>
+    <string name="about_string">Version 0.7.01\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com</string>
     <string name="help_string">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
 
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>

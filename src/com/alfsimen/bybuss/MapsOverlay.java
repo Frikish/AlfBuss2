@@ -69,7 +69,7 @@ public class MapsOverlay extends ItemizedOverlay {
         String words [] = searchBar.getText().toString().split(" ");
         int pos = 0;
         for(int i = 0; i < words.length; i++) {
-            if(words[i].equalsIgnoreCase("til")) {
+            if(words[i].equalsIgnoreCase(mContext.getText(R.string.search_separator_nospace).toString())) {
                 fra = "";
                 if(i < words.length-1) {
                     fra = null;
@@ -85,26 +85,26 @@ public class MapsOverlay extends ItemizedOverlay {
          dialog.setTitle(item.getTitle());
          if(fra == null) {
              if(item.getTitle() == "ukjent") {
-                 dialog.setMessage("Vet ikke navnet på bussholdeplassen, bruk heller Geolocate og hent ut adressen der du er eller skriv inn manuelt");
+                 dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
              }
              else
-                dialog.setMessage("Reise fra " + item.getTitle());
+                dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
          }
          else {
              if(item.getTitle() == "ukjent") {
-                dialog.setMessage("Navnet på holdeplassen er ukjent, tast inn manuelt istedet");
+                dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
              }
              else
-                 dialog.setMessage("Reise til " + item.getTitle());
+                 dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
          }
 
         if(item.getTitle() != "ukjent") {
-            dialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
                     if(fra == null) {
                         fra = item.getTitle();
-                        searchBar.setText(item.getTitle() + " til ");
+                        searchBar.setText(item.getTitle() + mContext.getText(R.string.search_separator).toString());
                         searchBar.setSelection(searchBar.getText().toString().length());
                         //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
                         //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
@@ -114,7 +114,7 @@ public class MapsOverlay extends ItemizedOverlay {
                     }
                     else {
                         til = item.getTitle();
-                        searchBar.setText(fra + " til " + til);
+                        searchBar.setText(fra + mContext.getText(R.string.search_separator).toString() + til);
                         searchBar.setSelection(searchBar.getText().toString().length());
                         fra = til = null;
                         //TODO: fix nullsetting of red overlay?
@@ -123,7 +123,7 @@ public class MapsOverlay extends ItemizedOverlay {
                 }
             });
 
-            dialog.setNegativeButton("Nei", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
                     return;

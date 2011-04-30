@@ -307,7 +307,7 @@ public class GoogleMaps extends MapActivity {
         boolean til = false;
         int pos = 0;
         for(int i = 0; i < words.length; i++) {
-            if(words[i].equalsIgnoreCase(getString(R.string.search_separator_nospace))) {
+            if(words[i].equalsIgnoreCase(getString(R.string.search_separator_nospace).toString())) {
                 pos = i;
                 til = true;
             }
@@ -329,7 +329,7 @@ public class GoogleMaps extends MapActivity {
             for(int i = pos + 1; i < words.length; i++) {
                 temp += words[i] + " ";
             }
-            temp += "til ";
+            temp += getText(R.string.search_separator_nostart).toString();
             for(int i = 0; i < pos; i++) {
                 temp += words[i] + " ";
             }
@@ -586,7 +586,7 @@ public class GoogleMaps extends MapActivity {
         @Override
         protected void onPostExecute(Void unused)
         {
-            if (bussen.getAnswer().trim().equals("No question supplied."))
+            if (bussen.getAnswer().trim().equals("No question supplied"))
             {
                 answerDialogSetText(getString(R.string.help_string));
                 //answerView.setText(getString(R.string.answer_field));

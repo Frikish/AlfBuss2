@@ -28,8 +28,14 @@
     <string name="dialog_edit_autocomplete_del">Delete</string>
     <string name="orakel_no_contact">Were unable to search, check internet connectivity</string>
 
-    <string name="version">0.7.00</string>
-    <string name="about_string">Version 0.7.00\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com</string>
+    <string name="ukjent_busstop_name">Don't know the name of the bus-stop, use geolocate and "use address" in menu or manually write the bus-stop name</string>
+    <string name="reise_fra">Travel from&#160;</string>
+    <string name="reise_til">Travel to&#160;</string>
+    <string name="ja">yes</string>
+    <string name="nei">no</string>
+
+    <string name="version">0.7.01</string>
+    <string name="about_string">Version 0.7.01\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com</string>
     <string name="help_string">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
 
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
