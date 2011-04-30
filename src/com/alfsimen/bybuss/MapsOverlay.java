@@ -63,7 +63,7 @@ public class MapsOverlay extends ItemizedOverlay {
     }
 
     @Override
-    protected boolean onTap(int index) {
+    protected boolean onTap(int index) {  //TODO: fix translation here!!!
         final OverlayItem item = mOverlays.get(index);
 
         String words [] = searchBar.getText().toString().split(" ");

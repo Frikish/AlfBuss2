@@ -325,7 +325,24 @@ public class GoogleMaps extends MapActivity {
         }
         else if(words.length >= 3 && til)
         {
-            String tmp = searchBar.getText().toString();
+            String temp = "";
+            for(int i = pos + 1; i < words.length; i++) {
+                temp += words[i] + " ";
+            }
+            temp += "til ";
+            for(int i = 0; i < pos; i++) {
+                temp += words[i] + " ";
+            }
+
+            searchBar.setText(temp);
+
+            if(!checkConnection()) {
+                internetWarning.show();
+            }
+            else
+                doSearch();
+
+            /*String tmp = searchBar.getText().toString();
             String [] parts = tmp.split(getString(R.string.search_separator_nospace));
             if(parts.length == 2)
             {
@@ -341,7 +358,7 @@ public class GoogleMaps extends MapActivity {
             else
             {
                 Toast.makeText(getApplicationContext(), R.string.toast_need_two_stops, Toast.LENGTH_LONG).show();
-            }
+            }   */
         }
     }
 
@@ -364,7 +381,7 @@ public class GoogleMaps extends MapActivity {
                     add += addresses.get(0).getAddressLine(i);
                 }
             }
-            searchBar.setText(add + R.string.search_separator);
+            searchBar.setText(add + getText(R.string.search_separator));
             searchBar.setSelection(searchBar.getText().toString().length());
         }
         catch (IOException e) {
