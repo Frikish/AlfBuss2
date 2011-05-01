@@ -294,6 +294,7 @@ public class GoogleMaps extends MapActivity {
         }
         else {
             imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
+            searchBar.setText(searchBar.getText().toString().trim().replaceAll("\\s+", " "));
             bussen.setQuestion(searchBar.getText().toString().trim());
 
             new AtbThreadTest(getApplicationContext()).execute();
@@ -335,6 +336,7 @@ public class GoogleMaps extends MapActivity {
             }
 
             searchBar.setText(temp);
+            searchBar.setSelection(searchBar.getText().toString().length());
 
             if(!checkConnection()) {
                 internetWarning.show();
@@ -349,6 +351,7 @@ public class GoogleMaps extends MapActivity {
                 parts = tmp.split(getString(R.string.search_separator));
                 String newString = parts[1] + getString(R.string.search_separator) + parts[0];
                 searchBar.setText(newString);
+                searchBar.setSelection(searchBar.getText().toString().length());
                 if(!checkConnection()) {
                     internetWarning.show();
                 }
@@ -553,6 +556,7 @@ public class GoogleMaps extends MapActivity {
                         }
                     }
                     searchBar.setText(add);
+                    searchBar.setSelection(searchBar.getText().toString().length());
                 }
                 catch (IOException e) {
                     e.printStackTrace();

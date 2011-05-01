@@ -61,7 +61,7 @@ public class AtbBussorakel {
         Scanner sc = null;
 
         String tmpUri = this.uri.toString().replace("%3F", "?") + this.getQuestion().replace("%3F", "?");
-        tmpUri = tmpUri.replace(" ", "%20");
+        tmpUri = tmpUri.replaceAll("\\s+", "%20");
 
         try {
             conn = new URL(tmpUri).openConnection();

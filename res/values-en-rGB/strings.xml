@@ -28,7 +28,7 @@
     <string name="dialog_edit_autocomplete_del">Delete</string>
     <string name="orakel_no_contact">Were unable to search, check internet connectivity</string>
 
-    <string name="ukjent_busstop_name">Don't know the name of the bus-stop, use geolocate and "use address" in menu or manually write the bus-stop name</string>
+    <string name="ukjent_busstop_name">Don\'t know the name of the bus\-stop, use geolocate and \"use address\" in menu or manually write the bus\-stop name</string>
     <string name="reise_fra">Travel from&#160;</string>
     <string name="reise_til">Travel to&#160;</string>
     <string name="ja">yes</string>
