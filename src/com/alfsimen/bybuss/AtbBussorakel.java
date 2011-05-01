@@ -92,7 +92,7 @@ public class AtbBussorakel {
      * @return String
      */
     public String getAnswer() {
-        String tmpAnswer2 = answer;
+        String tmpAnswer2 = answer.replaceAll("\\s+", " ");;
         String[] words = tmpAnswer2.split(" ");
         if(words.length > 4) {
             String finalAnswer = "";
@@ -102,7 +102,7 @@ public class AtbBussorakel {
             int k = 0;
             for(; j < words.length; j++) {
                 if(!words[j+1].endsWith(".") && !words[j+2].endsWith(".") && !words[j+3].endsWith(".")) {
-                    for(; k <= j; k++) {
+                    for(; k <= j+1; k++) {
                         start += words[k];
                         start += " ";
                     }

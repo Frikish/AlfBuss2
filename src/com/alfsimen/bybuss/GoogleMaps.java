@@ -43,6 +43,10 @@ public class GoogleMaps extends MapActivity {
     private ArrayList<Holdeplass> holdeplasser;
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
+
+    public static OverlayItem fromItem;
+    public static OverlayItem toItem;
+
     private List<Overlay> mapOverlays;
     private AtbBussorakel bussen;
     private InputMethodManager imm;
@@ -295,6 +299,7 @@ public class GoogleMaps extends MapActivity {
         else {
             imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
             searchBar.setText(searchBar.getText().toString().trim().replaceAll("\\s+", " "));
+            searchBar.setSelection(searchBar.getText().toString().length());
             bussen.setQuestion(searchBar.getText().toString().trim());
 
             new AtbThreadTest(getApplicationContext()).execute();

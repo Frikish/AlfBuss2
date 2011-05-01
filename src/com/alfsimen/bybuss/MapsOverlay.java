@@ -48,6 +48,11 @@ public class MapsOverlay extends ItemizedOverlay {
         populate();
     }
 
+    public void setMarker(OverlayItem overlay, Drawable marker) {
+        overlay.setMarker(boundCenter(marker));
+        populate();
+    }
+
     public void myPopulate() {
 
     }
@@ -102,22 +107,28 @@ public class MapsOverlay extends ItemizedOverlay {
             dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
+                    Drawable defaultMarker = mContext.getResources().getDrawable(R.drawable.gps_marker);
                     if(fra == null) {
+                        if(GoogleMaps.fromItem != null)
+                            setMarker(GoogleMaps.fromItem, defaultMarker);
+                        if(GoogleMaps.toItem != null)
+                            setMarker(GoogleMaps.toItem, defaultMarker);
+
                         fra = item.getTitle();
                         searchBar.setText(item.getTitle() + mContext.getText(R.string.search_separator).toString());
                         searchBar.setSelection(searchBar.getText().toString().length());
-                        //Drawable draw = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
-                        //OverlayItem temp = new OverlayItem(item.getPoint(), item.getTitle(), "Punktet du reiser ifra");
-                        //temp.setMarker(draw);
-                        //mOverlays.remove(item);
-                        //mOverlays.add(temp);
+                        Drawable from = mContext.getResources().getDrawable(R.drawable.gps_marker_green);
+                        GoogleMaps.fromItem = item;
+                        setMarker(item, from);
                     }
                     else {
                         til = item.getTitle();
                         searchBar.setText(fra + mContext.getText(R.string.search_separator).toString() + til);
                         searchBar.setSelection(searchBar.getText().toString().length());
+                        Drawable to = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                        GoogleMaps.toItem = item;
+                        setMarker(item, to);
                         fra = til = null;
-                        //TODO: fix nullsetting of red overlay?
                     }
                     return;
                 }

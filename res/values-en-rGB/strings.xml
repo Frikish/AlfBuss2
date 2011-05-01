@@ -20,8 +20,11 @@
     <string name="toast_empty_question">The searchfield are empty \-\_\-</string>
     <string name="toast_need_two_stops">Need two bus-stops with \'to\' in between</string>
     <string name="toast_dummy_text_question">You need to fill inn some stops, now it\'s just dummy\-text</string>
-    <string name="search_separator"> to </string>
+
+    <string name="search_separator">&#160;to&#160;</string>
+    <string name="search_separator_nostart">to&#160;</string>
     <string name="search_separator_nospace">to</string>
+
     <string name="toast_turn_on_gps_wifi">Turn on WiFi/gps in settings</string>
     <string name="toast_loading_stops">Loading busstops</string>
     <string name="dialog_edit_autocomplete">Edit</string>
