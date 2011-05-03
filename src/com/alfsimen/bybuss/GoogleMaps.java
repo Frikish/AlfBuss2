@@ -36,7 +36,7 @@ public class GoogleMaps extends MapActivity {
     private MapView mapView;
     private MapController mapController;
     private MyLocationOverlay myLocOverlay;
-    private ToggleButton geoButton;
+   // private ToggleButton geoButton;
     private Button searchButton;
     private AutoCompleteTextView searchBar;
     private XmlParser xmlParser;
@@ -96,17 +96,25 @@ public class GoogleMaps extends MapActivity {
 
         myLocOverlay = new MyLocationOverlay(this, mapView);
         mapView.getOverlays().add(myLocOverlay);
+        if(!myLocOverlay.enableMyLocation()) {
+            Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
+        }
+        myLocOverlay.runOnFirstFix(new Runnable() {
+            public void run() {
+                mapView.getController().animateTo(myLocOverlay.getMyLocation());
+                }
+        });
 
         mapOverlays = mapView.getOverlays();
 
         new mapFillBusStopLoadThread().execute();
 
-        geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
-        geoButton.setEnabled(false);
+        //geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
+        //geoButton.setEnabled(false);
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
 
-        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+     /*   LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = lm.getAllProviders();
         for(int i = 0; i < providers.size(); i ++) {
             if(providers.get(i).equals(LocationManager.GPS_PROVIDER))
@@ -114,7 +122,7 @@ public class GoogleMaps extends MapActivity {
                 geoButton.setOnClickListener(new GeoButtonClickListener());
                 geoButton.setEnabled(true);
             }
-        }
+        }  */
 
         bussen = new AtbBussorakel();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -147,6 +155,13 @@ public class GoogleMaps extends MapActivity {
 
         answerDialog();
         aboutDialog();
+
+        if(!prefs.getBoolean("firstTimeUse", false)) {
+            aboutDialog.show();
+            final SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean("firstTimeUse", true);
+            edit.commit();
+        }
     }
 
     @Override
@@ -159,9 +174,8 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(geoButton.isChecked()) {
-            myLocOverlay.enableMyLocation();
-        }
+        //if(geoButton.isChecked()) {
+        myLocOverlay.enableMyLocation();
         populateFields();
     }
 
@@ -291,7 +305,7 @@ public class GoogleMaps extends MapActivity {
         });
     }
 
-    private void doSearch() {
+    public void doSearch() {
         Toast.makeText(getApplicationContext(), R.string.toast_wait_for_oracle, Toast.LENGTH_LONG).show();
         if(searchBar.getText().length() <= 0) {
             Toast.makeText(getApplicationContext(), R.string.toast_empty_question, Toast.LENGTH_LONG).show();
@@ -422,9 +436,9 @@ public class GoogleMaps extends MapActivity {
 
     private final class GeoButtonClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            if(geoButton.isChecked()) {
+          //  if(geoButton.isChecked()) {
                 if(!myLocOverlay.enableMyLocation()) {
-                    geoButton.toggle();
+                    //geoButton.toggle();
                     Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
                     myLocOverlay.disableMyLocation();
                 }
@@ -439,11 +453,11 @@ public class GoogleMaps extends MapActivity {
                         }
                     });
                 }
-            }
-            else {
+          //  }
+        /*    else {
                 myLocOverlay.disableMyLocation();
                 //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd av", Toast.LENGTH_SHORT).show();
-            }
+            }  */
         }
     }
 
@@ -519,7 +533,7 @@ public class GoogleMaps extends MapActivity {
             holdeplasser = xmlParser.getHoldeplasser();
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
-            itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar);
+            itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton);
 
             for(Holdeplass plass : holdeplasser) {
                 overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");

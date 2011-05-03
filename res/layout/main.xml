@@ -39,7 +39,7 @@
                     />
             </TableRow>
         </TableLayout>
-        <TextView
+       <!-- <TextView
             android:id="@+id/answer_TV"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
@@ -68,7 +68,7 @@
                     android:textOff="Geolocate"
                     />
             </TableRow>
-        </TableLayout>
+        </TableLayout> -->
     </RelativeLayout>
    <!-- <TableLayout android:id="@+id/bottom_table"
                  android:layout_width="fill_parent"

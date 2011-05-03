@@ -3,27 +3,27 @@
     <string name="app_name">Alf\'s ByBuss Trondheim</string>
     <string name="custom_title">AtB bus schedules in Trondheim</string>
     <string name="search_button">Search</string>
-    <string name="search_field">(bus-stop) to (bus-stop)</string>
+    <string name="search_field">(bus-stop) til (bus-stop)</string>
     <string name="adress_button">Get address</string>
     <string name="reverse_button">Reverse search</string>
-    <string name="menu_reverse_button">Revere search</string>
+    <string name="menu_reverse_button">Reverse search</string>
     <string name="menu_address_button">Use your address</string>
     <string name="menu_last_answer_button">Show last answer</string>
     <string name="prefs_last_answer">LAST_ANSWER</string>
-    <string name="menu_about">About</string>
+    <string name="menu_about">About / Howto use</string>
     <string name="internet_warning_message">Got no contact with internet, activate either EDGE/3G/4G etc or WiFi</string>
-    <string name="no_location_on_geolocate">N location found, turn on Geolocate</string>
+    <string name="no_location_on_geolocate">N location found, turn on GPS/WiFi?</string>
     <string name="dialog_orakel_title">The answer from the Oracle</string>
     <string name="dialog_orakel_message_noanswer">No answer yet</string>
     <string name="dialog_orakel_okbutton">Done</string>
     <string name="toast_wait_for_oracle">Waiting for an answer</string>
-    <string name="toast_empty_question">The searchfield are empty \-\_\-</string>
+    <string name="toast_empty_question">The searchfield are empty -\_-</string>
     <string name="toast_need_two_stops">Need two bus-stops with \'to\' in between</string>
-    <string name="toast_dummy_text_question">You need to fill inn some stops, now it\'s just dummy\-text</string>
+    <string name="toast_dummy_text_question">You need to fill inn some stops, now it\'s just dummy-text</string>
 
-    <string name="search_separator">&#160;to&#160;</string>
-    <string name="search_separator_nostart">to&#160;</string>
-    <string name="search_separator_nospace">to</string>
+    <string name="search_separator">&#160;til&#160;</string>
+    <string name="search_separator_nostart">til&#160;</string>
+    <string name="search_separator_nospace">til</string>
 
     <string name="toast_turn_on_gps_wifi">Turn on WiFi/gps in settings</string>
     <string name="toast_loading_stops">Loading busstops</string>
@@ -31,15 +31,24 @@
     <string name="dialog_edit_autocomplete_del">Delete</string>
     <string name="orakel_no_contact">Were unable to search, check internet connectivity</string>
 
-    <string name="ukjent_busstop_name">Don\'t know the name of the bus\-stop, use geolocate and \"use address\" in menu or manually write the bus\-stop name</string>
+    <string name="ukjent_busstop_name">Don\'t know the name of the bus-stop, use geolocate and \"use address\" in menu or manually write the bus-stop name</string>
     <string name="reise_fra">Travel from&#160;</string>
     <string name="reise_til">Travel to&#160;</string>
     <string name="ja">yes</string>
     <string name="nei">no</string>
 
-    <string name="version">0.7.01</string>
-    <string name="about_string">Version 0.7.01\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com</string>
-    <string name="help_string">For å søke skriver du inne \&quot;Sentrum til Buran\&quot;, eller ved full søkestreng som f.eks. \&quot;Når går bussen fra Sentrum til Buran for å være der innen kl 2000\&quot;</string>
+    <string name="version">0.7.10</string>
+    <string name="about_string">Version 0.7.10\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in 2 different ways:\n\n
+                                1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
+                                \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
+                                2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
+                                Unless you write a full sentence when asking the Oracle, it will not understand that you ask in English and it will answer you in Norwegian, I\'m sorry I cannot do something to fix this at the moment\n\n
+                                This dialog can be found by pressing menu and choosing \"About / Howto use\"</string>
+    <string name="help_string">The app can be used in 2 different ways:\n\n
+                                1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
+                                \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
+                                2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
+                                Unless you write a full sentence when asking the Oracle, it will not understand that you ask in English and it will answer you in Norwegian, I\'m sorry I cannot do something to fix this at the moment</string>
 
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>

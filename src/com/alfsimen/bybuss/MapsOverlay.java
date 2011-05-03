@@ -3,12 +3,10 @@ package com.alfsimen.bybuss;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.widget.Button;
 import android.widget.EditText;
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 import java.util.ArrayList;
@@ -27,6 +25,7 @@ public class MapsOverlay extends ItemizedOverlay {
     private String fra = null;
     private String til = null;
     private EditText searchBar;
+    private Button searchButton;
 
     public MapsOverlay(Drawable defaultMarker) {
         super(boundCenter(defaultMarker));
@@ -41,6 +40,13 @@ public class MapsOverlay extends ItemizedOverlay {
         super(boundCenter(defaultMarker));
         mContext = context;
         searchBar = searchbar;
+    }
+
+    public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton) {
+        super(boundCenter(defaultMarker));
+        mContext = context;
+        searchBar = searchbar;
+        searchButton = searchbutton;
     }
 
     public void addOverlay(OverlayItem overlay) {
@@ -68,7 +74,7 @@ public class MapsOverlay extends ItemizedOverlay {
     }
 
     @Override
-    protected boolean onTap(int index) {  //TODO: fix translation here!!!
+    protected boolean onTap(int index) {
         final OverlayItem item = mOverlays.get(index);
 
         String words [] = searchBar.getText().toString().split(" ");
@@ -120,6 +126,7 @@ public class MapsOverlay extends ItemizedOverlay {
                         Drawable from = mContext.getResources().getDrawable(R.drawable.gps_marker_green);
                         GoogleMaps.fromItem = item;
                         setMarker(item, from);
+                        populate();
                     }
                     else {
                         til = item.getTitle();
@@ -128,6 +135,8 @@ public class MapsOverlay extends ItemizedOverlay {
                         Drawable to = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
                         GoogleMaps.toItem = item;
                         setMarker(item, to);
+                        populate();
+                        searchButton.performClick();
                         fra = til = null;
                     }
                     return;
