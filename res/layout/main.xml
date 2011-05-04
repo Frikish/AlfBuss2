@@ -30,6 +30,7 @@
                       android:singleLine="true"
                       android:textSize="8pt"
                       android:layout_marginLeft="4px"
+                      android:hint="@string/search_field_hint"
                       android:text="@string/search_field"
                   />
                 <Button android:id="@+id/search_button"

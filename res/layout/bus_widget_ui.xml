@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:singleLine="true"
+        android:editable="true"
         android:text="@string/search_field" />
     <Button
         android:id="@+id/widgetSearchButton"

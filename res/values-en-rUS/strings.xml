@@ -4,6 +4,8 @@
     <string name="custom_title">AtB bus schedules in Trondheim</string>
     <string name="search_button">Search</string>
     <string name="search_field">(bus-stop) til (bus-stop)</string>
+    <string name="search_field_hint">Search here or use map</string>
+
     <string name="adress_button">Get address</string>
     <string name="reverse_button">Reverse search</string>
     <string name="menu_reverse_button">Reverse search</string>

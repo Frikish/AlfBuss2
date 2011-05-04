@@ -4,6 +4,7 @@
     <string name="custom_title">AtB busstider i Trondheim</string>
     <string name="search_button">Søk</string>
     <string name="search_field">(holdeplass) til (holdeplass)</string>
+    <string name="search_field_hint">Søk her eller bruk kartet</string>
     <string name="adress_button">Hent adresse</string>
     <string name="reverse_button">Reverser søk</string>
     <string name="menu_reverse_button">Reverser søk</string>
