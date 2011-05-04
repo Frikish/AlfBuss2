@@ -41,11 +41,12 @@ public class BusWidgetProvider extends AppWidgetProvider{
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
         for(int appWidgetId : appWidgetIds) {
-            Intent intent = new Intent(context, BusWidget.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            //Intent intent = new Intent(context, BusWidget.class);
+            //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
             RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.bus_widget_ui);
-            remoteView.setOnClickPendingIntent(R.id.widgetSearchButton, pendingIntent);
+            //remoteView.setTextViewText(R.id.widgetAutoComplete, "trollololo");
+            //remoteView.setOnClickPendingIntent(R.id.widgetSearchButton, pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, remoteView);
         }

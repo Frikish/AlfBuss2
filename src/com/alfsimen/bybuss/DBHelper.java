@@ -36,11 +36,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     "date TEXT" +
                     ");";
 
-    private static final String DATABASE_CREATE_ANSWER =
-            "CREATE TBLE " + DATABASE_TABLE_ANSWER + " (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "content TEXT" +
-                    ");";
-
     public void close() {
         getWritableDatabase().close();
     }
@@ -198,7 +193,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
         db.execSQL(DATABASE_CREATE_URL);
-        //db.execSQL(DATABASE_CREATE_ANSWER);
     }
 
     @Override
@@ -206,7 +200,6 @@ public class DBHelper extends SQLiteOpenHelper {
         //android.util.Log.w("Constants", "Upgrading database, which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE);
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE_URL);
-        //db.execSQL("DROP TABLE IF EXISTS " + DATABASE_CREATE_ANSWER);
         onCreate(db);
     }
 }

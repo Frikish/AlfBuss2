@@ -39,59 +39,6 @@
                     />
             </TableRow>
         </TableLayout>
-       <!-- <TextView
-            android:id="@+id/answer_TV"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="50px"
-            android:layout_marginLeft="4px"
-            android:layout_marginRight="4px"
-            android:textColor="#FF0000"
-            />
-        <TableLayout
-            android:id="@+id/bottomTable"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            >
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                >
-                <ToggleButton
-                    android:id="@+id/togglebutton_geo"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="left"
-                    android:textOn="Geolocate"
-                    android:textOff="Geolocate"
-                    />
-            </TableRow>
-        </TableLayout> -->
     </RelativeLayout>
-   <!-- <TableLayout android:id="@+id/bottom_table"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:stretchColumns="0">
-
-    </TableLayout>
-
-    <Button
-                    android:id="@+id/addressbutton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="right"
-                    android:text="@string/adress_button"
-                    />
-                <Button
-                    android:id="@+id/reversebutton"
-                    android:layout_height="fill_parent"
-                    android:layout_width="fill_parent"
-                    android:text="@string/reverse_button"
-                    />
-
-                    -->
 </LinearLayout>
 

@@ -36,7 +36,6 @@ public class GoogleMaps extends MapActivity {
     private MapView mapView;
     private MapController mapController;
     private MyLocationOverlay myLocOverlay;
-   // private ToggleButton geoButton;
     private Button searchButton;
     private AutoCompleteTextView searchBar;
     private XmlParser xmlParser;
@@ -109,20 +108,8 @@ public class GoogleMaps extends MapActivity {
 
         new mapFillBusStopLoadThread().execute();
 
-        //geoButton = (ToggleButton) findViewById(R.id.togglebutton_geo);
-        //geoButton.setEnabled(false);
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
-
-     /*   LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        List<String> providers = lm.getAllProviders();
-        for(int i = 0; i < providers.size(); i ++) {
-            if(providers.get(i).equals(LocationManager.GPS_PROVIDER))
-            {
-                geoButton.setOnClickListener(new GeoButtonClickListener());
-                geoButton.setEnabled(true);
-            }
-        }  */
 
         bussen = new AtbBussorakel();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -436,9 +423,7 @@ public class GoogleMaps extends MapActivity {
 
     private final class GeoButtonClickListener implements View.OnClickListener {
         public void onClick(View v) {
-          //  if(geoButton.isChecked()) {
                 if(!myLocOverlay.enableMyLocation()) {
-                    //geoButton.toggle();
                     Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
                     myLocOverlay.disableMyLocation();
                 }
@@ -453,11 +438,6 @@ public class GoogleMaps extends MapActivity {
                         }
                     });
                 }
-          //  }
-        /*    else {
-                myLocOverlay.disableMyLocation();
-                //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd av", Toast.LENGTH_SHORT).show();
-            }  */
         }
     }
 
@@ -620,9 +600,6 @@ public class GoogleMaps extends MapActivity {
                     new ListUpdateThread(1, -1).execute();
                 }
                 answerDialogSetText(bussen.getAnswer());
-
-                //answerView.setText(bussen.getAnswer());
-               // new MarkBusStops(getApplicationContext()).execute();
             }
         }
     }
@@ -650,9 +627,6 @@ public class GoogleMaps extends MapActivity {
                 ((ArrayAdapter<String>) adapter).add(searchBar.getText().toString().trim());
                 ((ArrayAdapter<String>) adapter).notifyDataSetChanged();
             }
-            /* else if(mode == 2) {
-                ((ArrayAdapter<String>) adapter).remove();
-            }           */
         }
     }
 }

@@ -20,6 +20,7 @@ public final class R {
         public static final int menu_last_search=0x7f020006;
         public static final int menu_reverse_icon=0x7f020007;
         public static final int menu_use_address=0x7f020008;
+        public static final int widget_frame_portrait_4x1=0x7f020009;
     }
     public static final class id {
         public static final int MapView=0x7f080004;
