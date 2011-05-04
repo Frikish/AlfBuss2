@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.RemoteViews;
 
 /**
@@ -15,6 +16,7 @@ import android.widget.RemoteViews;
  * To change this template use File | Settings | File Templates.
  */
 public class BusWidgetProvider extends AppWidgetProvider{
+    private EditText searchBar;
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
