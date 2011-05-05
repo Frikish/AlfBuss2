@@ -33,8 +33,8 @@ public final class R {
         public static final int search_button=0x7f080007;
         public static final int search_entry_autocomplete=0x7f080006;
         public static final int top_table=0x7f080005;
-        public static final int widgetAutoComplete=0x7f080000;
         public static final int widgetSearchButton=0x7f080001;
+        public static final int widgetTextView=0x7f080000;
     }
     public static final class layout {
         public static final int bus_widget_ui=0x7f030000;
