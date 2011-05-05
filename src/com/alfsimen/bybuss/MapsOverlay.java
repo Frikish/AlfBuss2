@@ -22,8 +22,8 @@ public class MapsOverlay extends ItemizedOverlay {
     private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
     private Context mContext;
 
-    private String fra = null;
-    private String til = null;
+    public String fra = null;
+    public String til = null;
     private EditText searchBar;
     private Button searchButton;
 
@@ -59,8 +59,15 @@ public class MapsOverlay extends ItemizedOverlay {
         populate();
     }
 
-    public void myPopulate() {
-
+    public void blankSearchBar() {
+        fra = null;
+        til = null;
+        Drawable defaultMarker = mContext.getResources().getDrawable(R.drawable.gps_marker);
+        if(GoogleMaps.fromItem != null)
+            setMarker(GoogleMaps.fromItem, defaultMarker);
+        if(GoogleMaps.toItem != null)
+            setMarker(GoogleMaps.toItem, defaultMarker);
+        populate();
     }
 
     @Override

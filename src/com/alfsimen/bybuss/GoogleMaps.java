@@ -14,6 +14,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -119,6 +121,7 @@ public class GoogleMaps extends MapActivity {
         searchBar.setMaxWidth(searchBar.getWidth());    //wait wat?
         searchBar.setOnClickListener(new SearchBarClickListener());
         searchBar.setOnKeyListener(new SearchBarOnKeyListener());
+        searchBar.addTextChangedListener(new SearchBarTextChangedListener());
         searchBar.setOnFocusChangeListener(new SearchBarOnFoucusChange());
 
         searchButton.setOnClickListener(new SearchButtonOnClickListener());
@@ -390,6 +393,7 @@ public class GoogleMaps extends MapActivity {
                     add += addresses.get(0).getAddressLine(i);
                 }
             }
+            itemizedOverlay.fra = add;
             searchBar.setText(add + getText(R.string.search_separator));
             searchBar.setSelection(searchBar.getText().toString().length());
         }
@@ -468,6 +472,18 @@ public class GoogleMaps extends MapActivity {
                 imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
             }
         }
+    }
+
+    private final class SearchBarTextChangedListener implements TextWatcher {
+        public void afterTextChanged(Editable s) {
+            if(s.length() <= 0) {
+                itemizedOverlay.blankSearchBar();
+            }
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+        public void onTextChanged(CharSequence s, int start, int before, int count){}
+
     }
 
     private final class ReverseButtonOnClickListener implements View.OnClickListener {
