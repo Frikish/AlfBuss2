@@ -24,6 +24,8 @@
     <string name="toast_need_two_stops">Trenger 2 holdeplasser og ordet \'til\' imellom de</string>
     <string name="toast_dummy_text_question">Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet</string>
 
+    <string name="widget_dummy_text">Her vil ditt siste søk dukke opp\n\n\n\n\n\n\nEND?</string>
+
     <string name="search_separator">&#160;til&#160;</string>
     <string name="search_separator_nostart">til&#160;</string>
     <string name="search_separator_nospace">til</string>

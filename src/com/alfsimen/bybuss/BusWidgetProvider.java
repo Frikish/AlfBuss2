@@ -6,7 +6,9 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.EditText;
 import android.widget.RemoteViews;
 
@@ -18,7 +20,8 @@ import android.widget.RemoteViews;
  * To change this template use File | Settings | File Templates.
  */
 public class BusWidgetProvider extends AppWidgetProvider{
-    private EditText searchBar;
+
+    private SharedPreferences prefs;
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
@@ -44,18 +47,20 @@ public class BusWidgetProvider extends AppWidgetProvider{
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
         for(int appWidgetId : appWidgetIds) {
             Intent intent = new Intent(context, BusWidget.class);
-
-            Bundle b = new Bundle();
-            b.putString(SearchManager.QUERY, "lol");
-            intent.putExtras(b);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.bus_widget_ui);
 
-            //remoteView.setTextViewText(R.id.widgetAutoComplete, "trollololo");
-            remoteView.setOnClickPendingIntent(R.id.widgetSearchButton, pendingIntent);
+            String answer = prefs.getString(context.getString(R.string.prefs_last_answer).toString(), "");
+            answer.replaceAll("\\s+", " ");
+            //answer.replaceAll("\\r\\n", " ");
+
+            remoteView.setTextViewText(R.id.widgetTextView, answer);
+            //remoteView.setOnClickPendingIntent(R.id.widgetRefreshButton, pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, remoteView);
         }

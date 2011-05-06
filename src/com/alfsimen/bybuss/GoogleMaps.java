@@ -283,9 +283,15 @@ public class GoogleMaps extends MapActivity {
         answerDialog.setNeutralButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if(prefs.getString(getString(R.string.prefs_last_search), null) != null) {
-                    bussen.setQuestion(prefs.getString(getString(R.string.prefs_last_search), "").toString());
+                    if(!checkConnection()) {
+                        internetWarning.show();
+                    }
+                    else
+                    {
+                        bussen.setQuestion(prefs.getString(getString(R.string.prefs_last_search), "").toString());
 
-                    new AtbThreadTest(getApplicationContext()).execute();
+                        new AtbThreadTest(getApplicationContext()).execute();
+                    }
                 }
             }
         });

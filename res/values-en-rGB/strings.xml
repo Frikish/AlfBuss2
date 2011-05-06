@@ -25,6 +25,8 @@
     <string name="toast_need_two_stops">Need two bus-stops with \'to\' in between</string>
     <string name="toast_dummy_text_question">You need to fill inn some stops, now it\'s just dummy-text</string>
 
+    <string name="widget_dummy_text">Your last search will be here\n\n\n\n\n\n\n\n\n\n\n\n</string>
+
     <string name="search_separator">&#160;til&#160;</string>
     <string name="search_separator_nostart">til&#160;</string>
     <string name="search_separator_nospace">til</string>

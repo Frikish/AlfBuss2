@@ -2,26 +2,22 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1.0"
-    android:background="@drawable/widget_frame_portrait_4x1">
-    <TextView
-        android:id="@+id/widgetTextView"
+    android:layout_height="fill_parent">
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_weight="0.75"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="40px"
-        android:singleLine="true"
-        android:editable="true"
-        android:hint="@string/search_field_hint"
-        android:text="@string/search_field" />
-    <Button
-        android:id="@+id/widgetSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40px"
-        android:layout_weight="0.25"
-        android:text="@string/search_button" />
+        android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/widgetTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:text="@string/widget_dummy_text" />
+        <!--<Button
+            android:id="@+id/widgetRefreshButton"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/dialog_orakel_refreshbutton" />  -->
+    </RelativeLayout>
 </LinearLayout>
