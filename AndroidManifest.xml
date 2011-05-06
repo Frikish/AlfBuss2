@@ -13,19 +13,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="BusWidget"
-                  android:label="Widget"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
-        />
-        <receiver android:name=".BusWidgetProvider"
-                android:label="@string/app_name"
-                android:enabled="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/bus_widget" />
-        </receiver>
     </application>
     <uses-sdk
         android:minSdkVersion="4"
