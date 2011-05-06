@@ -11,6 +11,7 @@
     <string name="menu_address_button">Bruk adressen din</string>
     <string name="menu_last_answer_button">Vis siste svar</string>
     <string name="prefs_last_answer">LAST_ANSWER</string>
+    <string name="prefs_last_search">LAST_SEARCH</string>
     <string name="menu_about">About / Hvordan bruke</string>
     <string name="internet_warning_message">Mangler kontakt med internet, aktiver enten EDGE/3G/4G etc eller WiFi</string>
     <string name="no_location_on_geolocate">Ingen lokasjon funnet, skru på GPS/WiFi?</string>

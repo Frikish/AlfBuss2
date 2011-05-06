@@ -12,6 +12,7 @@
     <string name="menu_address_button">Use your address</string>
     <string name="menu_last_answer_button">Show last answer</string>
     <string name="prefs_last_answer">LAST_ANSWER</string>
+    <string name="prefs_last_search">LAST_SEARCH</string>
     <string name="menu_about">About / Howto use</string>
     <string name="internet_warning_message">Got no contact with internet, activate either EDGE/3G/4G etc or WiFi</string>
     <string name="no_location_on_geolocate">N location found, turn on GPS/WiFi?</string>

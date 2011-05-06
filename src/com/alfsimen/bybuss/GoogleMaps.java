@@ -305,6 +305,9 @@ public class GoogleMaps extends MapActivity {
             searchBar.setText(searchBar.getText().toString().trim().replaceAll("\\s+", " "));
             searchBar.setSelection(searchBar.getText().toString().length());
             bussen.setQuestion(searchBar.getText().toString().trim());
+            final SharedPreferences.Editor edit = prefs.edit();
+            edit.putString(getString(R.string.prefs_last_search), searchBar.getText().toString().trim());
+            edit.commit();
 
             new AtbThreadTest(getApplicationContext()).execute();
         }
