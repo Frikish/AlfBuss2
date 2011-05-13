@@ -20,25 +20,25 @@ public class MyXMLHandler extends DefaultHandler {
     Holdeplass plass;
     private ArrayList<Holdeplass> list;
 
-    public ArrayList<Holdeplass> getHoldeplasList() {
+    public ArrayList<Holdeplass> getHoldeplassList() {
         return list;
     }
 
-    public void setHoldeplassList(ArrayList list) {
+    public void setHoldeplassList(ArrayList<Holdeplass> list) {
         this.list = list;
     }
 
     @Override
     public void startElement(String url, String localName, String qName, Attributes attributes) throws SAXException {
         currentElement = true;
-        plass = new Holdeplass();
 
         if(localName.equals("osm")) {
             list = new ArrayList<Holdeplass>();
         }
         else if(localName.equals("node")) {
-            plass.setLatitude(Double.valueOf(attributes.getValue("lat")));
-            plass.setLongtitude(Double.valueOf(attributes.getValue("lon")));
+            plass = new Holdeplass();
+            plass.setLatitude(Double.parseDouble(attributes.getValue("lat")));
+            plass.setLongtitude(Double.parseDouble(attributes.getValue("lon")));
         }
         else if(localName.equals("tag")) {
             plass.setName(attributes.getValue("v"));
@@ -48,7 +48,8 @@ public class MyXMLHandler extends DefaultHandler {
     @Override
     public void endElement(String url, String localName, String qName) throws SAXException {
         currentElement = false;
-
-        list.add(plass);
+        if(localName.equalsIgnoreCase("node")) {
+            list.add(plass);
+        }
     }
 }

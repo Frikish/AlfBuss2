@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -40,7 +39,7 @@ public class GoogleMaps extends MapActivity {
     private MyLocationOverlay myLocOverlay;
     private Button searchButton;
     private AutoCompleteTextView searchBar;
-    private XmlParser xmlParser;
+    private MySaxParser xmlParserMy;
     private ArrayList<Holdeplass> holdeplasser;
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
@@ -545,8 +544,8 @@ public class GoogleMaps extends MapActivity {
         @Override
         protected Void doInBackground(Void... params) {
             InputStream in = getResources().openRawResource(R.raw.holdeplasser);
-            xmlParser = new XmlParser(in);
-            holdeplasser = xmlParser.getHoldeplasser();
+            xmlParserMy = new MySaxParser(in);
+            holdeplasser = xmlParserMy.getHoldeplasser();
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
             itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton);

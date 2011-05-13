@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Time: 9:57 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SaxParser {
+public class MySaxParser {
     private String filename = "/res/raw/holdeplasser.xml";
     private ArrayList<Holdeplass> list = new ArrayList<Holdeplass>();
     private SAXParserFactory spf;
@@ -26,7 +26,7 @@ public class SaxParser {
     private XMLReader xr;
     private InputStream xmlFile;
 
-    public void SaxParser(InputStream io) {
+    public MySaxParser(InputStream io) {
         xmlFile = io;
         parseXML();
         parse();
@@ -59,7 +59,7 @@ public class SaxParser {
         catch (SAXException f) {
             f.printStackTrace();
         }
-        //myXMLHandler.getHoldeplasList();
+        list = myXMLHandler.getHoldeplassList();
     }
 
     public ArrayList<Holdeplass> getHoldeplasser() {
