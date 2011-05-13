@@ -164,6 +164,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return getWritableDatabase().delete(DATABASE_TABLE_URL, "_id=" + itemId, null);
     }
 
+    public int deleteHistoryRow(String search) {
+        return getWritableDatabase().delete(DATABASE_TABLE_URL, "title=" + search, null);
+    }
+
     // ANSWER STUFF
 
     public void overWriteLastAnswer(String answer) {

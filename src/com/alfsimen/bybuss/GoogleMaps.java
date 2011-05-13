@@ -45,6 +45,8 @@ public class GoogleMaps extends MapActivity {
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
 
+    private boolean stopFillDone;
+
     public static OverlayItem fromItem;
     public static OverlayItem toItem;
 
@@ -70,6 +72,8 @@ public class GoogleMaps extends MapActivity {
         requestCustomTitleBar();
         setContentView(R.layout.main);
         setCustomTitle(getString(R.string.custom_title).toString());
+
+        stopFillDone = false;
 
         mapView = (MapView) findViewById(R.id.MapView);
         mapView.setBuiltInZoomControls(true);
@@ -140,6 +144,7 @@ public class GoogleMaps extends MapActivity {
             adapter = new ArrayAdapter<String>(this, R.layout.history_list_item, searches);
             searchBar.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            //searchBar.setOnCreateContextMenuListener(new OnItemLongHold());
         }
         cursor.close();
 
@@ -225,17 +230,14 @@ public class GoogleMaps extends MapActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case CONTEXTMENU_DELETEITEM:
-                if (db.deleteHistoryRow(db.getHistoryItemId(searchBar.getAdapter().getItem((int) info.id).toString())) > 0) {
+                if(db.deleteHistoryRow(db.getHistoryItemId(searchBar.getAdapter().getItem((int) info.id).toString())) > 0) {
                     Toast.makeText(getApplicationContext(), "Slettet", Toast.LENGTH_SHORT).show();
-                    new ListUpdateThread(2, (int) info.id).execute();
-                } else {
-                    Toast.makeText(getApplicationContext(), "En feil oppstod. Du kan rapportere feilen ved å sende mail til . Takk!", Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
                 return onContextItemSelected(item);
         }
-    }  */
+    }    */
 
     protected void requestCustomTitleBar()
     {
@@ -274,13 +276,13 @@ public class GoogleMaps extends MapActivity {
         answerDialog = new AlertDialog.Builder(mapView.getContext());
         answerDialog.setTitle(R.string.dialog_orakel_title);
         answerDialog.setMessage(R.string.dialog_orakel_message_noanswer);
-        answerDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
+        answerDialog.setNeutralButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 return;
             }
         });
-        answerDialog.setNeutralButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
+        answerDialog.setPositiveButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if(prefs.getString(getString(R.string.prefs_last_search), null) != null) {
                     if(!checkConnection()) {
@@ -494,7 +496,7 @@ public class GoogleMaps extends MapActivity {
 
     private final class SearchBarTextChangedListener implements TextWatcher {
         public void afterTextChanged(Editable s) {
-            if(s.length() <= 0) {
+            if(s.length() <= 0 && stopFillDone == true) {
                 itemizedOverlay.blankSearchBar();
             }
         }
@@ -570,6 +572,7 @@ public class GoogleMaps extends MapActivity {
             else {
                 mapController.setCenter(mapView.getMapCenter());
             }
+            stopFillDone = true;
             //Toast.makeText(getApplicationContext(), "Loading av bussholdeplasser ferdig", Toast.LENGTH_SHORT).show();
         }
     }

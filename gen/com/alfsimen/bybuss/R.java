@@ -46,9 +46,9 @@ public final class R {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f050029;
-        public static final int APIdebugKey=0x7f050028;
-        public static final int about_string=0x7f050026;
+        public static final int APIKey=0x7f05002b;
+        public static final int APIdebugKey=0x7f05002a;
+        public static final int about_string=0x7f050028;
         public static final int adress_button=0x7f050005;
         public static final int app_name=0x7f050000;
         public static final int custom_title=0x7f050001;
@@ -58,7 +58,8 @@ public final class R {
         public static final int dialog_orakel_okbutton=0x7f050011;
         public static final int dialog_orakel_refreshbutton=0x7f050012;
         public static final int dialog_orakel_title=0x7f05000f;
-        public static final int help_string=0x7f050027;
+        public static final int edit=0x7f050025;
+        public static final int help_string=0x7f050029;
         public static final int internet_warning_message=0x7f05000d;
         public static final int ja=0x7f050023;
         public static final int menu_about=0x7f05000c;
@@ -79,6 +80,7 @@ public final class R {
         public static final int search_separator=0x7f050018;
         public static final int search_separator_nospace=0x7f05001a;
         public static final int search_separator_nostart=0x7f050019;
+        public static final int slett=0x7f050026;
         public static final int toast_dummy_text_question=0x7f050016;
         public static final int toast_empty_question=0x7f050014;
         public static final int toast_loading_stops=0x7f05001c;
@@ -86,7 +88,7 @@ public final class R {
         public static final int toast_turn_on_gps_wifi=0x7f05001b;
         public static final int toast_wait_for_oracle=0x7f050013;
         public static final int ukjent_busstop_name=0x7f050020;
-        public static final int version=0x7f050025;
+        public static final int version=0x7f050027;
         public static final int widget_dummy_text=0x7f050017;
     }
 }
