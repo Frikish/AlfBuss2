@@ -374,8 +374,10 @@ public class GoogleMaps extends MapActivity {
             if(!checkConnection()) {
                 internetWarning.show();
             }
-            else
+            else {
+                itemizedOverlay.reverseStops();
                 doSearch();
+            }
 
             /*String tmp = searchBar.getText().toString();
             String [] parts = tmp.split(getString(R.string.search_separator_nospace));
@@ -652,7 +654,11 @@ public class GoogleMaps extends MapActivity {
             {
                 answerDialogSetText(getString(R.string.help_string));
                 //answerView.setText(getString(R.string.answer_field));
-            } else
+            }
+            else if(bussen.getAnswer().trim().startsWith(getString(R.string.orakel_specify_answer))) {
+                answerDialogSetText(getString(R.string.orakel_specify_solution));
+            }
+            else
             {
                 if (!isInDatabase(context, searchBar.getText().toString().trim()))
                 {

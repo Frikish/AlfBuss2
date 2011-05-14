@@ -75,10 +75,35 @@ public class MapsOverlay extends ItemizedOverlay {
         fra = null;
         til = null;
         Drawable defaultMarker = mContext.getResources().getDrawable(R.drawable.gps_marker);
-        if(GoogleMaps.fromItem != null)
+        if(GoogleMaps.fromItem != null) {
             setMarker(GoogleMaps.fromItem, defaultMarker);
-        if(GoogleMaps.toItem != null)
+            GoogleMaps.fromItem = null;
+        }
+        if(GoogleMaps.toItem != null) {
             setMarker(GoogleMaps.toItem, defaultMarker);
+            GoogleMaps.toItem = null;
+        }
+        mapView.invalidate();
+    }
+
+    public void reverseStops() {
+        String tmp = fra;
+        fra = til;
+        til = tmp;
+
+        OverlayItem tmpOI = GoogleMaps.fromItem;
+        GoogleMaps.fromItem = GoogleMaps.toItem;
+        GoogleMaps.toItem = tmpOI;
+
+        if(GoogleMaps.fromItem != null) {
+            Drawable from = mContext.getResources().getDrawable(R.drawable.gps_marker_green);
+            setMarker(GoogleMaps.fromItem, from);
+        }
+        if(GoogleMaps.toItem != null) {
+            Drawable to = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+            setMarker(GoogleMaps.toItem, to);
+        }
+
         mapView.invalidate();
     }
 

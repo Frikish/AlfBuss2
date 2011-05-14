@@ -45,6 +45,9 @@
     <string name="edit">Editer</string>
     <string name="slett">Slett</string>
 
+    <string name="orakel_specify_answer">Jeg kan ikke finne flere ruteforbindelser på</string>
+    <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
+
     <string name="version">0.7.16</string>
     <string name="about_string">Version 0.7.16\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på 2 forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.

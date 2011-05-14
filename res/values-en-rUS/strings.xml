@@ -46,6 +46,9 @@
     <string name="edit">Edit</string>
     <string name="slett">Delete</string>
 
+    <string name="orakel_specify_answer">I cannot find any more connections on</string>
+    <string name="orakel_specify_solution">I cannot find any more connections on that route today</string>
+
     <string name="version">0.7.16</string>
     <string name="about_string">Version 0.7.16\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in 2 different ways:\n\n
                                 1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like

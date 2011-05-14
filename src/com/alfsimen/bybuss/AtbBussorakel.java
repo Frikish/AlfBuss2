@@ -17,6 +17,7 @@ public class AtbBussorakel {
     private String question;
     private String answer;
     private URI uri;
+    private boolean fixed;
 
     /**
      * Create an instance of Busstuc
@@ -81,8 +82,10 @@ public class AtbBussorakel {
             sc.useDelimiter("\\Z");
             content = sc.next();
             answer = content;
+            fixed = false;
         } else {
             answer =  "Error";
+            fixed = true;
         }
     }
 
@@ -94,7 +97,7 @@ public class AtbBussorakel {
     public String getAnswer() {
         String tmpAnswer2 = answer.replaceAll("\\s+", " ");
         String[] words = tmpAnswer2.split(" ");
-        if(words.length > 4) {
+        if(words.length > 4 && !fixed) {
             String finalAnswer = "";
             String start = "";
             String end = "";
@@ -106,7 +109,7 @@ public class AtbBussorakel {
                         start += words[k];
                         start += " ";
                     }
-                    for(int l = k+1; l < words.length; l++) {
+                    for(int l = k; l < words.length; l++) {
                         end += words[l];
                         end += " ";
                     }
@@ -125,8 +128,9 @@ public class AtbBussorakel {
                 else
                     finalAnswer += ".";
             }
-
-            return start + finalAnswer;
+            answer = start + finalAnswer;
+            fixed = true;
+            return answer;
         }
         else
             return answer;
