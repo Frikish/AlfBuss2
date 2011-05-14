@@ -548,12 +548,15 @@ public class GoogleMaps extends MapActivity {
             holdeplasser = xmlParserMy.getHoldeplasser();
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
-            itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton);
+            itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton, mapView);
+            int count = 0;
 
             for(Holdeplass plass : holdeplasser) {
+                count++;
                 overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");
                 itemizedOverlay.addOverlay(overlayItem);
             }
+            itemizedOverlay.myPopulate();
             return null;
         }
 
