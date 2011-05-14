@@ -12,9 +12,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -84,20 +86,6 @@ public class GoogleMaps extends MapActivity {
         GeoPoint point = new GeoPoint((int) (63.4181 * 1E6), (int) (10.4057 * 1E6));
         mapController.setCenter(point);
 
-        internetWarning = new AlertDialog.Builder(mapView.getContext());
-        internetWarning.setTitle("Internet");
-        internetWarning.setMessage(R.string.internet_warning_message);
-        internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                return;
-            }
-        });
-
-        if(!checkConnection()) {
-            internetWarning.show();
-        }
-
         myLocOverlay = new MyLocationOverlay(this, mapView);
         mapView.getOverlays().add(myLocOverlay);
         if(!myLocOverlay.enableMyLocation()) {
@@ -112,6 +100,11 @@ public class GoogleMaps extends MapActivity {
         mapOverlays = mapView.getOverlays();
 
         new mapFillBusStopLoadThread().execute();
+
+        createInternetWarningDialog();
+        if(!checkConnection()) {
+            internetWarning.show();
+        }
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
@@ -253,6 +246,18 @@ public class GoogleMaps extends MapActivity {
     /*
     *   div functions
      */
+
+    private void createInternetWarningDialog() {
+        internetWarning = new AlertDialog.Builder(mapView.getContext());
+        internetWarning.setTitle("Internet");
+        internetWarning.setMessage(R.string.internet_warning_message);
+        internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                return;
+            }
+        });
+    }
 
     private boolean checkConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -404,6 +409,7 @@ public class GoogleMaps extends MapActivity {
     public void getAddressesOfCurrentPos(GeoPoint point) {
         Geocoder geoCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         try{
+            itemizedOverlay.blankSearchBar();
             List<Address> addresses = geoCoder.getFromLocation(point.getLatitudeE6() / 1E6, point.getLongitudeE6() / 1E6, 1);
 
             String add = "";
@@ -543,19 +549,33 @@ public class GoogleMaps extends MapActivity {
     class mapFillBusStopLoadThread extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
+            long startNow;
+            long endNow;
+            startNow = SystemClock.uptimeMillis();
             InputStream in = getResources().openRawResource(R.raw.holdeplasser);
+            endNow = SystemClock.uptimeMillis();
+            Log.d("HENTE XML", "time used: " + (endNow - startNow) + " ms");
+            startNow = SystemClock.uptimeMillis();
             xmlParserMy = new MySaxParser(in);
+            endNow = SystemClock.uptimeMillis();
+            Log.d("PARSE XML", "time used: " + (endNow - startNow) + " ms");
+            startNow = SystemClock.uptimeMillis();
             holdeplasser = xmlParserMy.getHoldeplasser();
+            endNow = SystemClock.uptimeMillis();
+            Log.d("HENTE UT HOLDEPLASSER", "time used: " + (endNow - startNow) + " ms");
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
             itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton, mapView);
             int count = 0;
 
+            startNow = SystemClock.uptimeMillis();
             for(Holdeplass plass : holdeplasser) {
                 count++;
                 overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");
                 itemizedOverlay.addOverlay(overlayItem);
             }
+            endNow = SystemClock.uptimeMillis();
+            Log.d("HOLDEPLASSER LAGT TIL OVERLAY", "time used: " + (endNow - startNow) + " ms");
             itemizedOverlay.myPopulate();
             return null;
         }
