@@ -39,8 +39,6 @@ public class MyXMLHandler extends DefaultHandler {
             plass = new Holdeplass();
             plass.setLatitude(Double.parseDouble(attributes.getValue("lat")));
             plass.setLongtitude(Double.parseDouble(attributes.getValue("lon")));
-        }
-        else if(localName.equals("tag")) {
             plass.setName(attributes.getValue("v"));
         }
     }
