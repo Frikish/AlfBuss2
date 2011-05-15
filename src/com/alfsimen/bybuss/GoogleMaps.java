@@ -551,33 +551,33 @@ public class GoogleMaps extends MapActivity {
     class mapFillBusStopLoadThread extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            long startNow;
-            long endNow;
-            startNow = SystemClock.uptimeMillis();
+            //long startNow;
+            //long endNow;
+            //startNow = SystemClock.uptimeMillis();
             InputStream in = getResources().openRawResource(R.raw.holdeplasser);
-            endNow = SystemClock.uptimeMillis();
-            Log.d("HENTE XML", "time used: " + (endNow - startNow) + " ms");
-            startNow = SystemClock.uptimeMillis();
+            //endNow = SystemClock.uptimeMillis();
+            //Log.d("ALF; HENTE XML", "time used: " + (endNow - startNow) + " ms");
+            //startNow = SystemClock.uptimeMillis();
             xmlParserMy = new MySaxParser(in);
-            endNow = SystemClock.uptimeMillis();
-            Log.d("PARSE XML", "time used: " + (endNow - startNow) + " ms");
-            startNow = SystemClock.uptimeMillis();
+            //endNow = SystemClock.uptimeMillis();
+            //Log.d("ALF; PARSE XML", "time used: " + (endNow - startNow) + " ms");
+            //startNow = SystemClock.uptimeMillis();
             holdeplasser = xmlParserMy.getHoldeplasser();
-            endNow = SystemClock.uptimeMillis();
-            Log.d("HENTE UT HOLDEPLASSER", "time used: " + (endNow - startNow) + " ms");
+            //endNow = SystemClock.uptimeMillis();
+            //Log.d("ALF; HENTE UT HOLDEPLASSER", "time used: " + (endNow - startNow) + " ms");
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
             itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton, mapView);
             int count = 0;
 
-            startNow = SystemClock.uptimeMillis();
+            //startNow = SystemClock.uptimeMillis();
             for(Holdeplass plass : holdeplasser) {
                 count++;
                 overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");
                 itemizedOverlay.addOverlay(overlayItem);
             }
-            endNow = SystemClock.uptimeMillis();
-            Log.d("HOLDEPLASSER LAGT TIL OVERLAY", "time used: " + (endNow - startNow) + " ms");
+            //endNow = SystemClock.uptimeMillis();
+            //Log.d("ALF; HOLDEPLASSER LAGT TIL OVERLAY", "time used: " + (endNow - startNow) + " ms");
             itemizedOverlay.myPopulate();
             return null;
         }

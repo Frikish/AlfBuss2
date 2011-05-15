@@ -15,7 +15,7 @@
     <string name="prefs_last_search">LAST_SEARCH</string>
     <string name="menu_about">About / Howto use</string>
     <string name="internet_warning_message">Got no contact with internet, activate either EDGE/3G/4G etc or WiFi</string>
-    <string name="no_location_on_geolocate">N location found, turn on GPS/WiFi?</string>
+    <string name="no_location_on_geolocate">No location found, turn on GPS/WiFi?</string>
     <string name="dialog_orakel_title">The answer from the Oracle</string>
     <string name="dialog_orakel_message_noanswer">No answer yet</string>
     <string name="dialog_orakel_okbutton">Done</string>
@@ -49,8 +49,8 @@
     <string name="orakel_specify_answer">I cannot find any more connections on</string>
     <string name="orakel_specify_solution">I cannot find any more connections on that route today</string>
 
-    <string name="version">0.7.16</string>
-    <string name="about_string">Version 0.7.16\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in 2 different ways:\n\n
+    <string name="version">1.0.1</string>
+    <string name="about_string">Version 1.0.1\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in 2 different ways:\n\n
                                 1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
                                 \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
                                 2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
