@@ -45,6 +45,9 @@
     <string name="edit">Editer</string>
     <string name="slett">Slett</string>
 
+    <!-- ActionBar -->
+    <string name="description_logo">Google I/O 2011</string>
+
     <string name="orakel_specify_answer">Jeg kan ikke finne flere ruteforbindelser på</string>
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 

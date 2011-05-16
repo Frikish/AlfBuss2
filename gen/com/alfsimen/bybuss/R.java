@@ -11,16 +11,19 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int defaulticon=0x7f020000;
-        public static final int gps_marker=0x7f020001;
-        public static final int gps_marker_green=0x7f020002;
-        public static final int gps_marker_red=0x7f020003;
-        public static final int icon=0x7f020004;
-        public static final int menu_about=0x7f020005;
-        public static final int menu_last_search=0x7f020006;
-        public static final int menu_reverse_icon=0x7f020007;
-        public static final int menu_use_address=0x7f020008;
-        public static final int widget_frame_portrait_4x1=0x7f020009;
+        public static final int actionbar_compat_background=0x7f020000;
+        public static final int colorstrip=0x7f020001;
+        public static final int colorstrip_shadow=0x7f020002;
+        public static final int defaulticon=0x7f020003;
+        public static final int gps_marker=0x7f020004;
+        public static final int gps_marker_green=0x7f020005;
+        public static final int gps_marker_red=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int menu_about=0x7f020008;
+        public static final int menu_last_search=0x7f020009;
+        public static final int menu_reverse_icon=0x7f02000a;
+        public static final int menu_use_address=0x7f02000b;
+        public static final int widget_frame_portrait_4x1=0x7f02000c;
     }
     public static final class id {
         public static final int MapView=0x7f070002;
