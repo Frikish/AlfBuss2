@@ -9,91 +9,697 @@ package com.alfsimen.bybuss;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatButtonStyle=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatLogoStyle=0x7f010003;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatProgressIndicatorStyle=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatSeparatorStyle=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatTextStyle=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int borderDrawable=0x7f010012;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int columns=0x7f010007;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dividerColor=0x7f01000e;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int endHour=0x7f010010;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int headerWidth=0x7f010008;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int horizontalDivider=0x7f01000a;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int hourHeight=0x7f010009;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelColor=0x7f01000d;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelPaddingLeft=0x7f01000c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelTextSize=0x7f01000b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskDrawable=0x7f010011;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int startHour=0x7f01000f;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textHeaderMaxLines=0x7f010005;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int trackAbstractMaxLines=0x7f010006;
+    }
+    public static final class color {
+        public static final int accent_1=0x7f050006;
+        public static final int actionbar_text=0x7f050000;
+        public static final int all_track_color=0x7f05000a;
+        public static final int background_1=0x7f050008;
+        public static final int block_column_1=0x7f05000b;
+        public static final int block_column_2=0x7f05000c;
+        public static final int block_column_3=0x7f05000d;
+        public static final int body_text_1=0x7f050001;
+        public static final int body_text_1_inverse=0x7f050004;
+        public static final int body_text_2=0x7f050002;
+        public static final int body_text_2_inverse=0x7f050005;
+        public static final int body_text_disabled=0x7f050003;
+        public static final int hyperlink=0x7f050007;
+        public static final int whats_on_separator=0x7f050009;
+    }
+    public static final class dimen {
+        public static final int actionbar_compat_height=0x7f060001;
+        public static final int body_padding_large=0x7f06000f;
+        /**  body content 
+         */
+        public static final int body_padding_medium=0x7f06000e;
+        /**  UI elements 
+         */
+        public static final int colorstrip_height=0x7f060000;
+        public static final int schedule_header_padding=0x7f060005;
+        public static final int schedule_hour_height=0x7f060006;
+        public static final int schedule_label_header_width=0x7f060007;
+        public static final int schedule_label_padding=0x7f060008;
+        public static final int speaker_image_padding=0x7f060015;
+        public static final int speaker_image_size=0x7f060014;
+        public static final int star_button_padding=0x7f060009;
+        public static final int tab_height=0x7f06000a;
+        public static final int tab_side_padding=0x7f06000b;
+        public static final int text_size_large=0x7f060012;
+        public static final int text_size_medium=0x7f060011;
+        public static final int text_size_small=0x7f060010;
+        public static final int text_size_xlarge=0x7f060013;
+        public static final int track_icon_padding=0x7f06000d;
+        public static final int track_icon_width=0x7f06000c;
+        public static final int vendor_image_size=0x7f060016;
+        public static final int whats_on_button_right_padding=0x7f060004;
+        public static final int whats_on_height=0x7f060002;
+        public static final int whats_on_item_padding=0x7f060003;
     }
     public static final class drawable {
         public static final int actionbar_compat_background=0x7f020000;
-        public static final int colorstrip=0x7f020001;
-        public static final int colorstrip_shadow=0x7f020002;
-        public static final int defaulticon=0x7f020003;
-        public static final int gps_marker=0x7f020004;
-        public static final int gps_marker_green=0x7f020005;
-        public static final int gps_marker_red=0x7f020006;
-        public static final int icon=0x7f020007;
-        public static final int menu_about=0x7f020008;
-        public static final int menu_last_search=0x7f020009;
-        public static final int menu_reverse_icon=0x7f02000a;
-        public static final int menu_use_address=0x7f02000b;
-        public static final int widget_frame_portrait_4x1=0x7f02000c;
+        public static final int actionbar_compat_button=0x7f020001;
+        public static final int actionbar_compat_logo=0x7f020002;
+        public static final int actionbar_compat_separator=0x7f020003;
+        public static final int background_noise=0x7f020004;
+        public static final int background_noise_tile=0x7f020005;
+        public static final int btn=0x7f020006;
+        public static final int btn_bg_pressed=0x7f020007;
+        public static final int btn_bg_selected=0x7f020008;
+        public static final int btn_default=0x7f020009;
+        public static final int btn_focused=0x7f02000a;
+        public static final int btn_pressed=0x7f02000b;
+        public static final int colorstrip=0x7f02000c;
+        public static final int colorstrip_shadow=0x7f02000d;
+        public static final int defaulticon=0x7f02000e;
+        public static final int gps_marker=0x7f02000f;
+        public static final int gps_marker_green=0x7f020010;
+        public static final int gps_marker_red=0x7f020011;
+        public static final int icon=0x7f020012;
+        public static final int menu_about=0x7f020013;
+        public static final int menu_last_search=0x7f020014;
+        public static final int menu_reverse_icon=0x7f020015;
+        public static final int menu_use_address=0x7f020016;
+        public static final int whats_on_button=0x7f020017;
+        public static final int whats_on_button_default=0x7f020018;
+        public static final int whats_on_button_pressed=0x7f020019;
+        public static final int widget_frame_portrait_4x1=0x7f02001a;
     }
     public static final class id {
-        public static final int MapView=0x7f070002;
-        public static final int headerSmallLogoImgVw=0x7f070001;
-        public static final int headerTitleTextVw=0x7f070000;
-        public static final int menu_about=0x7f070009;
-        public static final int menu_get_address=0x7f070006;
-        public static final int menu_last_search=0x7f070008;
-        public static final int menu_reverse_search=0x7f070007;
-        public static final int search_button=0x7f070005;
-        public static final int search_entry_autocomplete=0x7f070004;
-        public static final int top_table=0x7f070003;
+        public static final int MapView=0x7f070010;
+        public static final int actionbar_compat=0x7f070000;
+        public static final int actionbar_compat_container=0x7f070001;
+        public static final int actionbar_compat_logo=0x7f070002;
+        public static final int actionbar_compat_text=0x7f070003;
+        public static final int blocks_now=0x7f07000c;
+        public static final int blocks_ruler=0x7f07000b;
+        public static final int colorstrip=0x7f07000d;
+        public static final int dialog_discard_confirm=0x7f070009;
+        public static final int dialog_moderator=0x7f07000a;
+        public static final int fragment_session_detail=0x7f070005;
+        public static final int fragment_sessions=0x7f070004;
+        public static final int fragment_vendor_detail=0x7f070007;
+        public static final int fragment_vendors=0x7f070006;
+        public static final int headerSmallLogoImgVw=0x7f07000f;
+        public static final int headerTitleTextVw=0x7f07000e;
+        public static final int menu_about=0x7f070017;
+        public static final int menu_get_address=0x7f070014;
+        public static final int menu_last_search=0x7f070016;
+        public static final int menu_refresh_progress=0x7f070008;
+        public static final int menu_reverse_search=0x7f070015;
+        public static final int search_button=0x7f070013;
+        public static final int search_entry_autocomplete=0x7f070012;
+        public static final int top_table=0x7f070011;
     }
     public static final class layout {
-        public static final int custom_titlebar=0x7f030000;
-        public static final int history_list_item=0x7f030001;
-        public static final int main=0x7f030002;
+        public static final int actionbar=0x7f030000;
+        public static final int colorstrip=0x7f030001;
+        public static final int custom_titlebar=0x7f030002;
+        public static final int history_list_item=0x7f030003;
+        public static final int main=0x7f030004;
     }
     public static final class menu {
-        public static final int maps_menu=0x7f060000;
+        public static final int maps_menu=0x7f0a0000;
     }
     public static final class raw {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f05002d;
-        public static final int APIdebugKey=0x7f05002c;
-        public static final int about_string=0x7f05002a;
-        public static final int adress_button=0x7f050005;
-        public static final int app_name=0x7f050000;
-        public static final int custom_title=0x7f050001;
-        public static final int dialog_edit_autocomplete=0x7f05001d;
-        public static final int dialog_edit_autocomplete_del=0x7f05001e;
-        public static final int dialog_orakel_message_noanswer=0x7f050010;
-        public static final int dialog_orakel_okbutton=0x7f050011;
-        public static final int dialog_orakel_refreshbutton=0x7f050012;
-        public static final int dialog_orakel_title=0x7f05000f;
-        public static final int edit=0x7f050025;
-        public static final int help_string=0x7f05002b;
-        public static final int internet_warning_message=0x7f05000d;
-        public static final int ja=0x7f050023;
-        public static final int menu_about=0x7f05000c;
-        public static final int menu_address_button=0x7f050008;
-        public static final int menu_last_answer_button=0x7f050009;
-        public static final int menu_reverse_button=0x7f050007;
-        public static final int nei=0x7f050024;
-        public static final int no_location_on_geolocate=0x7f05000e;
-        public static final int orakel_no_contact=0x7f05001f;
-        public static final int orakel_specify_answer=0x7f050027;
-        public static final int orakel_specify_solution=0x7f050028;
-        public static final int prefs_last_answer=0x7f05000a;
-        public static final int prefs_last_search=0x7f05000b;
-        public static final int reise_fra=0x7f050021;
-        public static final int reise_til=0x7f050022;
-        public static final int reverse_button=0x7f050006;
-        public static final int search_button=0x7f050002;
-        public static final int search_field=0x7f050003;
-        public static final int search_field_hint=0x7f050004;
-        public static final int search_separator=0x7f050018;
-        public static final int search_separator_nospace=0x7f05001a;
-        public static final int search_separator_nostart=0x7f050019;
-        public static final int slett=0x7f050026;
-        public static final int toast_dummy_text_question=0x7f050016;
-        public static final int toast_empty_question=0x7f050014;
-        public static final int toast_loading_stops=0x7f05001c;
-        public static final int toast_need_two_stops=0x7f050015;
-        public static final int toast_turn_on_gps_wifi=0x7f05001b;
-        public static final int toast_wait_for_oracle=0x7f050013;
-        public static final int ukjent_busstop_name=0x7f050020;
-        public static final int version=0x7f050029;
-        public static final int widget_dummy_text=0x7f050017;
+        public static final int APIKey=0x7f08002e;
+        public static final int APIdebugKey=0x7f08002d;
+        public static final int about_string=0x7f08002b;
+        public static final int adress_button=0x7f080005;
+        public static final int app_name=0x7f080000;
+        public static final int custom_title=0x7f080001;
+        /**  ActionBar 
+         */
+        public static final int description_logo=0x7f080027;
+        public static final int dialog_edit_autocomplete=0x7f08001d;
+        public static final int dialog_edit_autocomplete_del=0x7f08001e;
+        public static final int dialog_orakel_message_noanswer=0x7f080010;
+        public static final int dialog_orakel_okbutton=0x7f080011;
+        public static final int dialog_orakel_refreshbutton=0x7f080012;
+        public static final int dialog_orakel_title=0x7f08000f;
+        public static final int edit=0x7f080025;
+        public static final int help_string=0x7f08002c;
+        public static final int internet_warning_message=0x7f08000d;
+        public static final int ja=0x7f080023;
+        public static final int menu_about=0x7f08000c;
+        public static final int menu_address_button=0x7f080008;
+        public static final int menu_last_answer_button=0x7f080009;
+        public static final int menu_reverse_button=0x7f080007;
+        public static final int nei=0x7f080024;
+        public static final int no_location_on_geolocate=0x7f08000e;
+        public static final int orakel_no_contact=0x7f08001f;
+        public static final int orakel_specify_answer=0x7f080028;
+        public static final int orakel_specify_solution=0x7f080029;
+        public static final int prefs_last_answer=0x7f08000a;
+        public static final int prefs_last_search=0x7f08000b;
+        public static final int reise_fra=0x7f080021;
+        public static final int reise_til=0x7f080022;
+        public static final int reverse_button=0x7f080006;
+        public static final int search_button=0x7f080002;
+        public static final int search_field=0x7f080003;
+        public static final int search_field_hint=0x7f080004;
+        public static final int search_separator=0x7f080018;
+        public static final int search_separator_nospace=0x7f08001a;
+        public static final int search_separator_nostart=0x7f080019;
+        public static final int slett=0x7f080026;
+        public static final int toast_dummy_text_question=0x7f080016;
+        public static final int toast_empty_question=0x7f080014;
+        public static final int toast_loading_stops=0x7f08001c;
+        public static final int toast_need_two_stops=0x7f080015;
+        public static final int toast_turn_on_gps_wifi=0x7f08001b;
+        public static final int toast_wait_for_oracle=0x7f080013;
+        public static final int ukjent_busstop_name=0x7f080020;
+        public static final int version=0x7f08002a;
+        public static final int widget_dummy_text=0x7f080017;
     }
+    public static final class style {
+        public static final int ActionBarCompat=0x7f090003;
+        public static final int ActionBarCompatButton=0x7f090004;
+        public static final int ActionBarCompatLogo=0x7f090007;
+        public static final int ActionBarCompatProgressIndicator=0x7f090005;
+        public static final int ActionBarCompatSeparator=0x7f090006;
+        public static final int ActionBarCompatText=0x7f090008;
+        public static final int DashboardButton=0x7f090009;
+        /**  used for more complex list items, e.g. those with stars aligned to the top-right 
+         */
+        public static final int ListItemContainer=0x7f09000e;
+        public static final int ListItemContainerBase=0x7f09000c;
+        public static final int ListItemContent=0x7f09000f;
+        public static final int ListItemSubtitle=0x7f09000b;
+        public static final int ListItemTitle=0x7f09000a;
+        public static final int PushButton=0x7f090018;
+        /**  a simple list item is one whose container and content are the same view 
+         */
+        public static final int SimpleListItem=0x7f09000d;
+        /**   <item name="android:textIsSelectable">true</item>
+         */
+        public static final int TextBody=0x7f090017;
+        /**  body content 
+        <item name="android:textIsSelectable">true</item>
+         */
+        public static final int TextHeader=0x7f090013;
+        /**         <item name="android:textIsSelectable">true</item>
+         */
+        public static final int TextHeader2=0x7f090015;
+        /**    <item name="android:textIsSelectable">true</item>
+         */
+        public static final int TextHeader3=0x7f090016;
+        /**         <item name="android:textIsSelectable">true</item>
+         */
+        public static final int TextHeaderSub=0x7f090014;
+        /**  Base application theme is the default theme. 
+         */
+        public static final int Theme=0x7f090000;
+        /**  Variation on the Light theme that turns off the title 
+ custom attributes 
+        <item name="textHeaderMaxLines">3</item>
+        <item name="trackAbstractMaxLines">2</item>    
+ for programmatic instantiation 
+        <item name="actionbarCompatButtonStyle">@style/ActionBarCompatButton</item>
+        <item name="actionbarCompatProgressIndicatorStyle">@style/ActionBarCompatProgressIndicator</item>
+        <item name="actionbarCompatSeparatorStyle">@style/ActionBarCompatSeparator</item>
+        <item name="actionbarCompatLogoStyle">@style/ActionBarCompatLogo</item>
+        <item name="actionbarCompatTextStyle">@style/ActionBarCompatText</item>            
+         */
+        public static final int Theme_IOSched=0x7f090001;
+        /**  Start with the Holographic Light theme 
+         */
+        public static final int Theme_IOSched_Home=0x7f090002;
+        public static final int WhatsOnButtonItem=0x7f090012;
+        /**  What's On section in Home activity 
+         */
+        public static final int WhatsOnItemBase=0x7f090010;
+        public static final int WhatsOnStaticItem=0x7f090011;
+    }
+    public static final class styleable {
+        /** Attributes that can be used with a AppTheme.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatButtonStyle com.alfsimen.bybuss:actionbarCompatButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatLogoStyle com.alfsimen.bybuss:actionbarCompatLogoStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatProgressIndicatorStyle com.alfsimen.bybuss:actionbarCompatProgressIndicatorStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatSeparatorStyle com.alfsimen.bybuss:actionbarCompatSeparatorStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatTextStyle com.alfsimen.bybuss:actionbarCompatTextStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_textHeaderMaxLines com.alfsimen.bybuss:textHeaderMaxLines}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_trackAbstractMaxLines com.alfsimen.bybuss:trackAbstractMaxLines}</code></td><td></td></tr>
+           </table>
+           @see #AppTheme_actionbarCompatButtonStyle
+           @see #AppTheme_actionbarCompatLogoStyle
+           @see #AppTheme_actionbarCompatProgressIndicatorStyle
+           @see #AppTheme_actionbarCompatSeparatorStyle
+           @see #AppTheme_actionbarCompatTextStyle
+           @see #AppTheme_textHeaderMaxLines
+           @see #AppTheme_trackAbstractMaxLines
+         */
+        public static final int[] AppTheme = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#actionbarCompatButtonStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatButtonStyle
+        */
+        public static final int AppTheme_actionbarCompatButtonStyle = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#actionbarCompatLogoStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatLogoStyle
+        */
+        public static final int AppTheme_actionbarCompatLogoStyle = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#actionbarCompatProgressIndicatorStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatProgressIndicatorStyle
+        */
+        public static final int AppTheme_actionbarCompatProgressIndicatorStyle = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#actionbarCompatSeparatorStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatSeparatorStyle
+        */
+        public static final int AppTheme_actionbarCompatSeparatorStyle = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#actionbarCompatTextStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatTextStyle
+        */
+        public static final int AppTheme_actionbarCompatTextStyle = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#textHeaderMaxLines}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:textHeaderMaxLines
+        */
+        public static final int AppTheme_textHeaderMaxLines = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#trackAbstractMaxLines}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:trackAbstractMaxLines
+        */
+        public static final int AppTheme_trackAbstractMaxLines = 6;
+        /** Attributes that can be used with a BezelImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #BezelImageView_borderDrawable com.alfsimen.bybuss:borderDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #BezelImageView_maskDrawable com.alfsimen.bybuss:maskDrawable}</code></td><td></td></tr>
+           </table>
+           @see #BezelImageView_borderDrawable
+           @see #BezelImageView_maskDrawable
+         */
+        public static final int[] BezelImageView = {
+            0x7f010011, 0x7f010012
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#borderDrawable}
+          attribute's value can be found in the {@link #BezelImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:borderDrawable
+        */
+        public static final int BezelImageView_borderDrawable = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#maskDrawable}
+          attribute's value can be found in the {@link #BezelImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:maskDrawable
+        */
+        public static final int BezelImageView_maskDrawable = 0;
+        /** Attributes that can be used with a BlocksLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #BlocksLayout_columns com.alfsimen.bybuss:columns}</code></td><td></td></tr>
+           </table>
+           @see #BlocksLayout_columns
+         */
+        public static final int[] BlocksLayout = {
+            0x7f010007
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#columns}
+          attribute's value can be found in the {@link #BlocksLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:columns
+        */
+        public static final int BlocksLayout_columns = 0;
+        /** Attributes that can be used with a TimeRulerView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TimeRulerView_dividerColor com.alfsimen.bybuss:dividerColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_endHour com.alfsimen.bybuss:endHour}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_headerWidth com.alfsimen.bybuss:headerWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_horizontalDivider com.alfsimen.bybuss:horizontalDivider}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_hourHeight com.alfsimen.bybuss:hourHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelColor com.alfsimen.bybuss:labelColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelPaddingLeft com.alfsimen.bybuss:labelPaddingLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelTextSize com.alfsimen.bybuss:labelTextSize}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_startHour com.alfsimen.bybuss:startHour}</code></td><td></td></tr>
+           </table>
+           @see #TimeRulerView_dividerColor
+           @see #TimeRulerView_endHour
+           @see #TimeRulerView_headerWidth
+           @see #TimeRulerView_horizontalDivider
+           @see #TimeRulerView_hourHeight
+           @see #TimeRulerView_labelColor
+           @see #TimeRulerView_labelPaddingLeft
+           @see #TimeRulerView_labelTextSize
+           @see #TimeRulerView_startHour
+         */
+        public static final int[] TimeRulerView = {
+            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
+            0x7f010010
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#dividerColor}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:dividerColor
+        */
+        public static final int TimeRulerView_dividerColor = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#endHour}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:endHour
+        */
+        public static final int TimeRulerView_endHour = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#headerWidth}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:headerWidth
+        */
+        public static final int TimeRulerView_headerWidth = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#horizontalDivider}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:horizontalDivider
+        */
+        public static final int TimeRulerView_horizontalDivider = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#hourHeight}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:hourHeight
+        */
+        public static final int TimeRulerView_hourHeight = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#labelColor}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelColor
+        */
+        public static final int TimeRulerView_labelColor = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#labelPaddingLeft}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelPaddingLeft
+        */
+        public static final int TimeRulerView_labelPaddingLeft = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#labelTextSize}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelTextSize
+        */
+        public static final int TimeRulerView_labelTextSize = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.alfsimen.bybuss.R.attr#startHour}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:startHour
+        */
+        public static final int TimeRulerView_startHour = 7;
+    };
 }
