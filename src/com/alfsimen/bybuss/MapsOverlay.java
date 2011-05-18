@@ -12,13 +12,6 @@ import com.google.android.maps.OverlayItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by IntelliJ IDEA.
- * User: alf
- * Date: 4/9/11
- * Time: 2:36 AM
- * To change this template use File | Settings | File Templates.
- */
 public class MapsOverlay extends ItemizedOverlay {
     private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
     private Context mContext;
@@ -30,29 +23,29 @@ public class MapsOverlay extends ItemizedOverlay {
     private MapView mapView;
 
     public MapsOverlay(Drawable defaultMarker) {
-        super(boundCenter(defaultMarker));
+        super(boundCenterBottom(defaultMarker));
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context) {
-        super(boundCenter(defaultMarker));
+        super(boundCenterBottom(defaultMarker));
         mContext = context;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar) {
-        super(boundCenter(defaultMarker));
+        super(boundCenterBottom(defaultMarker));
         mContext = context;
         searchBar = searchbar;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton) {
-        super(boundCenter(defaultMarker));
+        super(boundCenterBottom(defaultMarker));
         mContext = context;
         searchBar = searchbar;
         searchButton = searchbutton;
     }
 
      public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton, MapView mapView) {
-        super(boundCenter(defaultMarker));
+        super(boundCenterBottom(defaultMarker));
         this.mContext = context;
         this.searchBar = searchbar;
         this.searchButton = searchbutton;
@@ -64,7 +57,7 @@ public class MapsOverlay extends ItemizedOverlay {
     }
 
     public void setMarker(OverlayItem overlay, Drawable marker) {
-        overlay.setMarker(boundCenter(marker));
+        overlay.setMarker(boundCenterBottom(marker));
     }
 
     public void myPopulate() {
@@ -139,21 +132,21 @@ public class MapsOverlay extends ItemizedOverlay {
          AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
          dialog.setTitle(item.getTitle());
          if(fra == null) {
-             if(item.getTitle() == "ukjent") {
+             if(item.getTitle().equals("ukjent")) {
                  dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
              }
              else
                 dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
          }
          else {
-             if(item.getTitle() == "ukjent") {
+             if(item.getTitle().equals("ukjent")) {
                 dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
              }
              else
                  dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
          }
 
-        if(item.getTitle() != "ukjent") {
+        if(!item.getTitle().equals("ukjent")) {
             dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -183,21 +176,18 @@ public class MapsOverlay extends ItemizedOverlay {
                         searchButton.performClick();
                         fra = til = null;
                     }
-                    return;
                 }
             });
 
             dialog.setNegativeButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
-                    return;
                 }
             });
         }
          else {
             dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    return;
                 }
             });
         }

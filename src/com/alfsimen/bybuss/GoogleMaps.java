@@ -28,13 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by IntelliJ IDEA.
- * User: alf
- * Date: 4/13/11
- * Time: 3:12 PM
- * To change this template use File | Settings | File Templates.
- */
 public class GoogleMaps extends MapActivity {
     private MapView mapView;
     private MapController mapController;
@@ -72,7 +65,7 @@ public class GoogleMaps extends MapActivity {
         super.onCreate(savedInstanceState);
         requestCustomTitleBar();
         setContentView(R.layout.main);
-        setCustomTitle(getString(R.string.custom_title).toString());
+        setCustomTitle(getString(R.string.custom_title));
 
         stopFillDone = false;
 
@@ -109,7 +102,7 @@ public class GoogleMaps extends MapActivity {
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
 
-        bussen = new AtbBussorakel();
+        bussen = new AtbBussorakel(getApplicationContext());
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         /*
         *   Searchbaren
@@ -138,7 +131,12 @@ public class GoogleMaps extends MapActivity {
             adapter.notifyDataSetChanged();
             //searchBar.setOnCreateContextMenuListener(new OnItemLongHold());
         }
-        cursor.close();
+        try {
+            cursor.close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
 
         answerDialog();
         aboutDialog();
@@ -254,7 +252,6 @@ public class GoogleMaps extends MapActivity {
         internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                return;
             }
         });
     }
@@ -283,7 +280,6 @@ public class GoogleMaps extends MapActivity {
         answerDialog.setNeutralButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                return;
             }
         });
         answerDialog.setPositiveButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
@@ -294,7 +290,7 @@ public class GoogleMaps extends MapActivity {
                     }
                     else
                     {
-                        bussen.setQuestion(prefs.getString(getString(R.string.prefs_last_search), "").toString());
+                        bussen.setQuestion(prefs.getString(getString(R.string.prefs_last_search), ""));
 
                         new AtbThreadTest(getApplicationContext()).execute();
                     }
@@ -311,7 +307,6 @@ public class GoogleMaps extends MapActivity {
         aboutDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                return;
             }
         });
     }
@@ -341,7 +336,7 @@ public class GoogleMaps extends MapActivity {
         boolean til = false;
         int pos = 0;
         for(int i = 0; i < words.length; i++) {
-            if(words[i].equalsIgnoreCase(getString(R.string.search_separator_nospace).toString())) {
+            if(words[i].equalsIgnoreCase(getString(R.string.search_separator_nospace))) {
                 pos = i;
                 til = true;
             }
@@ -443,7 +438,11 @@ public class GoogleMaps extends MapActivity {
                 c.moveToNext();
             }
         }
-        c.close();
+        try {
+            c.close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         _db.close();
         return false;
     }
@@ -503,7 +502,7 @@ public class GoogleMaps extends MapActivity {
 
     private final class SearchBarTextChangedListener implements TextWatcher {
         public void afterTextChanged(Editable s) {
-            if(s.length() <= 0 && stopFillDone == true) {
+            if(s.length() <= 0 && stopFillDone) {
                 itemizedOverlay.blankSearchBar();
             }
         }
@@ -689,8 +688,8 @@ public class GoogleMaps extends MapActivity {
         @Override
         protected void onPostExecute(Void unused) {
             if(mode == 1) {
-                ((ArrayAdapter<String>) adapter).add(searchBar.getText().toString().trim());
-                ((ArrayAdapter<String>) adapter).notifyDataSetChanged();
+                adapter.add(searchBar.getText().toString().trim());
+                adapter.notifyDataSetChanged();
             }
         }
     }

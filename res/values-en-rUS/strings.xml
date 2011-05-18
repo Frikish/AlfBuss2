@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="lang">eng</string>
+
     <string name="app_name">Alf\'s ByBuss Trondheim</string>
     <string name="custom_title">AtB bus schedules in Trondheim</string>
     <string name="search_button">Search</string>

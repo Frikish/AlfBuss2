@@ -7,6 +7,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
+
+import android.content.Context;
 import android.content.Context.*;
 
 /**
@@ -18,11 +20,13 @@ public class AtbBussorakel {
     private String answer;
     private URI uri;
     private boolean fixed;
+    private Context context;
 
     /**
      * Create an instance of Busstuc
      */
-    public AtbBussorakel() {
+    public AtbBussorakel(Context ctx) {
+        context = ctx;
         try {
             uri = new URI("http", "m.atb.no", "/xmlhttprequest.php?service=routeplannerOracle.getOracleAnswer&question=", null);
         } catch (URISyntaxException e) {
@@ -34,7 +38,7 @@ public class AtbBussorakel {
     /**
      * Set question
      *
-     * @param question
+     * @param question is the question used when asking
      */
     public void setQuestion(String question) {
         this.question = question;
@@ -54,14 +58,14 @@ public class AtbBussorakel {
     /**
      * Get answer fomr Bussorakelet
      *
-     * @return String
+     *
      */
     public void ask() {
-        String content = null;
+        String content;
         URLConnection conn = null;
         Scanner sc = null;
 
-        String tmpUri = this.uri.toString().replace("%3F", "?") + this.getQuestion().replace("%3F", "?");
+        String tmpUri = this.uri.toString().replace("%3F", "?") + this.getQuestion().replace("%3F", "?"); // + "&lang=" + context.getString(R.string.lang)
         tmpUri = tmpUri.replaceAll("\\s+", "%20");
 
         try {
@@ -75,6 +79,8 @@ public class AtbBussorakel {
         try {
             sc = new Scanner(conn.getInputStream());
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
