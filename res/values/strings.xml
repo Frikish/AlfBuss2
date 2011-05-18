@@ -51,15 +51,18 @@
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 
     <string name="version">1.0.2</string>
-    <string name="about_string">Version 1.0.2\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på 2 forskjellige måter:\n\n
+    <string name="about_string">Version 1.0.5\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
                                 \"Når går bussen fra Sentrum til Buran for å være der innen kl 2000?\"\n\n
                                 2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*\n\n
+                                3: Hente ut adressen ved å trykke "menu" så "Bruk adressen din" og så enten skrive inn til-holdeplass, eller velge den i mappet.\n\n
                                 Denne dialogen kan hentes frem igjen ved å trykke menu og velge \"About / Hvordan bruke\"</string>
     <string name="help_string">Appen kan brukes på 2 forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
                                 \"Når går bussen fra Sentrum til Buran for å være der innen kl 2000?\"\n\n
-                                2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*</string>
+                                2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*\n\n
+                                3: Hente ut adressen ved å trykke "menu" så "Bruk adressen din" og så enten skrive inn til-holdeplass, eller velge den i mappet.\n\n
+                                Denne dialogen kan hentes frem igjen ved å trykke menu og velge \"About / Hvordan bruke\"</string>
 
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>
