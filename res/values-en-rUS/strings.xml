@@ -56,14 +56,14 @@
                                     1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
                                     \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
                                     2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
-                                    3: Get your address by touching "menu" and then "Use your address" and then either writing the end-stopin searchbar or choosing it in the map.\n\n
+                                    3: Get your address by touching "menu" and then "Use your address" and then either writing the end-stop in searchbar or choosing it in the map.\n\n
                                     Unless you write a full sentence when asking the Oracle, it will not understand that you ask in English and it will answer you in Norwegian, I\'m sorry I cannot do something to fix this at the moment\n\n
                                     This dialog can be found by pressing menu and choosing \"About / Howto use\"</string>
     <string name="help_string">The app can be used in several different ways:\n\n
                                     1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
                                     \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
                                     2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
-                                    3: Get your address by touching "menu" and then "Use your address" and then either writing the end-stopin searchbar or choosing it in the map.\n\n
+                                    3: Get your address by touching "menu" and then "Use your address" and then either writing the end-stop in searchbar or choosing it in the map.\n\n
                                     Unless you write a full sentence when asking the Oracle, it will not understand that you ask in English and it will answer you in Norwegian, I\'m sorry I cannot do something to fix this at the moment.n\n
                                     This dialog can be found by pressing menu and choosing \"About / Howto use\"</string>
 

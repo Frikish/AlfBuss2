@@ -1,11 +1,13 @@
 package com.alfsimen.bybuss;
 
 public class Holdeplass {
+    private int id;
     private String name;
     private double latitude;
     private double longitude;
 
-    public Holdeplass(String name, double latitude, double longitude) {
+    public Holdeplass(int id, String name, double latitude, double longitude) {
+        this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -13,6 +15,14 @@ public class Holdeplass {
 
     public Holdeplass() {
 
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public void setName(String name) {
