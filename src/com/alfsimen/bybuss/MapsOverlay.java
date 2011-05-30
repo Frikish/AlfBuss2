@@ -5,13 +5,22 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.text.format.Time;
 import android.widget.Button;
 import android.widget.EditText;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
+import no.norrs.busbuddy.pub.api.model.Departure;
+import no.norrs.busbuddy.pub.api.model.DepartureContainer;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class MapsOverlay extends ItemizedOverlay {
     private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -182,17 +191,57 @@ public class MapsOverlay extends ItemizedOverlay {
                 }
             });
 
-            dialog.setNegativeButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
+            dialog.setNeutralButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
 
-            dialog.setNeutralButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    realtime = new AlertDialog.Builder(mContext);
                     realtime.setTitle(item.getTitle());
+                    String listen = "";
+                    DepartureContainer departures;
 
-                            //TODO: finnish!
+                    //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe
+
+                    try {
+                        departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+                        List<Departure> departureList = departures.getDepartures();
+
+                        Iterator<Departure> iterator = departureList.iterator();
+
+                        Departure dep;
+                        dep = iterator.next();
+
+                        LocalDateTime now = new LocalDateTime();
+
+
+                        listen += now.toString() +"\n";
+
+                        while(iterator.hasNext()) {
+
+                            listen += "Linje: " + dep.getLine() + " mot " + dep.getDestination() + "\t";
+                            listen += "RegTime: " + dep.getRegisteredDepartureTime() + " ";
+                            listen += "SchedTime: " + dep.getScheduledDepartureTime();
+                            listen += "\n\n";
+                            dep = iterator.next();
+                        }
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    realtime.setMessage(listen);
+                    realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            //TODO: kill timer og oppdateringer
+                        }
+                    });
+                    realtime.show();
                 }
             });
         }

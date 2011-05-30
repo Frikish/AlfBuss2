@@ -21,6 +21,7 @@ import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.google.android.maps.*;
+import no.norrs.busbuddy.pub.api.BusBuddyAPIServiceController;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,6 +58,8 @@ public class GoogleMaps extends MapActivity {
     private ArrayAdapter<String> adapter;
 
     private SharedPreferences prefs;
+
+    public static BusBuddyAPIServiceController realtimeController;
 
     protected static final int CONTEXTMENU_DELETEITEM = 0;
 
@@ -137,6 +140,7 @@ public class GoogleMaps extends MapActivity {
             e.printStackTrace();
         }
 
+        realtimeController = new BusBuddyAPIServiceController(getString(R.string.realtimeAPIkey));
 
         answerDialog();
         aboutDialog();

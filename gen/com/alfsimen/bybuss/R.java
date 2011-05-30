@@ -74,6 +74,7 @@ public final class R {
         public static final int orakel_specify_solution=0x7f05002a;
         public static final int prefs_last_answer=0x7f05000b;
         public static final int prefs_last_search=0x7f05000c;
+        public static final int realtimeAPIkey=0x7f050030;
         public static final int realtime_button=0x7f050026;
         public static final int reise_fra=0x7f050022;
         public static final int reise_til=0x7f050023;

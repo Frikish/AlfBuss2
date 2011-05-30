@@ -44,7 +44,7 @@
     <string name="reise_til">Travel to&#160;</string>
     <string name="ja">yes</string>
     <string name="nei">no</string>
-    <string name="realtime_button">realtime info</string>
+    <string name="realtime_button">realtime</string>
 
     <string name="edit">Edit</string>
     <string name="slett">Delete</string>
@@ -70,4 +70,5 @@
 
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>
+    <string name="realtimeAPIkey">7w2gLysyfz2uKf5w</string>
 </resources>

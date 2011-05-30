@@ -16,8 +16,8 @@
     </application>
     <uses-sdk
         android:minSdkVersion="4"
-        android:targetSdkVersion="10"
-        android:maxSdkVersion="10"
+        android:targetSdkVersion="8"
+        android:maxSdkVersion="11"
     />
     <uses-feature android:name="android.hardware.location" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
