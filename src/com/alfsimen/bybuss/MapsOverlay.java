@@ -16,6 +16,7 @@ import no.norrs.busbuddy.pub.api.model.DepartureContainer;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -144,113 +145,117 @@ public class MapsOverlay extends ItemizedOverlay {
          AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
          dialog.setTitle(item.getTitle());
          if(fra == null) {
-             if(item.getTitle().equals("ukjent")) {
-                 dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
-             }
-             else
-                dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
+             dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
          }
          else {
-             if(item.getTitle().equals("ukjent")) {
-                dialog.setMessage(mContext.getText(R.string.ukjent_busstop_name).toString());
-             }
-             else
-                 dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
+             dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
          }
 
-        if(!item.getTitle().equals("ukjent")) {
-            dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
-                //@Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Drawable defaultMarker = mContext.getResources().getDrawable(R.drawable.gps_marker);
-                    if(fra == null) {
-                        if(GoogleMaps.fromItem != null)
-                            setMarker(GoogleMaps.fromItem, defaultMarker);
-                        if(GoogleMaps.toItem != null)
-                            setMarker(GoogleMaps.toItem, defaultMarker);
+        dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+                Drawable defaultMarker = mContext.getResources().getDrawable(R.drawable.gps_marker);
+                if(fra == null) {
+                    if(GoogleMaps.fromItem != null)
+                        setMarker(GoogleMaps.fromItem, defaultMarker);
+                    if(GoogleMaps.toItem != null)
+                        setMarker(GoogleMaps.toItem, defaultMarker);
 
-                        fra = item.getTitle();
-                        searchBar.setText(item.getTitle() + mContext.getText(R.string.search_separator).toString());
-                        searchBar.setSelection(searchBar.getText().toString().length());
-                        Drawable from = mContext.getResources().getDrawable(R.drawable.gps_marker_green);
-                        GoogleMaps.fromItem = item;
-                        setMarker(item, from);
-                        mapView.invalidate();
-                    }
-                    else {
-                        til = item.getTitle();
-                        searchBar.setText(fra + mContext.getText(R.string.search_separator).toString() + til);
-                        searchBar.setSelection(searchBar.getText().toString().length());
-                        Drawable to = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
-                        GoogleMaps.toItem = item;
-                        setMarker(item, to);
-                        mapView.invalidate();
-                        searchButton.performClick();
-                        fra = til = null;
-                    }
+                    fra = item.getTitle();
+                    searchBar.setText(item.getTitle() + mContext.getText(R.string.search_separator).toString());
+                    searchBar.setSelection(searchBar.getText().toString().length());
+                    Drawable from = mContext.getResources().getDrawable(R.drawable.gps_marker_green);
+                    GoogleMaps.fromItem = item;
+                    setMarker(item, from);
+                    mapView.invalidate();
                 }
-            });
-
-            dialog.setNeutralButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
-                //@Override
-                public void onClick(DialogInterface dialog, int which) {
+                else {
+                    til = item.getTitle();
+                    searchBar.setText(fra + mContext.getText(R.string.search_separator).toString() + til);
+                    searchBar.setSelection(searchBar.getText().toString().length());
+                    Drawable to = mContext.getResources().getDrawable(R.drawable.gps_marker_red);
+                    GoogleMaps.toItem = item;
+                    setMarker(item, to);
+                    mapView.invalidate();
+                    searchButton.performClick();
+                    fra = til = null;
                 }
-            });
+            }
+        });
 
-            dialog.setNegativeButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    realtime = new AlertDialog.Builder(mContext);
-                    realtime.setTitle(item.getTitle());
-                    String listen = "";
-                    DepartureContainer departures;
+        dialog.setNeutralButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
 
-                    //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe
+        dialog.setNegativeButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                realtime = new AlertDialog.Builder(mContext);
+                realtime.setTitle(item.getTitle());
+                String listen = "";
+                DepartureContainer departures;
 
-                    try {
-                        departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+                //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe
+
+                try {
+                    //TODO: FIX FORCECLOSE SOMEWHERE HERE!
+                    departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+                    if(!departures.getDepartures().isEmpty()) {
                         List<Departure> departureList = departures.getDepartures();
-
                         Iterator<Departure> iterator = departureList.iterator();
 
                         Departure dep;
                         dep = iterator.next();
 
                         LocalDateTime now = new LocalDateTime();
+                        Minutes zero = Minutes.minutesBetween(now, now);
 
-
-                        listen += now.toString() +"\n";
+                        //listen += now.toString() +"\n";
 
                         while(iterator.hasNext()) {
-
-                            listen += "Linje: " + dep.getLine() + " mot " + dep.getDestination() + "\t";
-                            listen += "RegTime: " + dep.getRegisteredDepartureTime() + " ";
-                            listen += "SchedTime: " + dep.getScheduledDepartureTime();
-                            listen += "\n\n";
+                            if(dep.isRealtimeData()) {
+                                listen += "Linje " + dep.getLine() + " mot " + dep.getDestination() + " ";
+                                Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
+                                if(m.getMinutes() == 0)
+                                    listen += mContext.getString(R.string.realtime_NOW) + "\n\n";
+                                else
+                                    listen += Integer.toString(m.getMinutes()) + "min\n\n";
+                            }
+                            else {
+                                Minutes m = Minutes.minutesBetween(now, dep.getScheduledDepartureTime());
+                                if(m.isGreaterThan(zero)) {
+                                    listen += "Linje: " + dep.getLine() + " mot " + dep.getDestination() + "\t";
+                                    listen += "ca: " + Integer.toString(m.getMinutes()) + "min\n\n";
+                                }
+                            }
                             dep = iterator.next();
                         }
                     }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    else
+                        listen = mContext.getString(R.string.realtime_ingen_info);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                    realtime.setMessage(listen);
-                    realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            //TODO: kill timer og oppdateringer
-                        }
-                    });
-                    realtime.show();
-                }
-            });
-        }
-         else {
-            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-        }
+                realtime.setMessage(listen);
+                realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //TODO: kill timer og oppdateringer
+                    }
+                });
+
+                /*realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO: 0/1 id shift
+                    }
+                });            */
+                realtime.show();
+            }
+        });
 
         dialog.show();
         return true;

@@ -43,7 +43,11 @@
     <string name="reise_til">Reise til&#160;</string>
     <string name="ja">ja</string>
     <string name="nei">nei</string>
+
     <string name="realtime_button">realtime</string>
+    <string name="realtime_NOW">NÅ!</string>
+    <string name="realtime_snu_retning">andre veien</string>
+    <string name="realtime_ingen_info">Ingen realtime info å oppdrive :(</string>
 
     <string name="edit">Editer</string>
     <string name="slett">Slett</string>
@@ -52,7 +56,7 @@
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 
     <string name="version">1.0.2</string>
-    <string name="about_string">Version 1.0.5\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
+    <string name="about_string">Version 1.1.0\nUtviklet av: Alf Simen Sørensen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
                                 \"Når går bussen fra Sentrum til Buran for å være der innen kl 2000?\"\n\n
                                 2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*\n\n
