@@ -44,6 +44,7 @@
     <string name="reise_til">Travel to&#160;</string>
     <string name="ja">yes</string>
     <string name="nei">no</string>
+    <string name="realtime_button">realtime info</string>
 
     <string name="edit">Edit</string>
     <string name="slett">Delete</string>

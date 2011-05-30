@@ -1,6 +1,7 @@
 package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,8 @@ public class MapsOverlay extends ItemizedOverlay {
     private EditText searchBar;
     private Button searchButton;
     private MapView mapView;
+
+    private AlertDialog.Builder realtime;
 
     public MapsOverlay(Drawable defaultMarker) {
         super(boundCenterBottom(defaultMarker));
@@ -182,6 +185,14 @@ public class MapsOverlay extends ItemizedOverlay {
             dialog.setNegativeButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
                 //@Override
                 public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            dialog.setNeutralButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    realtime.setTitle(item.getTitle());
+
+                            //TODO: finnish!
                 }
             });
         }

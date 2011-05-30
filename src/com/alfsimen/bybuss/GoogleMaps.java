@@ -572,7 +572,7 @@ public class GoogleMaps extends MapActivity {
             //startNow = SystemClock.uptimeMillis();
             for(Holdeplass plass : holdeplasser) {
                 count++;
-                overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), "");
+                overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), Integer.toString(plass.getId()));
                 itemizedOverlay.addOverlay(overlayItem);
             }
             //endNow = SystemClock.uptimeMillis();
