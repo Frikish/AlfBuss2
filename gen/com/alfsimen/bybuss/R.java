@@ -46,9 +46,9 @@ public final class R {
         public static final int holdeplasser=0x7f040000;
     }
     public static final class string {
-        public static final int APIKey=0x7f050032;
-        public static final int APIdebugKey=0x7f050031;
-        public static final int about_string=0x7f05002f;
+        public static final int APIKey=0x7f050036;
+        public static final int APIdebugKey=0x7f050035;
+        public static final int about_string=0x7f050033;
         public static final int adress_button=0x7f050006;
         public static final int app_name=0x7f050001;
         public static final int custom_title=0x7f050002;
@@ -58,8 +58,8 @@ public final class R {
         public static final int dialog_orakel_okbutton=0x7f050012;
         public static final int dialog_orakel_refreshbutton=0x7f050013;
         public static final int dialog_orakel_title=0x7f050010;
-        public static final int edit=0x7f05002a;
-        public static final int help_string=0x7f050030;
+        public static final int edit=0x7f05002e;
+        public static final int help_string=0x7f050034;
         public static final int internet_warning_message=0x7f05000e;
         public static final int ja=0x7f050024;
         public static final int lang=0x7f050000;
@@ -70,14 +70,18 @@ public final class R {
         public static final int nei=0x7f050025;
         public static final int no_location_on_geolocate=0x7f05000f;
         public static final int orakel_no_contact=0x7f050020;
-        public static final int orakel_specify_answer=0x7f05002c;
-        public static final int orakel_specify_solution=0x7f05002d;
+        public static final int orakel_specify_answer=0x7f050030;
+        public static final int orakel_specify_solution=0x7f050031;
         public static final int prefs_last_answer=0x7f05000b;
         public static final int prefs_last_search=0x7f05000c;
-        public static final int realtimeAPIkey=0x7f050033;
+        public static final int realtimeAPIkey=0x7f050037;
         public static final int realtime_NOW=0x7f050027;
         public static final int realtime_button=0x7f050026;
+        public static final int realtime_fra_sentrum=0x7f05002b;
         public static final int realtime_ingen_info=0x7f050029;
+        public static final int realtime_linje=0x7f05002c;
+        public static final int realtime_mot=0x7f05002d;
+        public static final int realtime_mot_sentrum=0x7f05002a;
         public static final int realtime_snu_retning=0x7f050028;
         public static final int reise_fra=0x7f050022;
         public static final int reise_til=0x7f050023;
@@ -88,7 +92,7 @@ public final class R {
         public static final int search_separator=0x7f050019;
         public static final int search_separator_nospace=0x7f05001b;
         public static final int search_separator_nostart=0x7f05001a;
-        public static final int slett=0x7f05002b;
+        public static final int slett=0x7f05002f;
         public static final int toast_dummy_text_question=0x7f050017;
         public static final int toast_empty_question=0x7f050015;
         public static final int toast_loading_stops=0x7f05001d;
@@ -96,7 +100,7 @@ public final class R {
         public static final int toast_turn_on_gps_wifi=0x7f05001c;
         public static final int toast_wait_for_oracle=0x7f050014;
         public static final int ukjent_busstop_name=0x7f050021;
-        public static final int version=0x7f05002e;
+        public static final int version=0x7f050032;
         public static final int widget_dummy_text=0x7f050018;
     }
 }

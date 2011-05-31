@@ -45,9 +45,13 @@
     <string name="nei">nei</string>
 
     <string name="realtime_button">realtime</string>
-    <string name="realtime_NOW">NÅ!</string>
+    <string name="realtime_NOW">NÅ! (&#60;1min)</string>
     <string name="realtime_snu_retning">andre veien</string>
     <string name="realtime_ingen_info">Ingen realtime info å oppdrive :(</string>
+    <string name="realtime_mot_sentrum">mot sentrum</string>
+    <string name="realtime_fra_sentrum">fra sentrum</string>
+    <string name="realtime_linje">Linje&#160;</string>
+    <string name="realtime_mot">&#160;mot&#160;</string>
 
     <string name="edit">Editer</string>
     <string name="slett">Slett</string>

@@ -33,21 +33,27 @@ public class MapsOverlay extends ItemizedOverlay {
     private Button searchButton;
     private MapView mapView;
 
+    private DepartureContainer departures;
+    private Boolean directionChange;
+
     private AlertDialog.Builder realtime;
 
     public MapsOverlay(Drawable defaultMarker) {
         super(boundCenterBottom(defaultMarker));
+        this.directionChange = false;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context) {
         super(boundCenterBottom(defaultMarker));
         mContext = context;
+        this.directionChange = false;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar) {
         super(boundCenterBottom(defaultMarker));
         mContext = context;
         searchBar = searchbar;
+        this.directionChange = false;
     }
 
     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton) {
@@ -55,6 +61,7 @@ public class MapsOverlay extends ItemizedOverlay {
         mContext = context;
         searchBar = searchbar;
         searchButton = searchbutton;
+        this.directionChange = false;
     }
 
      public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton, MapView mapView) {
@@ -63,6 +70,7 @@ public class MapsOverlay extends ItemizedOverlay {
         this.searchBar = searchbar;
         this.searchButton = searchbutton;
         this.mapView = mapView;
+        this.directionChange = true;
     }
 
     public void addOverlay(OverlayItem overlay) {
@@ -143,13 +151,23 @@ public class MapsOverlay extends ItemizedOverlay {
         }
 
          AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-         dialog.setTitle(item.getTitle());
-         if(fra == null) {
-             dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
-         }
-         else {
-             dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
-         }
+        try {
+         departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(departures.isGoingTowardsCentrum())
+            dialog.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
+        else
+            dialog.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
+
+        if(fra == null) {
+            dialog.setMessage(mContext.getText(R.string.reise_fra).toString() + " " + item.getTitle());
+        }
+        else {
+            dialog.setMessage(mContext.getText(R.string.reise_til).toString() + " " + item.getTitle());
+        }
 
         dialog.setPositiveButton(mContext.getText(R.string.ja).toString(), new DialogInterface.OnClickListener() {
             //@Override
@@ -193,15 +211,21 @@ public class MapsOverlay extends ItemizedOverlay {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 realtime = new AlertDialog.Builder(mContext);
-                realtime.setTitle(item.getTitle());
                 String listen = "";
                 DepartureContainer departures;
 
-                //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe
+                //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe?
 
                 try {
                     //TODO: FIX FORCECLOSE SOMEWHERE HERE!
+
                     departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+                    if(departures.isGoingTowardsCentrum()) {
+                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
+                    }
+                    else {
+                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
+                    }
                     if(!departures.getDepartures().isEmpty()) {
                         List<Departure> departureList = departures.getDepartures();
                         Iterator<Departure> iterator = departureList.iterator();
@@ -210,13 +234,16 @@ public class MapsOverlay extends ItemizedOverlay {
                         dep = iterator.next();
 
                         LocalDateTime now = new LocalDateTime();
-                        Minutes zero = Minutes.minutesBetween(now, now);
 
                         //listen += now.toString() +"\n";
-
+                        //TODO: fix translations
                         while(iterator.hasNext()) {
+                            /*if(dep.isRealtimeData())
+                                listen += "REALTIME\n";
+                            listen += "regTime: " + dep.getRegisteredDepartureTime() + "\t";
+                            listen += "schedTime: " + dep.getScheduledDepartureTime() + "\n";     */
                             if(dep.isRealtimeData()) {
-                                listen += "Linje " + dep.getLine() + " mot " + dep.getDestination() + " ";
+                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
                                 Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
                                 if(m.getMinutes() == 0)
                                     listen += mContext.getString(R.string.realtime_NOW) + "\n\n";
@@ -224,10 +251,14 @@ public class MapsOverlay extends ItemizedOverlay {
                                     listen += Integer.toString(m.getMinutes()) + "min\n\n";
                             }
                             else {
-                                Minutes m = Minutes.minutesBetween(now, dep.getScheduledDepartureTime());
-                                if(m.isGreaterThan(zero)) {
-                                    listen += "Linje: " + dep.getLine() + " mot " + dep.getDestination() + "\t";
-                                    listen += "ca: " + Integer.toString(m.getMinutes()) + "min\n\n";
+                                Minutes m = Minutes.minutesBetween(new LocalTime(now.getHourOfDay(), now.getMinuteOfHour()), new LocalTime(dep.getScheduledDepartureTime().getHourOfDay(), dep.getScheduledDepartureTime().getMinuteOfHour()));
+                                if(m.getMinutes() == 0) {
+                                    listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                    listen += "ca " + mContext.getString(R.string.realtime_NOW) + "\n\n";
+                                }
+                                else {
+                                    listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                    listen += "ca " + Integer.toString(m.getMinutes()) + "min\n\n";
                                 }
                             }
                             dep = iterator.next();
@@ -241,6 +272,8 @@ public class MapsOverlay extends ItemizedOverlay {
                 }
 
                 realtime.setMessage(listen);
+                directionChange = false;
+
                 realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -248,11 +281,12 @@ public class MapsOverlay extends ItemizedOverlay {
                     }
                 });
 
-                /*realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
+               /* realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: 0/1 id shift
+                        //TODO: 0/1 id shift?
+                        directionChange = true;
                     }
-                });            */
+                });           */
                 realtime.show();
             }
         });

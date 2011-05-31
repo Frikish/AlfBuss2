@@ -468,7 +468,7 @@ public class GoogleMaps extends MapActivity {
                             mapView.getController().animateTo(myLocOverlay.getMyLocation());
                            /* if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
                                 getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
-                            }  */    //TODO: fix so that this autofill of address works
+                            }  */
                         }
                     });
                 }
