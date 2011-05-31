@@ -52,6 +52,8 @@
     <string name="realtime_fra_sentrum">fra sentrum</string>
     <string name="realtime_linje">Linje&#160;</string>
     <string name="realtime_mot">&#160;mot&#160;</string>
+    <string name="realtime_loading">Realtime info loades...</string>
+    <string name="realtime_hour">time(r)</string>
 
     <string name="edit">Editer</string>
     <string name="slett">Slett</string>

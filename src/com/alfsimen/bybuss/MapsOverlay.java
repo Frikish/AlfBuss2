@@ -2,6 +2,7 @@ package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -197,67 +198,79 @@ public class MapsOverlay extends ItemizedOverlay {
                 //dialog.dismiss();
                 realtime = new AlertDialog.Builder(mContext);
                 String listen = "";
+                List<Departure> departureList;
 
                 //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe?
 
-
-                if(!realtimeDone)
+                if(!realtimeDone) {
+                    //ProgressDialog load = ProgressDialog.show(mContext, "", mContext.getString(R.string.realtime_loading), true);
                     try {
                         departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
                     }
                     catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //load.dismiss();
+                }
 
-                //TODO: FIX FORCECLOSE SOMEWHERE HERE!
+                if(departures != null)
+                {
+                    departureList = departures.getDepartures();
 
-                if(!departures.getDepartures().isEmpty() && departures != null) {
-                    if(departures.isGoingTowardsCentrum()) {
-                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
-                    }
-                    else {
-                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
-                    }
-
-                    List<Departure> departureList = departures.getDepartures();
-                    Iterator<Departure> iterator = departureList.iterator();
-
-                    Departure dep;
-                    dep = iterator.next();
-
-                    LocalDateTime now = new LocalDateTime();
-
-                    //listen += now.toString() +"\n";
-                    //TODO: fix translations
-                    while(iterator.hasNext()) {
-                        /*if(dep.isRealtimeData())
-                            listen += "REALTIME\n";
-                        listen += "regTime: " + dep.getRegisteredDepartureTime() + "\t";
-                        listen += "schedTime: " + dep.getScheduledDepartureTime() + "\n";     */
-                        if(dep.isRealtimeData()) {
-                            listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                            Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
-                            if(m.getMinutes() == 0)
-                                listen += mContext.getString(R.string.realtime_NOW) + "\n\n";
-                            else
-                                listen += Integer.toString(m.getMinutes()) + "min\n\n";
-                        }
-                        else {
-                            Minutes m = Minutes.minutesBetween(new LocalTime(now.getHourOfDay(), now.getMinuteOfHour()), new LocalTime(dep.getScheduledDepartureTime().getHourOfDay(), dep.getScheduledDepartureTime().getMinuteOfHour()));
-                            if(m.getMinutes() == 0) {
-                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                listen += "ca " + mContext.getString(R.string.realtime_NOW) + "\n\n";
+                    if(departureList != null)
+                    {
+                        if(departureList.size() > 0) {
+                            if(departures.isGoingTowardsCentrum()) {
+                                realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
                             }
                             else {
-                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                listen += "ca " + Integer.toString(m.getMinutes()) + "min\n\n";
+                                realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
+                            }
+
+                            Iterator<Departure> iterator = departureList.iterator();
+
+                            Departure dep;
+                            int count = 0;
+                            LocalDateTime now = new LocalDateTime();
+
+                            while(iterator.hasNext()) {
+                                count++;
+                                if(count > 1)
+                                    listen += "\n\n";
+                                dep = iterator.next();
+                                if(dep.isRealtimeData()) {
+                                    listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                    Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
+                                    if(m.getMinutes() == 0)
+                                        listen += mContext.getString(R.string.realtime_NOW);
+                                    else
+                                        listen += Integer.toString(m.getMinutes()) + "min";
+                                }
+                                else {
+                                    Minutes m = Minutes.minutesBetween(new LocalTime(now.getHourOfDay(), now.getMinuteOfHour()), new LocalTime(dep.getScheduledDepartureTime().getHourOfDay(), dep.getScheduledDepartureTime().getMinuteOfHour()));
+                                    if(m.getMinutes() == 0) {
+                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                        listen += "ca " + mContext.getString(R.string.realtime_NOW);
+                                    }
+                                    else if(m.getMinutes() > 59) {
+                                        Hours h = m.toStandardHours();
+                                        int minus = h.getHours() * 60;
+                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                        listen += "ca " + Integer.toString(h.getHours()) + mContext.getString(R.string.realtime_hour) + " " + Integer.toString(m.getMinutes() - minus) + "min";
+                                    }
+                                    else {
+                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                        listen += "ca " + Integer.toString(m.getMinutes()) + "min";
+                                    }
+                                }
                             }
                         }
-                        dep = iterator.next();
+                        else
+                            listen = mContext.getString(R.string.realtime_ingen_info);
                     }
+                    else
+                        listen = mContext.getString(R.string.realtime_ingen_info);
                 }
-                else
-                    listen = mContext.getString(R.string.realtime_ingen_info);
 
                 realtime.setMessage(listen);
 

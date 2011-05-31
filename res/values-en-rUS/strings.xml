@@ -53,6 +53,8 @@
     <string name="realtime_fra_sentrum">from downtown</string>
     <string name="realtime_linje">Line&#160;</string>
     <string name="realtime_mot">&#160;towards&#160;</string>
+    <string name="realtime_loading">Realtime info loading...</string>
+    <string name="realtime_hour">hour(s)</string>
 
     <string name="edit">Edit</string>
     <string name="slett">Delete</string>
