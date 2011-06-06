@@ -24,6 +24,7 @@ public class AtbBussorakel {
 
     /**
      * Create an instance of Busstuc
+     * @param ctx = the context
      */
     public AtbBussorakel(Context ctx) {
         context = ctx;
@@ -92,7 +93,9 @@ public class AtbBussorakel {
         } else {
             answer =  "Error";
             fixed = true;
+            GoogleMaps.tracker.trackEvent("Connection", "error in answer, AtBorakel", "connection", 1);
         }
+        GoogleMaps.tracker.dispatch();
     }
 
     /**

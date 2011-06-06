@@ -33,6 +33,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Android 3.0 Platform" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="Android 3.0 Platform" level="application" />
     <orderEntry type="library" name="RealtimeRockj" level="application" />
+    <orderEntry type="library" name="GoogleAnalytics" level="application" />
   </component>
 </module>
 

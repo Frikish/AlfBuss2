@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.*;
 import no.norrs.busbuddy.pub.api.BusBuddyAPIServiceController;
 
@@ -50,7 +51,7 @@ public class GoogleMaps extends MapActivity {
     private InputMethodManager imm;
     private AlertDialog.Builder answerDialog;
     private AlertDialog.Builder aboutDialog;
-    private AlertDialog.Builder internetWarning;
+    public static AlertDialog.Builder internetWarning;
 
     private DBHelper db;
     private Cursor cursor;
@@ -59,9 +60,12 @@ public class GoogleMaps extends MapActivity {
 
     private SharedPreferences prefs;
 
+    public static GoogleAnalyticsTracker tracker;
+
     public static BusBuddyAPIServiceController realtimeController;
 
     protected static final int CONTEXTMENU_DELETEITEM = 0;
+    public static final String TRACKER_UA = "UA-23200195-1";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,6 +155,11 @@ public class GoogleMaps extends MapActivity {
             edit.putBoolean("firstTimeUse", true);
             edit.commit();
         }
+
+        tracker = GoogleAnalyticsTracker.getInstance();
+        tracker.start(GoogleMaps.TRACKER_UA, this);
+        tracker.trackPageView("/Android/map/" + getString(R.string.version));
+        tracker.dispatch();
     }
 
     @Override
@@ -158,6 +167,7 @@ public class GoogleMaps extends MapActivity {
         super.onPause();
         //saveState();
         myLocOverlay.disableMyLocation();
+        tracker.dispatch();
     }
 
     @Override
@@ -173,6 +183,8 @@ public class GoogleMaps extends MapActivity {
         super.onStop();
         myLocOverlay.disableMyLocation();
         db.close();
+        tracker.dispatch();
+        tracker.stop();
     }
 
     @Override
@@ -249,18 +261,19 @@ public class GoogleMaps extends MapActivity {
     *   div functions
      */
 
-    private void createInternetWarningDialog() {
+    public void createInternetWarningDialog() {
         internetWarning = new AlertDialog.Builder(mapView.getContext());
         internetWarning.setTitle("Internet");
         internetWarning.setMessage(R.string.internet_warning_message);
         internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                tracker.trackEvent("Clicks", "Ok, internetwarning, map", "clicked", 1);
             }
         });
     }
 
-    private boolean checkConnection() {
+    public boolean checkConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if(info==null || !info.isConnected()) {
@@ -284,6 +297,7 @@ public class GoogleMaps extends MapActivity {
         answerDialog.setNeutralButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                tracker.trackEvent("Clicks", "Ok, orakel, map", "clicked", 1);
             }
         });
         answerDialog.setPositiveButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
@@ -299,6 +313,7 @@ public class GoogleMaps extends MapActivity {
                         new AtbThreadTest(getApplicationContext()).execute();
                     }
                 }
+                tracker.trackEvent("Clicks", "Refresh, orakel, map", "clicked", 1);
             }
         });
     }
@@ -311,6 +326,7 @@ public class GoogleMaps extends MapActivity {
         aboutDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                tracker.trackEvent("Clicks", "Ok, orakel, map", "clicked", 1);
             }
         });
     }
@@ -331,6 +347,7 @@ public class GoogleMaps extends MapActivity {
 
             new AtbThreadTest(getApplicationContext()).execute();
         }
+        tracker.trackEvent("Search", searchBar.getText().toString(), "search", 1);
     }
 
     private void reverseSearch()
@@ -457,21 +474,21 @@ public class GoogleMaps extends MapActivity {
 
     private final class GeoButtonClickListener implements View.OnClickListener {
         public void onClick(View v) {
-                if(!myLocOverlay.enableMyLocation()) {
-                    Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
-                    myLocOverlay.disableMyLocation();
-                }
-                else {
-                    //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd på", Toast.LENGTH_SHORT).show();
-                    myLocOverlay.runOnFirstFix(new Runnable() {
-                        public void run() {
-                            mapView.getController().animateTo(myLocOverlay.getMyLocation());
-                           /* if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
-                                getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
-                            }  */
-                        }
-                    });
-                }
+            if(!myLocOverlay.enableMyLocation()) {
+                Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
+                myLocOverlay.disableMyLocation();
+            }
+            else {
+                //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd på", Toast.LENGTH_SHORT).show();
+                myLocOverlay.runOnFirstFix(new Runnable() {
+                    public void run() {
+                        mapView.getController().animateTo(myLocOverlay.getMyLocation());
+                       /* if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
+                            getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+                        }  */
+                    }
+                });
+            }
         }
     }
 
@@ -479,6 +496,7 @@ public class GoogleMaps extends MapActivity {
         public void onClick(View v) {
             if(searchBar.getText().toString().equals(getString(R.string.search_field))) {
                 searchBar.setText("");
+                tracker.trackEvent("Touch", "Searchbar, map", "clicked", 1);
             }
         }
     }
@@ -519,6 +537,7 @@ public class GoogleMaps extends MapActivity {
     private final class ReverseButtonOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
             reverseSearch();
+            tracker.trackEvent("Clicks", "Reverse, menu, map", "clicked", 1);
         }
     }
 
@@ -526,6 +545,7 @@ public class GoogleMaps extends MapActivity {
         public void onClick(View v) {
             if(myLocOverlay.getMyLocation() != null)
                 getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+            tracker.trackEvent("Clicks", "GetAddress, menu, map", "clicked", 1);
         }
     }
 
@@ -536,6 +556,7 @@ public class GoogleMaps extends MapActivity {
             }
             else
                 doSearch();
+            tracker.trackEvent("Clicks", "SearchButton, map", "clicked", 1);
         }
     }
 

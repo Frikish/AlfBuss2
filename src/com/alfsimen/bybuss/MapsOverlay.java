@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.text.format.Time;
 import android.widget.Button;
@@ -115,6 +117,111 @@ public class MapsOverlay extends ItemizedOverlay {
         mapView.invalidate();
     }
 
+    public void realtime(OverlayItem item){
+        final OverlayItem mItem = item;
+        realtime = new AlertDialog.Builder(mContext);
+        String listen = "";
+        List<Departure> departureList;
+
+        //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe?
+
+        if(!realtimeDone) {
+            //ProgressDialog load = ProgressDialog.show(mContext, "", mContext.getString(R.string.realtime_loading), true);
+            try {
+                GoogleMaps.tracker.dispatch();
+                departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            //load.dismiss();
+        }
+
+        if(departures != null)
+        {
+            departureList = departures.getDepartures();
+
+            if(departureList != null)
+            {
+                if(departureList.size() > 0) {
+                    if(departures.isGoingTowardsCentrum()) {
+                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
+                    }
+                    else {
+                        realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
+                    }
+
+                    Iterator<Departure> iterator = departureList.iterator();
+
+                    Departure dep;
+                    int count = 0;
+                    LocalDateTime now = new LocalDateTime();
+
+                    while(iterator.hasNext()) {
+                        count++;
+                        if(count > 1)
+                            listen += "\n\n";
+                        dep = iterator.next();
+                        if(dep.isRealtimeData()) {
+                            listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                            Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
+                            if(m.getMinutes() == 0)
+                                listen += mContext.getString(R.string.realtime_NOW);
+                            else
+                                listen += Integer.toString(m.getMinutes()) + "min";
+                        }
+                        else {
+                            Minutes m = Minutes.minutesBetween(new LocalTime(now.getHourOfDay(), now.getMinuteOfHour()), new LocalTime(dep.getScheduledDepartureTime().getHourOfDay(), dep.getScheduledDepartureTime().getMinuteOfHour()));
+                            if(m.getMinutes() == 0) {
+                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                listen += "ca " + mContext.getString(R.string.realtime_NOW);
+                            }
+                            else if(m.getMinutes() > 59) {
+                                Hours h = m.toStandardHours();
+                                int minus = h.getHours() * 60;
+                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                listen += "ca " + Integer.toString(h.getHours()) + mContext.getString(R.string.realtime_hour) + " " + Integer.toString(m.getMinutes() - minus) + "min";
+                            }
+                            else {
+                                listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
+                                listen += "ca " + Integer.toString(m.getMinutes()) + "min";
+                            }
+                        }
+                    }
+                }
+                else
+                    listen = mContext.getString(R.string.realtime_ingen_info);
+            }
+            else
+                listen = mContext.getString(R.string.realtime_ingen_info);
+        }
+
+        realtime.setMessage(listen);
+
+        realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //TODO: kill timer og oppdateringer
+            }
+        });
+        realtime.setNeutralButton(mContext.getText(R.string.dialog_orakel_refreshbutton).toString(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                realtimeDone = false;
+                realtime(mItem);
+            }
+        });
+
+       /* realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO: 0/1 id shift?
+                directionChange = true;
+            }
+        });           */
+        realtime.show();
+        GoogleMaps.tracker.trackEvent("Clicks", "realtime, reise fra, overlay", "clicked", 1);
+    }
+
     @Override
     protected OverlayItem createItem(int i) {
         return mOverlays.get(i);
@@ -182,112 +289,32 @@ public class MapsOverlay extends ItemizedOverlay {
                     setMarker(item, to);
                     mapView.invalidate();
                     searchButton.performClick();
+                    GoogleMaps.tracker.trackEvent("Travel", "from: " + fra + " to: " + til, "search", 1);
                     fra = til = null;
                 }
+                GoogleMaps.tracker.trackEvent("Clicks", "ja, reise fra, overlay", "clicked", 1);
             }
         });
 
         dialog.setNeutralButton(mContext.getText(R.string.nei).toString(), new DialogInterface.OnClickListener() {
             //@Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                GoogleMaps.tracker.trackEvent("Clicks", "nei, reise fra, overlay", "clicked", 1);
             }
         });
 
         dialog.setNegativeButton(mContext.getText(R.string.realtime_button).toString(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //dialog.dismiss();
-                realtime = new AlertDialog.Builder(mContext);
-                String listen = "";
-                List<Departure> departureList;
-
-                //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe?
-
-                if(!realtimeDone) {
-                    //ProgressDialog load = ProgressDialog.show(mContext, "", mContext.getString(R.string.realtime_loading), true);
-                    try {
-                        departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //load.dismiss();
+                dialog.dismiss();
+                ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+                if(info==null || !info.isConnected()) {
+                    GoogleMaps.internetWarning.show();
                 }
-
-                if(departures != null)
-                {
-                    departureList = departures.getDepartures();
-
-                    if(departureList != null)
-                    {
-                        if(departureList.size() > 0) {
-                            if(departures.isGoingTowardsCentrum()) {
-                                realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_mot_sentrum));
-                            }
-                            else {
-                                realtime.setTitle(item.getTitle() + " " + mContext.getString(R.string.realtime_fra_sentrum));
-                            }
-
-                            Iterator<Departure> iterator = departureList.iterator();
-
-                            Departure dep;
-                            int count = 0;
-                            LocalDateTime now = new LocalDateTime();
-
-                            while(iterator.hasNext()) {
-                                count++;
-                                if(count > 1)
-                                    listen += "\n\n";
-                                dep = iterator.next();
-                                if(dep.isRealtimeData()) {
-                                    listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                    Minutes m = Minutes.minutesBetween(now, dep.getRegisteredDepartureTime());
-                                    if(m.getMinutes() == 0)
-                                        listen += mContext.getString(R.string.realtime_NOW);
-                                    else
-                                        listen += Integer.toString(m.getMinutes()) + "min";
-                                }
-                                else {
-                                    Minutes m = Minutes.minutesBetween(new LocalTime(now.getHourOfDay(), now.getMinuteOfHour()), new LocalTime(dep.getScheduledDepartureTime().getHourOfDay(), dep.getScheduledDepartureTime().getMinuteOfHour()));
-                                    if(m.getMinutes() == 0) {
-                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                        listen += "ca " + mContext.getString(R.string.realtime_NOW);
-                                    }
-                                    else if(m.getMinutes() > 59) {
-                                        Hours h = m.toStandardHours();
-                                        int minus = h.getHours() * 60;
-                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                        listen += "ca " + Integer.toString(h.getHours()) + mContext.getString(R.string.realtime_hour) + " " + Integer.toString(m.getMinutes() - minus) + "min";
-                                    }
-                                    else {
-                                        listen += mContext.getString(R.string.realtime_linje) + dep.getLine() + mContext.getString(R.string.realtime_mot) + dep.getDestination() + "\n";
-                                        listen += "ca " + Integer.toString(m.getMinutes()) + "min";
-                                    }
-                                }
-                            }
-                        }
-                        else
-                            listen = mContext.getString(R.string.realtime_ingen_info);
-                    }
-                    else
-                        listen = mContext.getString(R.string.realtime_ingen_info);
+                else {
+                    realtime(item);
                 }
-
-                realtime.setMessage(listen);
-
-                realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        //TODO: kill timer og oppdateringer
-                    }
-                });
-
-               /* realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //TODO: 0/1 id shift?
-                        directionChange = true;
-                    }
-                });           */
-                realtime.show();
             }
         });
 
@@ -304,6 +331,7 @@ public class MapsOverlay extends ItemizedOverlay {
         @Override
         protected Void doInBackground(Integer... params) {
             try {
+                GoogleMaps.tracker.dispatch();
                 departures = GoogleMaps.realtimeController.getBusStopForecasts(params[0]);
             }
             catch (IOException e) {

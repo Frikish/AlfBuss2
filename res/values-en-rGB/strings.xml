@@ -62,8 +62,8 @@
     <string name="orakel_specify_answer">I cannot find any more connections on</string>
     <string name="orakel_specify_solution">I cannot find any more connections on that route today</string>
 
-    <string name="version">1.0.2</string>
-    <string name="about_string">Version 1.1.0\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in several different ways:\n\n
+    <string name="version">1.1.6</string>
+    <string name="about_string">Version 1.1.6\nDeveloped by: Alf Simen Sørensen\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in several different ways:\n\n
                                 1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
                                 \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
                                 2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n
