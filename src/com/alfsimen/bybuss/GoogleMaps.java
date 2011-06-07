@@ -1,6 +1,7 @@
 package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -65,7 +66,7 @@ public class GoogleMaps extends MapActivity {
     public static BusBuddyAPIServiceController realtimeController;
 
     protected static final int CONTEXTMENU_DELETEITEM = 0;
-    public static final String TRACKER_UA = "UA-23200195-1";
+    public static final String TRACKER_UA = "UA-23200195-3";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -158,7 +159,7 @@ public class GoogleMaps extends MapActivity {
 
         tracker = GoogleAnalyticsTracker.getInstance();
         tracker.start(GoogleMaps.TRACKER_UA, this);
-        tracker.trackPageView("/Android/map/" + getString(R.string.version));
+        tracker.trackPageView("/map/" + getString(R.string.version));
         tracker.dispatch();
     }
 
@@ -173,7 +174,6 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //if(geoButton.isChecked()) {
         myLocOverlay.enableMyLocation();
         populateFields();
     }
@@ -211,20 +211,26 @@ public class GoogleMaps extends MapActivity {
         switch (item.getItemId()) {
             case R.id.menu_reverse_search:
                 reverseSearch();
+                tracker.trackEvent("Clicks", "Reverse, menu", "clicked", 1);
                 return true;
             case R.id.menu_get_address:
                 if(myLocOverlay.getMyLocation() != null) {
+                    //ProgressDialog load = ProgressDialog.show(this, getString(R.string.loading_title), getString(R.string.loading_text), true);
                     getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
+                    //load.dismiss();
                     imm.toggleSoftInput(0, 0);
                 }
                 else
                     Toast.makeText(getApplicationContext(), R.string.no_location_on_geolocate, Toast.LENGTH_LONG).show();
+                tracker.trackEvent("Clicks", "Address, menu", "clicked", 1);
                 return true;
             case R.id.menu_last_search:
                 answerDialog.show();
+                tracker.trackEvent("Clicks", "last search, menu", "clicked", 1);
                 return true;
             case R.id.menu_about:
                 aboutDialog.show();
+                tracker.trackEvent("Clicks", "about, menu", "clicked", 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -472,26 +478,6 @@ public class GoogleMaps extends MapActivity {
     * Listeners
      */
 
-    private final class GeoButtonClickListener implements View.OnClickListener {
-        public void onClick(View v) {
-            if(!myLocOverlay.enableMyLocation()) {
-                Toast.makeText(getBaseContext(), R.string.toast_turn_on_gps_wifi, Toast.LENGTH_LONG).show();
-                myLocOverlay.disableMyLocation();
-            }
-            else {
-                //Toast.makeText(getApplicationContext(), "Geolokasjon skrudd på", Toast.LENGTH_SHORT).show();
-                myLocOverlay.runOnFirstFix(new Runnable() {
-                    public void run() {
-                        mapView.getController().animateTo(myLocOverlay.getMyLocation());
-                       /* if(searchBar.getText().toString().equals(getString(R.string.search_field)) || searchBar.getText().toString().length() == 0) {
-                            getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
-                        }  */
-                    }
-                });
-            }
-        }
-    }
-
     private final class SearchBarClickListener implements View.OnClickListener {
         public void onClick(View v) {
             if(searchBar.getText().toString().equals(getString(R.string.search_field))) {
@@ -532,21 +518,6 @@ public class GoogleMaps extends MapActivity {
         public void beforeTextChanged(CharSequence s, int start, int count, int after){}
         public void onTextChanged(CharSequence s, int start, int before, int count){}
 
-    }
-
-    private final class ReverseButtonOnClickListener implements View.OnClickListener {
-        public void onClick(View v) {
-            reverseSearch();
-            tracker.trackEvent("Clicks", "Reverse, menu, map", "clicked", 1);
-        }
-    }
-
-    private final class AddressButtonOnClickListener implements View.OnClickListener {
-        public void onClick(View v) {
-            if(myLocOverlay.getMyLocation() != null)
-                getAddressesOfCurrentPos(myLocOverlay.getMyLocation());
-            tracker.trackEvent("Clicks", "GetAddress, menu, map", "clicked", 1);
-        }
     }
 
     private final class SearchButtonOnClickListener implements View.OnClickListener {

@@ -1,15 +1,12 @@
 package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.text.format.Time;
 import android.widget.Button;
 import android.widget.EditText;
 import com.google.android.maps.ItemizedOverlay;
@@ -123,10 +120,8 @@ public class MapsOverlay extends ItemizedOverlay {
         String listen = "";
         List<Departure> departureList;
 
-        //TODO: fixe timer som oppdaterer hvert minutt/halvminutt mens dialogen er oppe?
-
         if(!realtimeDone) {
-            //ProgressDialog load = ProgressDialog.show(mContext, "", mContext.getString(R.string.realtime_loading), true);
+            //TODO: make loading animation here?
             try {
                 GoogleMaps.tracker.dispatch();
                 departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
@@ -134,7 +129,6 @@ public class MapsOverlay extends ItemizedOverlay {
             catch (IOException e) {
                 e.printStackTrace();
             }
-            //load.dismiss();
         }
 
         if(departures != null)
@@ -201,7 +195,6 @@ public class MapsOverlay extends ItemizedOverlay {
         realtime.setPositiveButton(mContext.getText(R.string.dialog_orakel_okbutton).toString(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                //TODO: kill timer og oppdateringer
             }
         });
         realtime.setNeutralButton(mContext.getText(R.string.dialog_orakel_refreshbutton).toString(), new DialogInterface.OnClickListener() {

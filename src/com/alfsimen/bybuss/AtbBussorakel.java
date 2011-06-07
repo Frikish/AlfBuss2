@@ -9,7 +9,6 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 import android.content.Context;
-import android.content.Context.*;
 
 /**
  * @author tmn

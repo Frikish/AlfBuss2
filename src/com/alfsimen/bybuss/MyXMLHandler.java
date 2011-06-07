@@ -1,7 +1,5 @@
 package com.alfsimen.bybuss;
 
-import android.os.StrictMode;
-import android.view.ViewDebug;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
