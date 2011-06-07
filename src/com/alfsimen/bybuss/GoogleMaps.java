@@ -38,7 +38,7 @@ public class GoogleMaps extends MapActivity {
     private Button searchButton;
     private AutoCompleteTextView searchBar;
     private MySaxParser xmlParserMy;
-    private ArrayList<Holdeplass> holdeplasser;
+    private static ArrayList<Holdeplass> holdeplasser;
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
 
@@ -266,6 +266,15 @@ public class GoogleMaps extends MapActivity {
     /*
     *   div functions
      */
+
+    public static Holdeplass getEqualHoldeplass(String name, int id) {
+        for(Holdeplass holdeplass : holdeplasser) {
+            if(holdeplass.getName().equals(name) && holdeplass.getId() != id) {
+                return holdeplass;
+            }
+        }
+        return null;
+    }
 
     public void createInternetWarningDialog() {
         internetWarning = new AlertDialog.Builder(mapView.getContext());

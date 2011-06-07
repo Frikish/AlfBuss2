@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.EditText;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
@@ -205,12 +206,16 @@ public class MapsOverlay extends ItemizedOverlay {
             }
         });
 
-       /* realtime.setNeutralButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
+        realtime.setNegativeButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //TODO: 0/1 id shift?
-                directionChange = true;
+                Holdeplass plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
+                if(plass != null) {
+                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getId()));
+                    realtimeDone = false;
+                    realtime(_item);
+                }
             }
-        });           */
+        });
         realtime.show();
         GoogleMaps.tracker.trackEvent("Clicks", "realtime, reise fra, overlay", "clicked", 1);
     }
