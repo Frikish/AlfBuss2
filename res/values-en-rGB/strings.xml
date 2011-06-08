@@ -51,6 +51,8 @@
     <string name="realtime_button">realtime</string>
     <string name="realtime_NOW">NOW! (&#60;1min)</string>
     <string name="realtime_snu_retning">The other way</string>
+    <string name="realtime_snu_retning_fail_title">Sorry</string>
+    <string name="realtime_snu_retning_fail_message">Could not find the other busstop</string>
     <string name="realtime_ingen_info">No realtime info found :(</string>
     <string name="realtime_mot_sentrum">towards downtown</string>
     <string name="realtime_fra_sentrum">from downtown</string>

@@ -50,6 +50,8 @@
     <string name="realtime_button">realtime</string>
     <string name="realtime_NOW">NÅ! (&#60;1min)</string>
     <string name="realtime_snu_retning">Andre veien</string>
+    <string name="realtime_snu_retning_fail_title">Sorry</string>
+    <string name="realtime_snu_retning_fail_message">Fant ikke den andre holdeplassen</string>
     <string name="realtime_ingen_info">Ingen realtime info å oppdrive :(</string>
     <string name="realtime_mot_sentrum">mot sentrum</string>
     <string name="realtime_fra_sentrum">fra sentrum</string>

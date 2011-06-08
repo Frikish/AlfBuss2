@@ -115,6 +115,18 @@ public class MapsOverlay extends ItemizedOverlay {
         mapView.invalidate();
     }
 
+    public void noEqualStopDialog() {
+        AlertDialog.Builder equal = new AlertDialog.Builder(mContext);
+        equal.setTitle(mContext.getString(R.string.realtime_snu_retning_fail_title));
+        equal.setMessage(mContext.getString(R.string.realtime_snu_retning_fail_message));
+        equal.setNegativeButton(mContext.getString(R.string.dialog_orakel_okbutton), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        equal.show();
+    }
+
     public void realtime(OverlayItem item){
         final OverlayItem mItem = item;
         realtime = new AlertDialog.Builder(mContext);
@@ -213,6 +225,10 @@ public class MapsOverlay extends ItemizedOverlay {
                     OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getId()));
                     realtimeDone = false;
                     realtime(_item);
+                }
+                else {
+                    dialog.dismiss();
+                    noEqualStopDialog();
                 }
             }
         });
