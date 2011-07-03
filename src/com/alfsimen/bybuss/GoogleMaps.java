@@ -1,7 +1,6 @@
 package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,10 +21,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import no.norrs.busbuddy.pub.api.BusBuddyAPIServiceController;
+import no.norrs.busbuddy.pub.api.model.BusStop;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -37,8 +40,7 @@ public class GoogleMaps extends MapActivity {
     private MyLocationOverlay myLocOverlay;
     private Button searchButton;
     private AutoCompleteTextView searchBar;
-    private MySaxParser xmlParserMy;
-    private static ArrayList<Holdeplass> holdeplasser;
+    private static ArrayList<busStop> holdeplasser;
     private OverlayItem overlayItem;
     private MapsOverlay itemizedOverlay;
 
@@ -67,6 +69,8 @@ public class GoogleMaps extends MapActivity {
 
     protected static final int CONTEXTMENU_DELETEITEM = 0;
     public static final String TRACKER_UA = "UA-23200195-3";
+
+    private Gson gson;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -267,9 +271,27 @@ public class GoogleMaps extends MapActivity {
     *   div functions
      */
 
-    public static Holdeplass getEqualHoldeplass(String name, int id) {
-        for(Holdeplass holdeplass : holdeplasser) {
-            if(holdeplass.getName().equals(name) && holdeplass.getId() != id) {
+    public static busStop getEqualHoldeplass(String name, int id) {
+        busStop temp = new busStop();
+        for(busStop holdeplass : holdeplasser) {
+            if(holdeplass.getBusStopId() == id) {
+                temp.setLocationId(holdeplass.getLocationId());
+                break;
+            }
+        }
+        String tmpId = Integer.toString(temp.getLocationId());
+        //Log.d("ALF: locationID", tmpId);
+        String newChar;
+        if(tmpId.charAt(4) == '1')
+            newChar = "0";
+        else
+            newChar = "1";
+        //Log.d("ALF: newChar", newChar);
+        String all = tmpId.substring(0, 4) + newChar + tmpId.substring(5);
+        //Log.d("ALF: newString", all);
+
+        for(busStop holdeplass : holdeplasser) {
+            if(Integer.toString(holdeplass.getLocationId()).equalsIgnoreCase(all)) {
                 return holdeplass;
             }
         }
@@ -555,31 +577,34 @@ public class GoogleMaps extends MapActivity {
     class mapFillBusStopLoadThread extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
+            InputStream source = getResources().openRawResource(R.raw.busstops);
+            Reader reader = new InputStreamReader(source);
+            jsonStops stops = gson.fromJson(reader, jsonStops.class);
+            holdeplasser = stops.getBusStops();
             //long startNow;
             //long endNow;
             //startNow = SystemClock.uptimeMillis();
-            InputStream in = getResources().openRawResource(R.raw.holdeplasser);
             //endNow = SystemClock.uptimeMillis();
             //Log.d("ALF; HENTE XML", "time used: " + (endNow - startNow) + " ms");
             //startNow = SystemClock.uptimeMillis();
-            xmlParserMy = new MySaxParser(in);
             //endNow = SystemClock.uptimeMillis();
             //Log.d("ALF; PARSE XML", "time used: " + (endNow - startNow) + " ms");
             //startNow = SystemClock.uptimeMillis();
-            holdeplasser = xmlParserMy.getHoldeplasser();
             //endNow = SystemClock.uptimeMillis();
             //Log.d("ALF; HENTE UT HOLDEPLASSER", "time used: " + (endNow - startNow) + " ms");
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
             itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton, mapView);
-            int count = 0;
+            //int count = 0;
 
             //startNow = SystemClock.uptimeMillis();
-            for(Holdeplass plass : holdeplasser) {
-                count++;
-                overlayItem = new OverlayItem(new GeoPoint((int) (plass.getLat() * 1E6), (int) (plass.getLon() * 1E6)), plass.getName(), Integer.toString(plass.getId()));
+
+            for(busStop stop : holdeplasser) {
+                //count++;
+                overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), Integer.toString(stop.getBusStopId()));
                 itemizedOverlay.addOverlay(overlayItem);
             }
+
             //endNow = SystemClock.uptimeMillis();
             //Log.d("ALF; HOLDEPLASSER LAGT TIL OVERLAY", "time used: " + (endNow - startNow) + " ms");
             itemizedOverlay.myPopulate();
@@ -589,6 +614,7 @@ public class GoogleMaps extends MapActivity {
         @Override
         protected void onPreExecute() {
             Toast.makeText(getApplicationContext(), R.string.toast_loading_stops, Toast.LENGTH_LONG).show();
+            gson = new Gson();
         }
 
         @Override

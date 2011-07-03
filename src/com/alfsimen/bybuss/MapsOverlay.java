@@ -220,9 +220,9 @@ public class MapsOverlay extends ItemizedOverlay {
 
         realtime.setNegativeButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Holdeplass plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
+                busStop plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
                 if(plass != null) {
-                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getId()));
+                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getBusStopId()));
                     realtimeDone = false;
                     realtime(_item);
                 }
