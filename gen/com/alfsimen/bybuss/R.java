@@ -43,7 +43,7 @@ public final class R {
         public static final int maps_menu=0x7f060000;
     }
     public static final class raw {
-        public static final int holdeplasser=0x7f040000;
+        public static final int busstops=0x7f040000;
     }
     public static final class string {
         public static final int APIKey=0x7f05003c;
