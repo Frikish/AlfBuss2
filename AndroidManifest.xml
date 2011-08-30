@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.alfsimen.bybuss"
-      android:versionCode="24"
-      android:versionName="1.2.1">
+      android:versionCode="25"
+      android:versionName="1.2.2">
     <application android:label="AlfByBuss" android:icon="@drawable/icon" android:persistent="true"
             android:enabled="true">
         <uses-library android:name="com.google.android.maps" android:required="true"/>
@@ -17,7 +17,7 @@
     <uses-sdk
         android:minSdkVersion="4"
         android:targetSdkVersion="8"
-        android:maxSdkVersion="11"
+        android:maxSdkVersion="12"
     />
     <uses-feature android:name="android.hardware.location" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
