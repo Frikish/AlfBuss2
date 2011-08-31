@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_AtB_schedules"
+          android:icon="@drawable/menu_atb"
+          android:title="@string/menu_atb_schedules"/>
     <item android:id="@+id/menu_get_address"
           android:icon="@drawable/menu_use_address"
           android:title="@string/menu_address_button"/>

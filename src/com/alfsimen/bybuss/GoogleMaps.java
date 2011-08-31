@@ -3,6 +3,7 @@ package com.alfsimen.bybuss;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -10,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -235,6 +238,11 @@ public class GoogleMaps extends MapActivity {
             case R.id.menu_about:
                 aboutDialog.show();
                 tracker.trackEvent("Clicks", "about, menu", "clicked", 1);
+                return true;
+            case R.id.menu_AtB_schedules:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.AtBSchedulesURL)));
+                startActivity(browserIntent);
+                tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

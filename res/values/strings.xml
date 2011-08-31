@@ -9,9 +9,12 @@
     <string name="search_field_hint">(holdeplass) til (holdeplass)</string>
     <string name="adress_button">Hent adresse</string>
     <string name="reverse_button">Reverser søk</string>
+
     <string name="menu_reverse_button">Reverser søk</string>
     <string name="menu_address_button">Bruk adressen din</string>
     <string name="menu_last_answer_button">Vis siste svar</string>
+    <string name="menu_atb_schedules">AtB rutetider PDF\'er</string>
+
     <string name="prefs_last_answer">LAST_ANSWER</string>
     <string name="prefs_last_search">LAST_SEARCH</string>
     <string name="menu_about">About / Hvordan bruke</string>
@@ -66,8 +69,8 @@
     <string name="orakel_specify_answer">Jeg kan ikke finne flere ruteforbindelser på</string>
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 
-    <string name="version">1.2.2</string>
-    <string name="about_string">Version 1.2.2\nUtviklet av: Alf Simen Sørensen\nTwitter: @AlfSimen\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
+    <string name="version">1.2.5</string>
+    <string name="about_string">Version 1.2.5\nUtviklet av: Alf Simen Sørensen\nFor info om oppetid etc:\nTwitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
                                 \"Når går bussen fra Sentrum til Buran for å være der innen kl 2000?\"\n\n
                                 2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*\n\n
@@ -83,4 +86,6 @@
     <string name="APIdebugKey">0ZYAlXTuMtoZWkn5XmlJbIv9Zhf73V8ZzYrNbOQ</string>
     <string name="APIKey">0ZYAlXTuMtoZzdvRl3xfQtkGitllvEREplkqpOg</string>
     <string name="realtimeAPIkey">7w2gLysyfz2uKf5w</string>
+
+    <string name="AtBSchedulesURL">http://m.atb.no/rutetabeller/category421.html</string>
 </resources>
