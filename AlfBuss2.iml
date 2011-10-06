@@ -32,6 +32,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="RealtimeRockj" level="application" />
     <orderEntry type="library" name="GoogleAnalytics" level="application" />
+    <orderEntry type="library" name="PayPal" level="application" />
   </component>
 </module>
 

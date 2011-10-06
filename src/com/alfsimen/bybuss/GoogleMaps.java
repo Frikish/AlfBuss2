@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+import com.alfsimen.bybuss.paypal.PayPalActivity;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.*;
 import com.google.gson.Gson;
@@ -243,6 +244,10 @@ public class GoogleMaps extends MapActivity {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.AtBSchedulesURL)));
                 startActivity(browserIntent);
                 tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
+                return true;
+            case R.id.menu_donate:
+                Intent PayPalIntent = new Intent(this, PayPalActivity.class);
+                startActivity(PayPalIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
