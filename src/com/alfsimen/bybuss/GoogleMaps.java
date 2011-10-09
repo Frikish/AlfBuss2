@@ -17,23 +17,18 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import com.alfsimen.bybuss.paypal.PayPalActivity;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.*;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import no.norrs.busbuddy.pub.api.BusBuddyAPIServiceController;
-import no.norrs.busbuddy.pub.api.model.BusStop;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -246,8 +241,9 @@ public class GoogleMaps extends MapActivity {
                 tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
                 return true;
             case R.id.menu_donate:
-                Intent PayPalIntent = new Intent(this, PayPalActivity.class);
-                startActivity(PayPalIntent);
+                //Intent PayPalIntent = new Intent(this, );
+                //startActivity(PayPalIntent);
+                //TODO: make it start up market with the donate-app
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

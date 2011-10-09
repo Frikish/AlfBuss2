@@ -22,7 +22,7 @@
     <string name="menu_about">About / Howto use</string>
     <string name="internet_warning_message">Got no contact with internet, activate either EDGE/3G/4G etc or WiFi</string>
     <string name="no_location_on_geolocate">No location found, turn on GPS/WiFi?</string>
-    <string name="dialog_orakel_title">The answer from the Oracle</string>
+    <string name="dialog_orakel_title">Answer from the Oracle</string>
     <string name="dialog_orakel_message_noanswer">No answer yet</string>
     <string name="dialog_orakel_okbutton">Done</string>
     <string name="dialog_orakel_refreshbutton">Refresh</string>
