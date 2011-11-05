@@ -29,7 +29,6 @@ public final class R {
         public static final int headerTitleTextVw=0x7f070000;
         public static final int menu_AtB_schedules=0x7f070006;
         public static final int menu_about=0x7f07000a;
-        public static final int menu_donate=0x7f07000b;
         public static final int menu_get_address=0x7f070007;
         public static final int menu_last_search=0x7f070009;
         public static final int menu_reverse_search=0x7f070008;

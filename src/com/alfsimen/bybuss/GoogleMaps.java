@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -240,11 +241,11 @@ public class GoogleMaps extends MapActivity {
                 startActivity(browserIntent);
                 tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
                 return true;
-            case R.id.menu_donate:
+            //case R.id.menu_donate:
                 //Intent PayPalIntent = new Intent(this, );
                 //startActivity(PayPalIntent);
                 //TODO: make it start up market with the donate-app
-                return true;
+                //return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -280,27 +281,21 @@ public class GoogleMaps extends MapActivity {
     *   div functions
      */
 
-    public static busStop getEqualHoldeplass(String name, int id) {
-        busStop temp = new busStop();
-        for(busStop holdeplass : holdeplasser) {
-            if(holdeplass.getBusStopId() == id) {
-                temp.setLocationId(holdeplass.getLocationId());
-                break;
-            }
-        }
-        String tmpId = Integer.toString(temp.getLocationId());
-        //Log.d("ALF: locationID", tmpId);
+    public static busStop getEqualHoldeplass(String name, int locId) {
+        String tmpId = Integer.toString(locId);
+        Log.d("ALF: locationID", tmpId);
         String newChar;
         if(tmpId.charAt(4) == '1')
             newChar = "0";
         else
             newChar = "1";
-        //Log.d("ALF: newChar", newChar);
+        Log.d("ALF: newChar", newChar);
         String all = tmpId.substring(0, 4) + newChar + tmpId.substring(5);
-        //Log.d("ALF: newString", all);
+        Log.d("ALF: newString", all);
 
         for(busStop holdeplass : holdeplasser) {
             if(Integer.toString(holdeplass.getLocationId()).equalsIgnoreCase(all)) {
+                Log.d("ALF: returns new busStop", Integer.toString(holdeplass.getLocationId()));
                 return holdeplass;
             }
         }
@@ -610,7 +605,7 @@ public class GoogleMaps extends MapActivity {
 
             for(busStop stop : holdeplasser) {
                 //count++;
-                overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), Integer.toString(stop.getBusStopId()));
+                overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), Integer.toString(stop.getLocationId()));
                 itemizedOverlay.addOverlay(overlayItem);
             }
 

@@ -137,9 +137,12 @@ public class MapsOverlay extends ItemizedOverlay {
             //TODO: make loading animation here?
             try {
                 GoogleMaps.tracker.dispatch();
-                departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.parseInt(item.getSnippet()));
+                departures = GoogleMaps.realtimeController.getBusStopForecasts(item.getSnippet());
             }
             catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -222,7 +225,7 @@ public class MapsOverlay extends ItemizedOverlay {
             public void onClick(DialogInterface dialog, int which) {
                 busStop plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
                 if(plass != null) {
-                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getBusStopId()));
+                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getLocationId()));
                     realtimeDone = false;
                     realtime(_item);
                 }
@@ -346,9 +349,12 @@ public class MapsOverlay extends ItemizedOverlay {
         protected Void doInBackground(Integer... params) {
             try {
                 GoogleMaps.tracker.dispatch();
-                departures = GoogleMaps.realtimeController.getBusStopForecasts(params[0]);
+                departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.toString(params[0]));
             }
             catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
