@@ -294,8 +294,8 @@ public class GoogleMaps extends MapActivity {
         Log.d("ALF: newString", all);
 
         for(busStop holdeplass : holdeplasser) {
-            if(Integer.toString(holdeplass.getLocationId()).equalsIgnoreCase(all)) {
-                Log.d("ALF: returns new busStop", Integer.toString(holdeplass.getLocationId()));
+            if(holdeplass.getLocationId().equalsIgnoreCase(all)) {
+                Log.d("ALF: returns new busStop", holdeplass.getLocationId());
                 return holdeplass;
             }
         }
@@ -468,7 +468,8 @@ public class GoogleMaps extends MapActivity {
     public void getAddressesOfCurrentPos(GeoPoint point) {
         Geocoder geoCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         try{
-            itemizedOverlay.blankSearchBar();
+            if(itemizedOverlay != null)
+                itemizedOverlay.blankSearchBar();
             List<Address> addresses = geoCoder.getFromLocation(point.getLatitudeE6() / 1E6, point.getLongitudeE6() / 1E6, 1);
 
             String add = "";
@@ -605,7 +606,7 @@ public class GoogleMaps extends MapActivity {
 
             for(busStop stop : holdeplasser) {
                 //count++;
-                overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), Integer.toString(stop.getLocationId()));
+                overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), stop.getLocationId());
                 itemizedOverlay.addOverlay(overlayItem);
             }
 

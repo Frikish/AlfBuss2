@@ -84,7 +84,7 @@ public class AtbBussorakel {
             e.printStackTrace();
         }
 
-        if (sc != null) {
+        if (sc != null && sc.hasNext()) {
             sc.useDelimiter("\\Z");
             content = sc.next();
             answer = content;

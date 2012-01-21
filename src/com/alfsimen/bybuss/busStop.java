@@ -1,18 +1,11 @@
 package com.alfsimen.bybuss;
 
-/**
- * Created by IntelliJ IDEA.
- * User: alf
- * Date: 7/3/11
- * Time: 2:38 PM
- * To change this template use File | Settings | File Templates.
- */
 public class busStop {
     private int busStopId;
     private String name;
     private String nameWithAbbreviations;
     private String busStopMaintainer;
-    private int locationId;
+    private String locationId;
     private double longitude;
     private double latitude;
 
@@ -51,11 +44,11 @@ public class busStop {
         this.busStopMaintainer = busStopMaintainer;
     }
 
-    public int getLocationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(int locationId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
     }
 

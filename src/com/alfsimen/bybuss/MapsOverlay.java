@@ -225,7 +225,7 @@ public class MapsOverlay extends ItemizedOverlay {
             public void onClick(DialogInterface dialog, int which) {
                 busStop plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
                 if(plass != null) {
-                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), Integer.toString(plass.getLocationId()));
+                    OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), plass.getLocationId());
                     realtimeDone = false;
                     realtime(_item);
                 }
@@ -255,7 +255,6 @@ public class MapsOverlay extends ItemizedOverlay {
         new loadRealtimeInfoThread().execute(Integer.parseInt(item.getSnippet()));  //start loading the realtime departures
 
         String words [] = searchBar.getText().toString().split(" ");
-        int pos = 0;
         for(int i = 0; i < words.length; i++) {
             if(words[i].equalsIgnoreCase(mContext.getText(R.string.search_separator_nospace).toString())) {
                 fra = "";
