@@ -26,7 +26,7 @@
     <string name="dialog_orakel_okbutton">Ferdig</string>
     <string name="dialog_orakel_refreshbutton">Oppdater</string>
     <string name="toast_wait_for_oracle">Venter på svar fra bussorakelet</string>
-    <string name="toast_empty_question">Søkefeltet er tomt -\_-</string>
+    <string name="toast_empty_question">Søkefeltet er tomt -_-</string>
     <string name="toast_need_two_stops">Trenger 2 holdeplasser og ordet \'til\' imellom de</string>
     <string name="toast_dummy_text_question">Du må skrive inn noen holdeplasser, nå er det bare dummytekst i feltet</string>
 
@@ -70,8 +70,8 @@
     <string name="orakel_specify_answer">Jeg kan ikke finne flere ruteforbindelser på</string>
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 
-    <string name="version">1.3.1</string>
-    <string name="about_string">Version 1.3.1\nUtviklet av: Alf Simen Sørensen\nFor info om oppetid etc:\nTwitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
+    <string name="version">1.3.2</string>
+    <string name="about_string">Version 1.3.2\nUtviklet av: Alf Simen Sørensen\nFor info om oppetid etc:\nTwitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
                                 \"Når går bussen fra Sentrum til Buran for å være der innen kl 2000?\"\n\n
                                 2: Trykke på en holdeplass i kartet for å velge *fra-holdeplass* og så trykke i kartet og velge *til-holdeplass*\n\n

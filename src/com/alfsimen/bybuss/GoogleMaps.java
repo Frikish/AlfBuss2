@@ -14,6 +14,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,12 +25,11 @@ import android.widget.*;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.*;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import no.norrs.busbuddy.pub.api.BusBuddyAPIServiceController;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -75,9 +75,9 @@ public class GoogleMaps extends MapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestCustomTitleBar();
+        //requestCustomTitleBar();
         setContentView(R.layout.main);
-        setCustomTitle(getString(R.string.custom_title));
+        //setCustomTitle(getString(R.string.custom_title));
 
         stopFillDone = false;
 
@@ -103,7 +103,6 @@ public class GoogleMaps extends MapActivity {
         });
 
         mapOverlays = mapView.getOverlays();
-
         new mapFillBusStopLoadThread().execute();
 
         createInternetWarningDialog();
@@ -194,12 +193,22 @@ public class GoogleMaps extends MapActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        saveState();
+        if(holdeplasser != null) {
+            outState.putSerializable("busStops", holdeplasser);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Serializable busStops = savedInstanceState.getSerializable("busStops");
+        if(busStops != null) {
+            holdeplasser = (ArrayList<busStop>) busStops;
+        }
     }
 
     @Override
     protected boolean isRouteDisplayed() {
-        //TODO: implement?
         return false;
     }
 
@@ -241,11 +250,6 @@ public class GoogleMaps extends MapActivity {
                 startActivity(browserIntent);
                 tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
                 return true;
-            //case R.id.menu_donate:
-                //Intent PayPalIntent = new Intent(this, );
-                //startActivity(PayPalIntent);
-                //TODO: make it start up market with the donate-app
-                //return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -321,10 +325,6 @@ public class GoogleMaps extends MapActivity {
             return false;
         }
         return true;
-    }
-
-    private void saveState() {
-
     }
 
     private void populateFields() {
@@ -581,45 +581,51 @@ public class GoogleMaps extends MapActivity {
 
     class mapFillBusStopLoadThread extends AsyncTask<Void, Void, Void> {
         @Override
+        protected void onPreExecute() {
+            mapOverlays.remove(itemizedOverlay);
+            Toast.makeText(getApplicationContext(), R.string.toast_loading_stops, Toast.LENGTH_LONG).show();
+            gson = new Gson();
+        }
+
+        @Override
         protected Void doInBackground(Void... params) {
-            InputStream source = getResources().openRawResource(R.raw.busstops);
-            Reader reader = new InputStreamReader(source);
-            jsonStops stops = gson.fromJson(reader, jsonStops.class);
-            holdeplasser = stops.getBusStops();
             //long startNow;
             //long endNow;
             //startNow = SystemClock.uptimeMillis();
-            //endNow = SystemClock.uptimeMillis();
-            //Log.d("ALF; HENTE XML", "time used: " + (endNow - startNow) + " ms");
-            //startNow = SystemClock.uptimeMillis();
-            //endNow = SystemClock.uptimeMillis();
-            //Log.d("ALF; PARSE XML", "time used: " + (endNow - startNow) + " ms");
-            //startNow = SystemClock.uptimeMillis();
-            //endNow = SystemClock.uptimeMillis();
-            //Log.d("ALF; HENTE UT HOLDEPLASSER", "time used: " + (endNow - startNow) + " ms");
+
+            if(holdeplasser == null || holdeplasser.isEmpty()) {
+                InputStream source = getResources().openRawResource(R.raw.busstops);
+                Reader reader = new InputStreamReader(source);
+                Type jsonStopsType = new TypeToken<jsonStops>() {}.getType();
+                //Log.d("ALF: Type: ", jsonStopsType.toString());
+                jsonStops stops = gson.fromJson(reader, jsonStopsType);
+                holdeplasser = stops.getBusStops();
+                try {
+                    source.close();
+                    reader.close();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //endNow = SystemClock.uptimeMillis();
+                //Log.d("ALF; HOLDEPLASSER LEST FRA FIL FØRSTE GANG", "time used: " + (endNow - startNow) + " ms");
+            }
 
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.gps_marker);
             itemizedOverlay = new MapsOverlay(drawable, mapView.getContext(), searchBar, searchButton, mapView);
-            //int count = 0;
-
-            //startNow = SystemClock.uptimeMillis();
 
             for(busStop stop : holdeplasser) {
                 //count++;
                 overlayItem = new OverlayItem(new GeoPoint((int) (stop.getLatitude() * 1E6), (int) (stop.getLongitude() * 1E6)), stop.getName(), stop.getLocationId());
                 itemizedOverlay.addOverlay(overlayItem);
-            }
-
             //endNow = SystemClock.uptimeMillis();
-            //Log.d("ALF; HOLDEPLASSER LAGT TIL OVERLAY", "time used: " + (endNow - startNow) + " ms");
+            //Log.d("ALF; HOLDEPLASSER LAGT TIL OVERLAY FØRSTE GANG", "time used: " + (endNow - startNow) + " ms");
+            }
+            //startNow = SystemClock.uptimeMillis();
             itemizedOverlay.myPopulate();
+            //endNow = SystemClock.uptimeMillis();
+            //Log.d("ALF; MYPOPULATE", "time used: " + (endNow - startNow) + " ms");
             return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            Toast.makeText(getApplicationContext(), R.string.toast_loading_stops, Toast.LENGTH_LONG).show();
-            gson = new Gson();
         }
 
         @Override

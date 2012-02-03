@@ -1,6 +1,10 @@
 package com.alfsimen.bybuss;
 
-public class busStop {
+import java.io.Serializable;
+
+public class busStop implements Serializable {
+    private static final long serialVersionUID = 2L;
+
     private int busStopId;
     private String name;
     private String nameWithAbbreviations;

@@ -27,7 +27,7 @@
     <string name="dialog_orakel_okbutton">Done</string>
     <string name="dialog_orakel_refreshbutton">Refresh</string>
     <string name="toast_wait_for_oracle">Waiting for an answer</string>
-    <string name="toast_empty_question">The searchfield are empty -\_-</string>
+    <string name="toast_empty_question">The searchfield are empty -_-</string>
     <string name="toast_need_two_stops">Need two bus-stops with \'to\' in between</string>
     <string name="toast_dummy_text_question">You need to fill inn some stops, now it\'s just dummy-text</string>
 
@@ -71,8 +71,8 @@
     <string name="orakel_specify_answer">I cannot find any more connections on</string>
     <string name="orakel_specify_solution">I cannot find any more connections on that route today</string>
 
-    <string name="version">1.3.1</string>
-    <string name="about_string">Version 1.3.1\nDeveloped by: Alf Simen Sørensen\nFor info about uptime etc: Twitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in several different ways:\n\n
+    <string name="version">1.3.2</string>
+    <string name="about_string">Version 1.3.2\nDeveloped by: Alf Simen Sørensen\nFor info about uptime etc: Twitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, wishes for functionality or other stuff can be sent to simen.sorensen@gmail.com\n\nThe app can be used in several different ways:\n\n
                                 1: You either write a searchstring in the searchfield with \"*from-stop* til *to-stop*\" or with a full sentence like
                                 \"When does the bus from Sentrum to Buran go if I want to be there before 20.00?\"\n\n
                                 2: Touch a busstop in the map to choose *from-stop* and then touch a new one to choose *to-stop*\n\n

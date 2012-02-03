@@ -18,11 +18,14 @@ import no.norrs.busbuddy.pub.api.model.DepartureContainer;
 import org.joda.time.*;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MapsOverlay extends ItemizedOverlay {
+public class MapsOverlay extends ItemizedOverlay implements Serializable{
+    private static final long serialVersionUID = 3L;
+
     private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
     private Context mContext;
 
