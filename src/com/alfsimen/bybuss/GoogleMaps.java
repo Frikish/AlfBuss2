@@ -1,8 +1,8 @@
 package com.alfsimen.bybuss;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,15 +14,16 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
 import com.google.android.maps.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -63,12 +64,7 @@ public class GoogleMaps extends MapActivity {
 
     private SharedPreferences prefs;
 
-    public static GoogleAnalyticsTracker tracker;
-
     public static BusBuddyAPIServiceController realtimeController;
-
-    protected static final int CONTEXTMENU_DELETEITEM = 0;
-    public static final String TRACKER_UA = "UA-23200195-3";
 
     private Gson gson;
 
@@ -113,8 +109,9 @@ public class GoogleMaps extends MapActivity {
         searchButton = (Button) findViewById(R.id.search_button);
         searchBar = (AutoCompleteTextView) findViewById(R.id.search_entry_autocomplete);
 
-        bussen = new AtbBussorakel(getApplicationContext());
+        bussen = new AtbBussorakel();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         /*
         *   Searchbaren
          */
@@ -159,11 +156,6 @@ public class GoogleMaps extends MapActivity {
             edit.putBoolean("firstTimeUse", true);
             edit.commit();
         }
-
-        tracker = GoogleAnalyticsTracker.getInstance();
-        tracker.start(GoogleMaps.TRACKER_UA, this);
-        tracker.trackPageView("/map/" + getString(R.string.version));
-        tracker.dispatch();
     }
 
     @Override
@@ -171,7 +163,6 @@ public class GoogleMaps extends MapActivity {
         super.onPause();
         //saveState();
         myLocOverlay.disableMyLocation();
-        tracker.dispatch();
     }
 
     @Override
@@ -186,8 +177,6 @@ public class GoogleMaps extends MapActivity {
         super.onStop();
         myLocOverlay.disableMyLocation();
         db.close();
-        tracker.dispatch();
-        tracker.stop();
     }
 
     @Override
@@ -224,7 +213,6 @@ public class GoogleMaps extends MapActivity {
         switch (item.getItemId()) {
             case R.id.menu_reverse_search:
                 reverseSearch();
-                tracker.trackEvent("Clicks", "Reverse, menu", "clicked", 1);
                 return true;
             case R.id.menu_get_address:
                 if(myLocOverlay.getMyLocation() != null) {
@@ -235,57 +223,27 @@ public class GoogleMaps extends MapActivity {
                 }
                 else
                     Toast.makeText(getApplicationContext(), R.string.no_location_on_geolocate, Toast.LENGTH_LONG).show();
-                tracker.trackEvent("Clicks", "Address, menu", "clicked", 1);
                 return true;
             case R.id.menu_last_search:
                 answerDialog.show();
-                tracker.trackEvent("Clicks", "last search, menu", "clicked", 1);
                 return true;
             case R.id.menu_about:
                 aboutDialog.show();
-                tracker.trackEvent("Clicks", "about, menu", "clicked", 1);
                 return true;
             case R.id.menu_AtB_schedules:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.AtBSchedulesURL)));
                 startActivity(browserIntent);
-                tracker.trackEvent("Clicks", "AtB schedules, menu", "clicked", 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-/*    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case CONTEXTMENU_DELETEITEM:
-                if(db.deleteHistoryRow(db.getHistoryItemId(searchBar.getAdapter().getItem((int) info.id).toString())) > 0) {
-                    Toast.makeText(getApplicationContext(), "Slettet", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            default:
-                return onContextItemSelected(item);
-        }
-    }    */
-
-    protected void requestCustomTitleBar()
-    {
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-    }
-
-    protected void setCustomTitle(String msg)
-    {
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_titlebar);
-        TextView tv = (TextView) getWindow().findViewById(R.id.headerTitleTextVw);
-        tv.setText(msg);
-    }
-
     /*
     *   div functions
      */
 
-    public static busStop getEqualHoldeplass(String name, int locId) {
+    public static busStop getEqualHoldeplass(int locId) {
         String tmpId = Integer.toString(locId);
         Log.d("ALF: locationID", tmpId);
         String newChar;
@@ -313,7 +271,6 @@ public class GoogleMaps extends MapActivity {
         internetWarning.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                tracker.trackEvent("Clicks", "Ok, internetwarning, map", "clicked", 1);
             }
         });
     }
@@ -338,7 +295,6 @@ public class GoogleMaps extends MapActivity {
         answerDialog.setNeutralButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                tracker.trackEvent("Clicks", "Ok, orakel, map", "clicked", 1);
             }
         });
         answerDialog.setPositiveButton(R.string.dialog_orakel_refreshbutton, new DialogInterface.OnClickListener() {
@@ -354,7 +310,6 @@ public class GoogleMaps extends MapActivity {
                         new AtbThreadTest(getApplicationContext()).execute();
                     }
                 }
-                tracker.trackEvent("Clicks", "Refresh, orakel, map", "clicked", 1);
             }
         });
     }
@@ -367,7 +322,6 @@ public class GoogleMaps extends MapActivity {
         aboutDialog.setPositiveButton(R.string.dialog_orakel_okbutton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                tracker.trackEvent("Clicks", "Ok, orakel, map", "clicked", 1);
             }
         });
     }
@@ -388,7 +342,6 @@ public class GoogleMaps extends MapActivity {
 
             new AtbThreadTest(getApplicationContext()).execute();
         }
-        tracker.trackEvent("Search", searchBar.getText().toString(), "search", 1);
     }
 
     private void reverseSearch()
@@ -513,12 +466,10 @@ public class GoogleMaps extends MapActivity {
     /*
     * Listeners
      */
-
     private final class SearchBarClickListener implements View.OnClickListener {
         public void onClick(View v) {
             if(searchBar.getText().toString().equals(getString(R.string.search_field))) {
                 searchBar.setText("");
-                tracker.trackEvent("Touch", "Searchbar, map", "clicked", 1);
             }
         }
     }
@@ -563,15 +514,6 @@ public class GoogleMaps extends MapActivity {
             }
             else
                 doSearch();
-            tracker.trackEvent("Clicks", "SearchButton, map", "clicked", 1);
-        }
-    }
-
-    private final class OnItemLongHold implements View.OnCreateContextMenuListener {
-        //@Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle(R.string.dialog_edit_autocomplete);
-            menu.add(0, CONTEXTMENU_DELETEITEM, 0, R.string.dialog_edit_autocomplete_del);
         }
     }
 
@@ -642,31 +584,6 @@ public class GoogleMaps extends MapActivity {
         }
     }
 
-/*    class getAddressOfCurrentPos extends AsyncTask<GeoPoint, Void, Void> {
-        @Override
-        protected Void doInBackground(GeoPoint... points) {
-            int count = points.length;
-            for(int i = 0; i < count; i++) {
-                try {
-                    Geocoder geoCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                    List<Address> addresses = geoCoder.getFromLocation(points[i].getLatitudeE6() / 1E6, points[i].getLongitudeE6() /1E6, 1);
-                    String add = "";
-                    if(addresses.size() > 0) {
-                        for(int j = 0; j < addresses.get(0).getMaxAddressLineIndex(); j++) {
-                            add += addresses.get(0).getAddressLine(j);
-                        }
-                    }
-                    searchBar.setText(add);
-                    searchBar.setSelection(searchBar.getText().toString().length());
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }  */
-
     /**
      * Threading for search query
      *
@@ -703,7 +620,7 @@ public class GoogleMaps extends MapActivity {
             {
                 if (!isInDatabase(context, searchBar.getText().toString().trim()))
                 {
-                    new ListUpdateThread(1, -1).execute();
+                    new ListUpdateThread(1).execute();
                 }
                 answerDialogSetText(bussen.getAnswer());
             }
@@ -712,11 +629,9 @@ public class GoogleMaps extends MapActivity {
 
     class ListUpdateThread extends AsyncTask<Void, Void, Void> {
         private int mode = -1;
-        private int item = -1;
 
-        public ListUpdateThread(int mode, int item) {
+        public ListUpdateThread(int mode) {
             this.mode = mode;
-            this.item = item;
         }
 
         @Override

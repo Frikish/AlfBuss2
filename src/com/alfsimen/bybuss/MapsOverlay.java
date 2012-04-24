@@ -15,7 +15,10 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 import no.norrs.busbuddy.pub.api.model.Departure;
 import no.norrs.busbuddy.pub.api.model.DepartureContainer;
-import org.joda.time.*;
+import org.joda.time.Hours;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,29 +43,7 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
 
     private AlertDialog.Builder realtime;
 
-    public MapsOverlay(Drawable defaultMarker) {
-        super(boundCenterBottom(defaultMarker));
-    }
-
-    public MapsOverlay(Drawable defaultMarker, Context context) {
-        super(boundCenterBottom(defaultMarker));
-        mContext = context;
-    }
-
-    public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar) {
-        super(boundCenterBottom(defaultMarker));
-        mContext = context;
-        searchBar = searchbar;
-    }
-
-    public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton) {
-        super(boundCenterBottom(defaultMarker));
-        mContext = context;
-        searchBar = searchbar;
-        searchButton = searchbutton;
-    }
-
-     public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton, MapView mapView) {
+    public MapsOverlay(Drawable defaultMarker, Context context, EditText searchbar, Button searchbutton, MapView mapView) {
         super(boundCenterBottom(defaultMarker));
         this.mContext = context;
         this.searchBar = searchbar;
@@ -139,7 +120,6 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
         if(!realtimeDone) {
             //TODO: make loading animation here?
             try {
-                GoogleMaps.tracker.dispatch();
                 departures = GoogleMaps.realtimeController.getBusStopForecasts(item.getSnippet());
             }
             catch (IOException e) {
@@ -226,20 +206,18 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
 
         realtime.setNegativeButton(mContext.getText(R.string.realtime_snu_retning).toString(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                busStop plass = GoogleMaps.getEqualHoldeplass(mItem.getTitle(), Integer.parseInt(mItem.getSnippet()));
-                if(plass != null) {
+                busStop plass = GoogleMaps.getEqualHoldeplass(Integer.parseInt(mItem.getSnippet()));
+                if (plass != null) {
                     OverlayItem _item = new OverlayItem(new GeoPoint(0, 0), plass.getName(), plass.getLocationId());
                     realtimeDone = false;
                     realtime(_item);
-                }
-                else {
+                } else {
                     dialog.dismiss();
                     noEqualStopDialog();
                 }
             }
         });
         realtime.show();
-        GoogleMaps.tracker.trackEvent("Clicks", "realtime, reise fra, overlay", "clicked", 1);
     }
 
     @Override
@@ -308,10 +286,8 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
                     setMarker(item, to);
                     mapView.invalidate();
                     searchButton.performClick();
-                    GoogleMaps.tracker.trackEvent("Travel", "from: " + fra + " to: " + til, "search", 1);
                     fra = til = null;
                 }
-                GoogleMaps.tracker.trackEvent("Clicks", "ja, reise fra, overlay", "clicked", 1);
             }
         });
 
@@ -319,7 +295,6 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
             //@Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                GoogleMaps.tracker.trackEvent("Clicks", "nei, reise fra, overlay", "clicked", 1);
             }
         });
 
@@ -350,7 +325,6 @@ public class MapsOverlay extends ItemizedOverlay implements Serializable{
         @Override
         protected Void doInBackground(Integer... params) {
             try {
-                GoogleMaps.tracker.dispatch();
                 departures = GoogleMaps.realtimeController.getBusStopForecasts(Integer.toString(params[0]));
             }
             catch (IOException e) {

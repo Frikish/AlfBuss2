@@ -1,14 +1,8 @@
 package com.alfsimen.bybuss;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.util.Scanner;
-
-import android.content.Context;
 
 /**
  * @author tmn
@@ -19,14 +13,11 @@ public class AtbBussorakel {
     private String answer;
     private URI uri;
     private boolean fixed;
-    private Context context;
 
     /**
      * Create an instance of Busstuc
-     * @param ctx = the context
      */
-    public AtbBussorakel(Context ctx) {
-        context = ctx;
+    public AtbBussorakel() {
         try {
             uri = new URI("http", "m.atb.no", "/xmlhttprequest.php?service=routeplannerOracle.getOracleAnswer&question=", null);
         } catch (URISyntaxException e) {
@@ -92,9 +83,7 @@ public class AtbBussorakel {
         } else {
             answer =  "Error";
             fixed = true;
-            GoogleMaps.tracker.trackEvent("Connection", "error in answer, AtBorakel", "connection", 1);
         }
-        GoogleMaps.tracker.dispatch();
     }
 
     /**

@@ -70,6 +70,7 @@
     <string name="orakel_specify_answer">Jeg kan ikke finne flere ruteforbindelser på</string>
     <string name="orakel_specify_solution">Jeg kan ikke finne flere ruteforbindelser på den ruten idag</string>
 
+    <integer name="versionCode">30</integer>
     <string name="version">1.3.2</string>
     <string name="about_string">Version 1.3.2\nUtviklet av: Alf Simen Sørensen\nFor info om oppetid etc:\nTwitter: @AlfSimen\nFacebook: www.fb.com/AlfsByBussTrondheim\n\nBugreports, ønsker til funksjonalitet eller annet kan sendes til simen.sorensen@gmail.com\n\nAppen kan brukes på flere forskjellige måter:\n\n
                                 1: Man kan enten skrive inn en søkestreng i søkefeltet med \"*fra-holdeplass* til *til-holdeplass*\" eller med full søkestreng som f.eks.
